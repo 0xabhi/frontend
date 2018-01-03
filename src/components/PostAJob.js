@@ -2,52 +2,83 @@ import "./PostAJob.styl";
 
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Form, Button, Segment } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
+// import { Form } from 'formsy-semantic-ui-react'
 import logoUrl from '../../public/images/email-header.png'
 
 class PostAJob extends React.Component {
   constructor(props){
     super(props);
     document.title = 'Post a job - Crypto Jobs List';
+    this.state = {
+      loading: false,
+      error: false
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange (e, { name, value }) {
+    this.setState({ [name]: value })
+  }
+
+  handleSubmit () {
+    this.setState({loading: true})
+    fetch('https://cryptojobslist.com/job', {
+      method: 'POST',
+      body: JSON.stringify(this.state)
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({loading: false, error: false})
+    })
+    .catch(err => {
+      this.setState({loading: false, error: true})
+    })
   }
 
   render() {
+    const {loading, error} = this.state
+    const formState = {loading, error}
     return (
       <Container className="PostAJob" text>
         <Divider horizontal />
+        <Divider horizontal />
         <Image className='logo' height='90' src={'/dist'+logoUrl} centered />
+        <Divider horizontal />
+        <center>The only board to find and post blockchain and crypto jobs! 😉</center>
         <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
 
-        <Form size='large' widths='equal'>
+        <Form size='large' widths='equal' onSubmit={this.handleSubmit} {...formState}>
           <Divider horizontal />
           <Header as='h3' content=' 🏢 Company Details' />
           <Grid columns={2}>
             <Grid.Column>
-              <Form.Input label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' />
-              <Form.Input label='Web Site' placeholder='https://yoursite.com' />
-              <Form.Input label='Twitter' placeholder='@twitterHandle' />
+              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' onChange={this.handleChange} />
+              <Form.Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' onChange={this.handleChange} />
+              <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' onChange={this.handleChange} />
             </Grid.Column>
             <Grid.Column>
-              <Form.Input label='Logo' type='file' />
+              <Form.Input name='companyLogo' label='Logo' type='file' onChange={this.handleChange} />
             </Grid.Column>
           </Grid>
 
           <Divider horizontal />
           <Header as='h3' content='💼 Job Details' />
-          <Form.Input label='Title' placeholder='e.g. Senior Engineer' />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Senior Engineer' onChange={this.handleChange} />
           <Form.Group>
-            <Form.Input label='Location' placeholder='e.g. Singapore, New York, Remote' />
-            <Form.Input label='Salary range' placeholder='90-100k, 1% Equity' />
+            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' onChange={this.handleChange} />
+            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 1% Equity' onChange={this.handleChange} />
           </Form.Group>
-          <Form.TextArea label='Description' placeholder='300 words minimum, please…' />
+          <Form.TextArea name='jobDescription' label='Description' placeholder='300 words minimum, please…' onChange={this.handleChange} />
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
           <Form.Group>
-            <Form.Input label="Boss' Name" placeholder='e.g. Vitalik Buterin' />
-            <Form.Input label='Profile Picture' type='file' />
+            <Form.Input name='bossName' label="Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
+            <Form.Input name='bossPicture' label='Profile Picture' type='file' onChange={this.handleChange} />
           </Form.Group>
-          <Form.Input label='Send applications to:' placeholder='your@email.com' type='email' />
+          <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email' onChange={this.handleChange} validations="isEmail" />
           <Divider horizontal />
 
           <Grid columns='equal' className='free-or-paid'>
@@ -67,6 +98,7 @@ class PostAJob extends React.Component {
           </Grid>
 
           <Divider horizontal />
+          <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
 
           <Segment textAlign='center' secondary padded='very'>
             <Form.Button content='Post your job' size='huge' primary />

@@ -9,7 +9,7 @@ class Footer extends React.Component {
       <Grid className="Footer" columns='equal' divided inverted padded>
         <Grid.Row color='black' textAlign='center'>
           <Grid.Column>
-            <Segment color='black' inverted >Crypto Jobs List</Segment>
+            <Segment color='black' inverted >Crypto Jobs List &copy; {(new Date()).getFullYear()}</Segment>
           </Grid.Column>
           <Grid.Column>
             <Segment color='black' inverted></Segment>
