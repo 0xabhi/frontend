@@ -44,7 +44,7 @@ class PostAJob extends React.Component {
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
           <Form.Group>
-            <Form.Input label="Boss' Name" placeholder='e.g. Singapore, New York, Remote' />
+            <Form.Input label="Boss' Name" placeholder='e.g. Vitalik Buterin' />
             <Form.Input label='Profile Picture' type='file' />
           </Form.Group>
           <Form.Input label='Send applications to:' placeholder='your@email.com' type='email' />
