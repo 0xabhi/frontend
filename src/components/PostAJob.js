@@ -44,7 +44,7 @@ class PostAJob extends React.Component {
       <Container className="PostAJob" text>
         <Divider horizontal />
         <Divider horizontal />
-        <Image className='logo' height='90' src={'/dist'+logoUrl} centered />
+        <Image className='logo' height='90' src={logoUrl} centered />
         <Divider horizontal />
         <center>The only board to find and post blockchain and crypto jobs! 😉</center>
         <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
