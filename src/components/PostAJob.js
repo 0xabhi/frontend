@@ -18,6 +18,12 @@ class PostAJob extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount () {
+    setTimeout(()=>{
+      window.prerenderReady = true;
+    }, 2000)
+  }
+
   handleChange (e, { name, value }) {
     this.setState({ [name]: value })
   }
