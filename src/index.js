@@ -1,12 +1,20 @@
+import 'semantic-ui-css/semantic.min.css';
 import "../styles/index.styl";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
+import PostAJob from "./components/PostAJob";
+import Footer from "./components/Footer";
 
-class HelloMessage extends React.Component {
+
+class App extends React.Component {
   render() {
-    return <div>Hello {this.props.name}</div>;
+    return [
+      <PostAJob />,
+      <Footer />
+    ]
   }
 }
 
-ReactDOM.render(<HelloMessage name="Jane" />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById("app"));
