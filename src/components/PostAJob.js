@@ -5,12 +5,12 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
-// import { Form } from 'formsy-semantic-ui-react'
-// import logoUrl from '../../public/images/email-header.png'
 let logoUrl = require('../../public/images/email-header.png')
+logoUrl = '/dist'+ logoUrl;
 
+// @observer
 class PostAJob extends React.Component {
-  @observable title = ''
+  // @observable title = ''
 
   constructor(props){
     super(props);
@@ -49,7 +49,6 @@ class PostAJob extends React.Component {
   }
 
   render() {
-    // logoUrl = '/dist/'+logoUrl
     const {loading, error} = this.state
     const formState = {loading, error}
     return (
