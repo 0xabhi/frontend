@@ -8,6 +8,7 @@ import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
 import logoUrl from '../../public/images/email-header.png'
+const DOMAIN = 'https://cryptojobslist.com'
 
 // @observer
 class PostAJob extends React.Component {
@@ -40,11 +41,10 @@ class PostAJob extends React.Component {
     const self = this
     const file = e.target.files[0]
     const name = e.target.name
-    const url = 'http://cryptojobslist.com/job/imgUpload';
-    const formData = new FormData();
-    formData.append('file', file);
+    const formData = new FormData()
+    formData.append('file', file)
     const config = { headers: { 'content-type': 'multipart/form-data' }};
-    return post(url, formData, config).then(res => {
+    return post(`${DOMAIN}/job/imgUpload`, formData, config).then(res => {
       this.setState({[name]: res.data.secure_url})
     })
   }
@@ -52,7 +52,7 @@ class PostAJob extends React.Component {
   handleSubmit () {
     this.setState({loading: true})
     const data = _.omit(this.state, ['submitted', 'loading', 'error'])
-    post('https://cryptojobslist.com/job', data)
+    post(`${DOMAIN}/job`, data)
     .then(res => {
       this.setState({loading: false, error: false, submitted: true})
     })
