@@ -1,12 +1,17 @@
 import "./PostAJob.styl";
 
 import React from 'react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
 // import { Form } from 'formsy-semantic-ui-react'
-import logoUrl from '../../public/images/email-header.png'
+// import logoUrl from '../../public/images/email-header.png'
+let logoUrl = require('../../public/images/email-header.png')
 
 class PostAJob extends React.Component {
+  @observable title = ''
+
   constructor(props){
     super(props);
     document.title = 'Post a job - Crypto Jobs List';
@@ -44,6 +49,7 @@ class PostAJob extends React.Component {
   }
 
   render() {
+    // logoUrl = '/dist/'+logoUrl
     const {loading, error} = this.state
     const formState = {loading, error}
     return (
