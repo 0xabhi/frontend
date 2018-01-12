@@ -40,7 +40,7 @@ class PostAJob extends React.Component {
     const self = this
     const file = e.target.files[0]
     const name = e.target.name
-    const url = 'http://localhost:1337/job/imgUpload';
+    const url = 'http://cryptojobslist.com/job/imgUpload';
     const formData = new FormData();
     formData.append('file', file);
     const config = { headers: { 'content-type': 'multipart/form-data' }};
@@ -52,8 +52,7 @@ class PostAJob extends React.Component {
   handleSubmit () {
     this.setState({loading: true})
     const data = _.omit(this.state, ['submitted', 'loading', 'error'])
-    // post('https://cryptojobslist.com/job', data)
-    post('http://localhost:1337/job', data)
+    post('https://cryptojobslist.com/job', data)
     .then(res => {
       this.setState({loading: false, error: false, submitted: true})
     })
