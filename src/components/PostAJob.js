@@ -109,7 +109,7 @@ class PostAJob extends React.Component {
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Input name='bossName' label="Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
+          <Form.Input name='bossName' label="Your or Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
 
           <Image
             title="Boss' Picture"
