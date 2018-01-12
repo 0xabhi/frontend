@@ -1,6 +1,8 @@
 import "./PostAJob.styl";
 
+import _ from 'lodash';
 import React from 'react';
+import { post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
@@ -16,10 +18,12 @@ class PostAJob extends React.Component {
     document.title = 'Post a job - Crypto Jobs List';
     this.state = {
       loading: false,
-      error: false
+      error: false,
+      submitted: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.imgUpload = this.imgUpload.bind(this)
   }
 
   componentDidMount () {
@@ -32,15 +36,26 @@ class PostAJob extends React.Component {
     this.setState({ [name]: value })
   }
 
+  imgUpload (e) {
+    const self = this
+    const file = e.target.files[0]
+    const name = e.target.name
+    const url = 'http://localhost:1337/job/imgUpload';
+    const formData = new FormData();
+    formData.append('file', file);
+    const config = { headers: { 'content-type': 'multipart/form-data' }};
+    return post(url, formData, config).then(res => {
+      this.setState({[name]: res.data.secure_url})
+    })
+  }
+
   handleSubmit () {
     this.setState({loading: true})
-    fetch('https://cryptojobslist.com/job', {
-      method: 'POST',
-      body: JSON.stringify(this.state)
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({loading: false, error: false})
+    const data = _.omit(this.state, ['submitted', 'loading', 'error'])
+    // post('https://cryptojobslist.com/job', data)
+    post('http://localhost:1337/job', data)
+    .then(res => {
+      this.setState({loading: false, error: false, submitted: true})
     })
     .catch(err => {
       this.setState({loading: false, error: true})
@@ -48,7 +63,7 @@ class PostAJob extends React.Component {
   }
 
   render() {
-    const {loading, error} = this.state
+    const {loading, error, companyLogo, bossPicture} = this.state
     const formState = {loading, error}
     return (
       <Container className="PostAJob" text>
@@ -57,9 +72,19 @@ class PostAJob extends React.Component {
         <Image className='logo' height='90' src={logoUrl} centered />
         <Divider horizontal />
         <center>The only board to find and post blockchain and crypto jobs! 😉</center>
-        <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
+        <Divider horizontal />
 
+        {this.state.submitted ?
+          <div>
+            <Header as='h1' textAlign='center'>Please check your email!</Header>
+            <Header as='h3' textAlign='center'>Your job ad was submitted for review.</Header>
+            <Divider horizontal />
+            <Divider horizontal />
+            <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
+          </div>
+        :
         <Form size='large' widths='equal' onSubmit={this.handleSubmit} {...formState}>
+          <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
           <Header as='h3' content=' 🏢 Company Details' />
           <Grid columns={2}>
@@ -69,7 +94,8 @@ class PostAJob extends React.Component {
               <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' onChange={this.handleChange} />
             </Grid.Column>
             <Grid.Column>
-              <Form.Input name='companyLogo' label='Logo' type='file' onChange={this.handleChange} />
+              <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
+              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' onChange={this.imgUpload} />
             </Grid.Column>
           </Grid>
 
@@ -80,18 +106,24 @@ class PostAJob extends React.Component {
             <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' onChange={this.handleChange} />
             <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 1% Equity' onChange={this.handleChange} />
           </Form.Group>
-          <Form.TextArea name='jobDescription' label='Description' placeholder='300 words minimum, please…' onChange={this.handleChange} />
+          <Form.TextArea name='jobDescription' label='Description' placeholder='300 words minimum, please…' rows='10' onChange={this.handleChange} />
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Group>
-            <Form.Input name='bossName' label="Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
-            <Form.Input name='bossPicture' label='Profile Picture' type='file' onChange={this.handleChange} />
-          </Form.Group>
+          <Form.Input name='bossName' label="Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
+
+          <Image
+            title="Boss' Picture"
+            src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
+            circular bordered size='small'
+            onClick={e => {this.refs.bossPicture.click() }}/>
+          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' onChange={this.imgUpload} />
+          <Divider horizontal />
+
           <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email' onChange={this.handleChange} validations="isEmail" />
           <Divider horizontal />
 
-          <Grid columns='equal' className='free-or-paid'>
+          <Grid columns='equal' className='free-or-paid hide'>
             <Grid.Column>
               <Segment textAlign='center' color='green' padded='very'>
                 <b>Free</b>
@@ -114,6 +146,7 @@ class PostAJob extends React.Component {
             <Form.Button content='Post your job' size='huge' primary />
           </Segment>
         </Form>
+        }
 
       </Container>
     );

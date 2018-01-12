@@ -1,6 +1,16 @@
 .PostAJob
   margin-bottom 15vh
 
+  .ui.image
+    cursor pointer
+    transition top .3s ease, box-shadow .3s
+    top 0
+    box-shadow 0px 0px 0px 0 rgba(34,36,38,.15)
+    &:hover
+      top -5px
+      box-shadow 0px 5px 20px 0 rgba(34,36,38,.15)
+
+
   .free-or-paid
     margin 5vh 0 10vh
     .ui.segment
