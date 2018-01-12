@@ -5,8 +5,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
-let logoUrl = require('../../public/images/email-header.png')
-logoUrl = '/dist'+ logoUrl;
+import logoUrl from '../../public/images/email-header.png'
 
 // @observer
 class PostAJob extends React.Component {
