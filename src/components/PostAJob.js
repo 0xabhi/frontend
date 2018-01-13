@@ -114,7 +114,7 @@ class PostAJob extends React.Component {
             </Grid.Column>
             <Grid.Column>
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' onChange={this.imgUpload} />
+              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
               <div className='field'>
                 <label>Lovely 🎨 Logo</label>
               </div>
@@ -134,7 +134,7 @@ class PostAJob extends React.Component {
             src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
             circular bordered size='small'
             onClick={e => {this.refs.bossPicture.click() }}/>
-          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' onChange={this.imgUpload} />
+          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
           <Divider horizontal />
 
           <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email'
