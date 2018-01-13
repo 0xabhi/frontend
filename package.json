@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel public/index.html",
-    "build": "parcel build public/index.html",
+    "dev": "parcel --no-cache public/index.html",
+    "build": "parcel build public/index.html --public-url ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -25,6 +26,7 @@
     "mobx-react-router": "^4.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-global-configuration": "^1.2.0",
     "react-router": "^4.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.77.1"

@@ -1,14 +1,18 @@
-import 'semantic-ui-css/semantic.min.css';
+import "semantic-ui-css/semantic.min.css";
 import "../styles/index.styl";
+import "./config";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import config from "react-global-configuration";
 
 import PostAJob from "./components/PostAJob";
 import Footer from "./components/Footer";
 import Crisp from "./components/Crisp.Chat";
 
-Crisp('872632eb-fe5f-42b2-8557-b7e5e0cac2b2')
+if (config.get('crispChat')) {
+  Crisp(config.get('crispChat'))
+}
 
 class App extends React.Component {
   render() {
