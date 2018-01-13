@@ -87,7 +87,23 @@ class PostAJob extends React.Component {
         <Form size='large' widths='equal' onSubmit={this.handleSubmit} {...formState}>
           <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
-          <Header as='h3' content=' 🏢 Company Details' />
+          <Header as='h3' content='💼 Job Details' />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Super Senior Engineer' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Group>
+            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' validations="minLength:3" required onChange={this.handleChange} />
+            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
+          </Form.Group>
+          <Form.TextArea
+            name='jobDescription' label='Description' placeholder='300 words minimum, please… And make it exciting!' rows='10'
+            validations="minLength:300"
+            validationErrors={{ minLength: '300 words, please…' }}
+            required
+            errorLabel={ errorLabel }
+            onChange={this.handleChange} />
+
+          <Divider horizontal />
+
+          <Header as='h3' content=' 🏢 Your Company Details?' />
           <Grid columns={2}>
             <Grid.Column>
               <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required onChange={this.handleChange} />
@@ -97,28 +113,20 @@ class PostAJob extends React.Component {
             <Grid.Column>
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
               <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' onChange={this.imgUpload} />
+              <div className='field'>
+                <label>Lovely 🎨 Logo</label>
+              </div>
             </Grid.Column>
           </Grid>
 
-          <Divider horizontal />
-          <Header as='h3' content='💼 Job Details' />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Senior Engineer' validations="minLength:3" required onChange={this.handleChange} />
-          <Form.Group>
-            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' validations="minLength:3" required onChange={this.handleChange} />
-            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 1% Equity' validations="minLength:3" required onChange={this.handleChange} />
-          </Form.Group>
-          <Form.TextArea
-            name='jobDescription' label='Description' placeholder='300 words minimum, please…' rows='10'
-            validations="minLength:300"
-            validationErrors={{ minLength: '300 words, please…' }}
-            required
-            errorLabel={ errorLabel }
-            onChange={this.handleChange} />
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Input name='bossName' label="Your or Boss' Name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Input name='bossName' label="Your or your Boss' Name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
 
+          <div className='field'>
+            <label>Lovely 🤓 Photo:</label>
+          </div>
           <Image
             title="Boss' Picture"
             src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
@@ -134,7 +142,7 @@ class PostAJob extends React.Component {
             errorLabel={ errorLabel } onChange={this.handleChange} validations="isEmail" />
           <Divider horizontal />
 
-          <Grid columns='equal' className='free-or-paid'>
+          <Grid columns='equal' className='free-or-paid hide'>
             <Grid.Column>
               <Segment textAlign='center' color='green' padded='very'>
                 <b>Free</b>
