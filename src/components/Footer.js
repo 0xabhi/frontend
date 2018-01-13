@@ -1,4 +1,4 @@
-import "./Footer.styl";
+import './Footer.styl';
 
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react'
@@ -6,7 +6,7 @@ import { Container, Grid, Segment } from 'semantic-ui-react'
 class Footer extends React.Component {
   render() {
     return (
-      <Grid className="Footer" columns='equal' divided inverted padded>
+      <Grid className='Footer' columns='equal' divided inverted padded>
         <Grid.Row color='black' textAlign='center'>
           <Grid.Column>
             <Segment color='black' inverted >Crypto Jobs List &copy; {(new Date()).getFullYear()}</Segment>

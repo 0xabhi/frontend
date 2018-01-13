@@ -1,6 +1,7 @@
-import "./PostAJob.styl";
+import './PostAJob.styl';
 
 import _ from 'lodash';
+import { get as CONFIG } from 'react-global-configuration';
 import React from 'react';
 import { post } from 'axios';
 import { observable } from 'mobx';
@@ -9,7 +10,8 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 import logoUrl from '../../public/images/email-header.png'
-const DOMAIN = 'https://cryptojobslist.com'
+
+const API = CONFIG('apiDomain')
 const errorLabel = <Label color="red" pointing/>
 
 // @observer
@@ -46,7 +48,7 @@ class PostAJob extends React.Component {
     const formData = new FormData()
     formData.append('file', file)
     const config = { headers: { 'content-type': 'multipart/form-data' }};
-    return post(`${DOMAIN}/job/imgUpload`, formData, config).then(res => {
+    return post(`${API}/job/imgUpload`, formData, config).then(res => {
       this.setState({[name]: res.data.secure_url})
     })
   }
@@ -54,7 +56,7 @@ class PostAJob extends React.Component {
   handleSubmit () {
     this.setState({loading: true})
     const data = _.omit(this.state, ['submitted', 'loading', 'error'])
-    post(`${DOMAIN}/job`, data)
+    post(`${API}/job`, data)
     .then(res => {
       this.setState({loading: false, error: false, submitted: true})
     })
