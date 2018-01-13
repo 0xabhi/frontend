@@ -6,7 +6,9 @@ import ReactDOM from "react-dom";
 
 import PostAJob from "./components/PostAJob";
 import Footer from "./components/Footer";
+import Crisp from "./components/Crisp.Chat";
 
+Crisp('872632eb-fe5f-42b2-8557-b7e5e0cac2b2')
 
 class App extends React.Component {
   render() {

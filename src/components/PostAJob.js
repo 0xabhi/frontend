@@ -134,7 +134,7 @@ class PostAJob extends React.Component {
             errorLabel={ errorLabel } onChange={this.handleChange} validations="isEmail" />
           <Divider horizontal />
 
-          <Grid columns='equal' className='free-or-paid hide'>
+          <Grid columns='equal' className='free-or-paid'>
             <Grid.Column>
               <Segment textAlign='center' color='green' padded='very'>
                 <b>Free</b>
