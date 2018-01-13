@@ -6,9 +6,11 @@ import { post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Form, Message, Button, Segment } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Message, Button, Segment } from 'semantic-ui-react'
+import { Form } from 'formsy-semantic-ui-react'
 import logoUrl from '../../public/images/email-header.png'
 const DOMAIN = 'https://cryptojobslist.com'
+const errorLabel = <Label color="red" pointing/>
 
 // @observer
 class PostAJob extends React.Component {
@@ -88,9 +90,9 @@ class PostAJob extends React.Component {
           <Header as='h3' content=' 🏢 Company Details' />
           <Grid columns={2}>
             <Grid.Column>
-              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' onChange={this.handleChange} />
-              <Form.Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' onChange={this.handleChange} />
-              <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' onChange={this.handleChange} />
+              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required onChange={this.handleChange} />
+              <Form.Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required onChange={this.handleChange} />
+              <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required onChange={this.handleChange} />
             </Grid.Column>
             <Grid.Column>
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
@@ -100,16 +102,22 @@ class PostAJob extends React.Component {
 
           <Divider horizontal />
           <Header as='h3' content='💼 Job Details' />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Senior Engineer' onChange={this.handleChange} />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Senior Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
-            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' onChange={this.handleChange} />
-            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 1% Equity' onChange={this.handleChange} />
+            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' validations="minLength:3" required onChange={this.handleChange} />
+            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 1% Equity' validations="minLength:3" required onChange={this.handleChange} />
           </Form.Group>
-          <Form.TextArea name='jobDescription' label='Description' placeholder='300 words minimum, please…' rows='10' onChange={this.handleChange} />
+          <Form.TextArea
+            name='jobDescription' label='Description' placeholder='300 words minimum, please…' rows='10'
+            validations="minLength:300"
+            validationErrors={{ minLength: '300 words, please…' }}
+            required
+            errorLabel={ errorLabel }
+            onChange={this.handleChange} />
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Input name='bossName' label="Your or Boss' Name" placeholder='e.g. Vitalik Buterin' onChange={this.handleChange} />
+          <Form.Input name='bossName' label="Your or Boss' Name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
 
           <Image
             title="Boss' Picture"
@@ -119,7 +127,11 @@ class PostAJob extends React.Component {
           <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' onChange={this.imgUpload} />
           <Divider horizontal />
 
-          <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email' onChange={this.handleChange} validations="isEmail" />
+          <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email'
+            validations="isEmail"
+            validationErrors={{ isEmail: 'Email is not valid' }}
+            required
+            errorLabel={ errorLabel } onChange={this.handleChange} validations="isEmail" />
           <Divider horizontal />
 
           <Grid columns='equal' className='free-or-paid hide'>
