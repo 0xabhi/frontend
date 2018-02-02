@@ -4,6 +4,7 @@ import './config';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, browserHistory } from 'react-router-dom'
 import { get as ENV } from 'react-global-configuration';
 
 import PostAJob from './components/PostAJob';
@@ -23,4 +24,12 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+
+ReactDOM.render((
+  <Router history={browserHistory}>
+    <div>
+      <Route exact path='/' component={App} />
+      <Route path='/submit' component={PostAJob}/>
+    </div>
+  </Router>
+), document.getElementById('app'));

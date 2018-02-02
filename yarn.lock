@@ -2855,12 +2855,6 @@ parcel-bundler@^1.2.0:
     worker-farm "^1.4.1"
     ws "^3.3.3"
 
-parcel-plugin-eslint@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/parcel-plugin-eslint/-/parcel-plugin-eslint-1.0.0.tgz#6a02adb51c11732e04641f66c453dedf7ae7b9ac"
-  dependencies:
-    debug "^3.1.0"
-
 parse-asn1@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/parse-asn1/-/parse-asn1-5.1.0.tgz#37c4f9b7ed3ab65c74817b5f2480937fbf97c712"
@@ -3312,6 +3306,17 @@ react-global-configuration@^1.2.0:
     object-assign "^2.0.0"
     serialize-javascript "^1.3.0"
 
+react-router-dom@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"
+  dependencies:
+    history "^4.7.2"
+    invariant "^2.2.2"
+    loose-envify "^1.3.1"
+    prop-types "^15.5.4"
+    react-router "^4.2.0"
+    warning "^3.0.0"
+
 react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
@@ -3323,6 +3328,10 @@ react-router@^4.2.0:
     path-to-regexp "^1.7.0"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-stripe-checkout@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/react-stripe-checkout/-/react-stripe-checkout-2.6.3.tgz#3173a870b04e5a3c321a06d24cd53c6030111c45"
 
 react@^16.2.0:
   version "16.2.0"
