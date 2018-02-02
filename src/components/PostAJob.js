@@ -10,6 +10,7 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton';
+import Testimonials from './Testimonials';
 import logoUrl from '../../public/images/email-header.png'
 
 const API = ENV('apiDomain')
@@ -184,6 +185,8 @@ class PostAJob extends React.Component {
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
             </Segment>
+            <Header as='h2' textAlign='center' content="— What companies 💬 say about Crypto Jobs List?" />
+            <Testimonials />
           </div>
 
           <Divider horizontal />
