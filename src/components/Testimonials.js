@@ -43,7 +43,7 @@ class Testimonials extends React.Component {
       <div>
         <Icon name='quote left' color='grey' size='large' />
         <p className='quote'>
-          Let me give you my feedback. I think it would be useful to you. Your site drives <b>more qualified leads than AngelList</b>. At least for the position I’m looking to cover. I received in total more than 35 applications. Only 15 passed the first filter. Of those, mostly candidates from your site. Only 2 are qualified after the 3rd filter. We are interviewing now. If the candidate is a lead from your site I’ll let you know.
+          Let me give you my feedback. I think it would be useful to you. Your site drives <b>more qualified leads than AngelList</b>. At least for the <a href='https://cryptojobslist.com/jobs/community-social-media-manager-at-kleros-bp3qjwbi8' target='_blank'>position I’m looking to cover</a>. I received in total more than 35 applications. Only 15 passed the first filter. Of those, mostly candidates from your site. Only 2 are qualified after the 3rd filter. We are interviewing now. If the candidate is a lead from your site I’ll let you know.
           <br/>
           Thanks for the follow up! Next position I’ll repeat with you.
         </p>
