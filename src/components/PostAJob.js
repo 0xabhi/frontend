@@ -95,17 +95,17 @@ class PostAJob extends React.Component {
             <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
           </div>
         :
-        <Form size='large' widths='equal' onSubmit={this.handleSubmit} {...formState}>
+        <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
           <Header as='h3' content='💼 Job Details' />
           <Form.Input name='jobTitle' label='Title' placeholder='e.g. Super Senior Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
-            <Form.Input name='jobLocation' label='Location' placeholder='e.g. Singapore, New York, Remote' validations="minLength:3" required onChange={this.handleChange} />
-            <Form.Input name='salaryRange' label='Salary range' placeholder='90-100k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
+            <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
+            <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
           </Form.Group>
           <Form.TextArea
-            name='jobDescription' label='Description' placeholder='300 words minimum, please… And make it exciting!' rows='10'
+            name='jobDescription' label='Description' placeholder='Describe your company. Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
@@ -156,13 +156,13 @@ class PostAJob extends React.Component {
           <div className='free-or-paid'>
             <Header as='h2' textAlign='center' content="❤️ Support the project. Promote your Ad!" />
             <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
-              <h3><span className='ui green text strikethrough'>$199</span> FREE</h3>
+              <h3><span className='ui green text strikethrough'>$199</span> Free</h3>
               <ul>
                 <li>⏬ Your Ad gets pushed down every day</li>
-                <li>🚨 All fun is your's while it's FREE.</li>
+                <li>⚠️ Published after review</li>
                 <li>☹️ Limited support</li>
-                <li className='hide'>🚨 We'll notify you about new leads. Pay when you want.</li>
-                <li className='hide'>⚠️ This might actually end up being more expensive. But it's up to you...</li>
+                <li className='hide'>🚨 We'll notify you about new leads. Pay when you want</li>
+                <li className='hide'>⚠️ This might actually end up being more expensive. But it's up to you..</li>
               </ul>
             </Segment>
             <Segment className='hide' color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
@@ -174,10 +174,11 @@ class PostAJob extends React.Component {
               </ul>
             </Segment>
             <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
-              <h3><span className='ui green text strikethrough'>$299</span> $199 Featured</h3>
+              <h3><span className='ui green text strikethrough'>$300</span> $199 Featured</h3>
               <ul>
                 <li>🙌 Unlimited leads</li>
                 <li>⭐️ Highlited Job Ad - 3-5x more views</li>
+                <li>✅ Instant publication</li>
                 <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks</li>
                 <li>👍 Fund on-going development of the platform</li>
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
