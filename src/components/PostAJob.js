@@ -156,13 +156,16 @@ class PostAJob extends React.Component {
           <div className='free-or-paid'>
             <Header as='h2' textAlign='center' content="❤️ Support the project. Promote your Ad!" />
             <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
-              <h3>Free for now — $7 per lead later</h3>
+              <h3><span className='ui green text strikethrough'>$199</span> FREE</h3>
               <ul>
-                <li>🚨 We'll notify you about new leads. Pay when you want.</li>
-                <li>⚠️ This might actually end up being more expensive. But it's up to you...</li>
+                <li>⏬ Your Ad gets pushed down every day</li>
+                <li>🚨 All fun is your's while it's FREE.</li>
+                <li>☹️ Limited support</li>
+                <li className='hide'>🚨 We'll notify you about new leads. Pay when you want.</li>
+                <li className='hide'>⚠️ This might actually end up being more expensive. But it's up to you...</li>
               </ul>
             </Segment>
-            <Segment color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
+            <Segment className='hide' color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
               <h3>5 leads for 5 each — $25</h3>
               <ul>
                 <li>🖐 5 leads at a discounted rate</li>
@@ -171,7 +174,7 @@ class PostAJob extends React.Component {
               </ul>
             </Segment>
             <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
-              <h3>Featured — $199</h3>
+              <h3><span className='ui green text strikethrough'>$299</span> $199 Featured</h3>
               <ul>
                 <li>🙌 Unlimited leads</li>
                 <li>⭐️ Highlited Job Ad - 3-5x more views</li>
