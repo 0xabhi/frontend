@@ -155,13 +155,13 @@ class PostAJob extends React.Component {
           <Divider horizontal />
 
           <div className='free-or-paid'>
-            <Header as='h2' textAlign='center' content="❤️ Support the project. Promote your Ad!" />
+            <Header as='h2' textAlign='center' content="Promote your job listing:" />
             <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
-              <h3><span className='ui green text strikethrough'>$199</span> Free</h3>
+              <h3>Basic</h3>
               <ul>
                 <li>⏬ Your Ad gets pushed down every day</li>
                 <li>⚠️ Published after review</li>
-                <li>☹️ Limited support</li>
+                <li>🚫 Limited support</li>
                 <li className='hide'>🚨 We'll notify you about new leads. Pay when you want</li>
                 <li className='hide'>⚠️ This might actually end up being more expensive. But it's up to you..</li>
               </ul>
@@ -174,13 +174,23 @@ class PostAJob extends React.Component {
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
             </Segment>
+            <Segment color={supportMethod === 3 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 3)}>
+              <h3>Social $49 </h3>
+              <ul>
+                <li><i className="fab fa-twitter ui text blue"/> Reach 2000+ <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
+                <li><i className="fab fa-reddit ui text orange"/> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
+                <li><i className="fab fa-telegram-plane ui text dark-blue"/> Reach our growing <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel</li>
+                <li>😃 Priority Support</li>
+              </ul>
+            </Segment>
+
             <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
-              <h3><span className='ui green text strikethrough'>$300</span> $199 Featured</h3>
+              <h3>Featured <span className='ui text strikethrough'>$300</span> <span className='ui green text'>$199</span></h3>
               <ul>
                 <li>🙌 Unlimited leads</li>
                 <li>⭐️ Highlited Job Ad - 3-5x more views</li>
                 <li>✅ Instant publication</li>
-                <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks</li>
+                <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks - <b>4x of Social</b></li>
                 <li>👍 Fund on-going development of the platform</li>
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
@@ -200,7 +210,8 @@ class PostAJob extends React.Component {
               pricedItem={{
                 0: {amount: 0, description: '"Pay as you go…"'},
                 1: {amount: 25*100, description: '"5 for 5"'},
-                2: {amount: 199*100, description: '"Featured Listing"'}
+                2: {amount: 199*100, description: '"Featured Listing"'},
+                3: {amount: 49*100, description: '"Social"'}
               }[supportMethod]}/>
           </Segment>
         </Form>
