@@ -137,7 +137,7 @@ class PostAJob extends React.Component {
           <Form.Input name='bossName' label="Your or your Boss' Name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
 
           <div className='field'>
-            <label>Lovely 🤓 Photo:</label>
+            <label>Your Lovely 🤓 Photo:</label>
           </div>
           <Image
             title="Boss' Picture"
