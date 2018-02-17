@@ -22,7 +22,7 @@ class PostAJob extends React.Component {
 
   constructor(props){
     super(props);
-    document.title = 'Post a job - Crypto Jobs List';
+    document.title = 'Post a job on Crypto Jobs List';
     this.state = {
       loading: false,
       error: false,
@@ -90,7 +90,7 @@ class PostAJob extends React.Component {
         {this.state.submitted ?
           <div>
             <Header as='h1' textAlign='center'>Please check your email!</Header>
-            <Header as='h3' textAlign='center'>Your job ad was submitted for review.</Header>
+            <Header as='h3' textAlign='center'>Your job posting was submitted for review.</Header>
             <Divider horizontal />
             <Divider horizontal />
             <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
@@ -155,11 +155,12 @@ class PostAJob extends React.Component {
           <Divider horizontal />
 
           <div className='free-or-paid'>
-            <Header as='h2' textAlign='center' content="Promote your job listing:" />
+            <Header as='h2' textAlign='center' content="Promote your job posting:" />
             <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
               <h3>Basic</h3>
               <ul>
-                <li>⏬ Your Ad gets pushed down every day</li>
+                <li>📩 5 FREE Applications </li>
+                <li>⏬ Your job posting will be pushed down every day</li>
                 <li>⚠️ Published after review</li>
                 <li>🚫 Limited support</li>
                 <li className='hide'>🚨 We'll notify you about new leads. Pay when you want</li>
@@ -177,9 +178,10 @@ class PostAJob extends React.Component {
             <Segment color={supportMethod === 3 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 3)}>
               <h3>Social $49 </h3>
               <ul>
-                <li><i className="fab fa-twitter ui text blue"/> Reach 2000+ <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
+                <li>📩 Unlimited Applications</li>
+                <li><i className="fab fa-twitter ui text blue"/> Reach 2.1k+ targeted <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
                 <li><i className="fab fa-reddit ui text orange"/> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
-                <li><i className="fab fa-telegram-plane ui text dark-blue"/> Reach our growing <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel</li>
+                <li><i className="fab fa-telegram-plane ui text dark-blue"/> Notify our <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel followers</li>
                 <li>😃 Priority Support</li>
               </ul>
             </Segment>
@@ -187,10 +189,10 @@ class PostAJob extends React.Component {
             <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
               <h3>Featured <span className='ui text strikethrough'>$300</span> <span className='ui green text'>$199</span></h3>
               <ul>
-                <li>🙌 Unlimited leads</li>
+                <li>📩 Unlimited Applications</li>
                 <li>⭐️ Highlited Job Ad - 3-5x more views</li>
                 <li>✅ Instant publication</li>
-                <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks - <b>4x of Social</b></li>
+                <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks - <b>4x Social</b></li>
                 <li>👍 Fund on-going development of the platform</li>
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
