@@ -178,7 +178,7 @@ class PostAJob extends React.Component {
             <Segment color={supportMethod === 3 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 3)}>
               <h3>Social $49 </h3>
               <ul>
-                <li>📩 Unlimited Applications</li>
+                <li>📩 Unlimited Resumes</li>
                 <li><i className="fab fa-twitter ui text blue"/> Reach 2.1k+ targeted <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
                 <li><i className="fab fa-reddit ui text orange"/> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
                 <li><i className="fab fa-telegram-plane ui text dark-blue"/> Notify our <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel followers</li>
@@ -189,7 +189,7 @@ class PostAJob extends React.Component {
             <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
               <h3>Featured <span className='ui text strikethrough'>$300</span> <span className='ui green text'>$199</span></h3>
               <ul>
-                <li>📩 Unlimited Applications</li>
+                <li>📩 Unlimited Resumes</li>
                 <li>⭐️ Highlited Job Ad - 3-5x more views</li>
                 <li>✅ Instant publication</li>
                 <li>💌 Featured Twitter and Newsletter shout outs during 4 weeks - <b>4x Social</b></li>
