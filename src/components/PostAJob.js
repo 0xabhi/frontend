@@ -27,7 +27,7 @@ class PostAJob extends React.Component {
       loading: false,
       error: false,
       submitted: false,
-      supportMethod: 3
+      supportMethod: 2
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -54,7 +54,6 @@ class PostAJob extends React.Component {
   }
 
   updateSupportMethod (supportMethod) {
-    if (supportMethod === 2) {return}
     this.setState({supportMethod})
   }
 
@@ -186,8 +185,8 @@ class PostAJob extends React.Component {
               </ul>
             </Segment>
 
-            <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)} className='cursor-not-allowed'>
-              <h3>
+            <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
+              <h3 className='hide'>
                 <center>⚠️ Temporarily not available due to high demand! ⚠️ </center>
                 <small><center>Watch our <a href='https://twitter.com/cryptojobslist' target='_blank'>Twitter @cryptojobslist</a> for announcements</center></small>
               </h3>
