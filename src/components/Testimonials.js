@@ -24,8 +24,9 @@ class Testimonials extends React.Component {
       <div>
         <Icon name='quote left' color='grey' size='large' />
         <p className='quote'>
-          At first, I was hesitant. But then decided to <b>feature</b>… And <b>it worked</b>!<br/> The quality of the <b>candidates are by far more relevant</b> then on other boards. And, I mean, I don’t need to explain crypto to them!
+          The quality of the candidates are by far more relevant and experienced than on other boards. They are in the crypto space and have the past experience to hit the ground running.
         </p>
+        <p className='quote hide'>At first, I was hesitant. But then decided to <b>feature</b>… And <b>it worked</b>!<br/> The quality of the <b>candidates are by far more relevant</b> then on other boards. And, I mean, I don’t need to explain crypto to them!</p>
         <div className='author'>
           <a href='https://twitter.com/Davie_Michael' target='_blank'>
             <Image centered circular size='tiny' src='https://res.cloudinary.com/cryptojobslist/image/fetch/g_face,c_thumb,w_90,h_90,e_improve,q_auto,fl_lossy,f_auto/dpr_2.0/https://res.cloudinary.com/cryptojobslist/image/upload/v1519053954/w23nhpncdqfcpaxda7il.jpg' />
