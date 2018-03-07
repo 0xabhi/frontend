@@ -36,7 +36,7 @@ class Testimonials extends React.Component {
           </a>
           <p>
             <b><a href='https://twitter.com/kleros_io' target='_blank'>Maria T. Vidal</a></b><br/>
-            Communications Lead, <a href="https://kleros.io/" target='_blank'>Kleros</a>
+            Communications Lead, <a href="https://cryptojobslist.com/blockchain-companies/kleros" target='_blank'>Kleros</a>
             <br/>
             <Rating maxRating={5} defaultRating={5} icon='star' size='tiny' disabled/><br/>
           </p>
@@ -53,7 +53,24 @@ class Testimonials extends React.Component {
           </a>
           <p>
             <b><a href='https://twitter.com/adelphoi_io' target='_blank'>Jessica Zartler</a></b><br/>
-            Marketing & Communications Director, <a href="https://adelphoi.io/" target='_blank'>Adel</a>
+            Marketing & Communications Director, <a href="https://cryptojobslist.com/blockchain-companies/adel" target='_blank'>Adel</a>
+            <br/>
+            <Rating maxRating={5} defaultRating={5} icon='star' size='tiny' disabled/><br/>
+          </p>
+        </div>
+      </div>
+      <div>
+        <Icon name='quote left' color='grey' size='large' />
+        <p className='quote'>
+          At first, I was hesitant. But then decided to <b>feature</b>… And <b>it worked</b>!<br/> The quality of the <b>candidates are by far more relevant</b> then on other boards. And, I mean, I don’t need to explain crypto to them!
+        </p>
+        <div className='author'>
+          <a href='https://twitter.com/Davie_Michael' target='_blank'>
+            <Image centered circular size='tiny' src='https://res.cloudinary.com/cryptojobslist/image/fetch/g_face,c_thumb,w_90,h_90,e_improve,q_auto,fl_lossy,f_auto/dpr_2.0/https://res.cloudinary.com/cryptojobslist/image/upload/v1519053954/w23nhpncdqfcpaxda7il.jpg' />
+          </a>
+          <p>
+            <b><a href='https://twitter.com/Davie_Michael' target='_blank'>Mike Davie</a></b><br/>
+            Founder & CEO, <a href="https://cryptojobslist.com/blockchain-companies/datastreamx" target='_blank'>DataStreamX</a>
             <br/>
             <Rating maxRating={5} defaultRating={5} icon='star' size='tiny' disabled/><br/>
           </p>
