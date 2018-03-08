@@ -11,7 +11,7 @@ import { Header, Label, Divider, Image, Message, Button, Segment } from 'semanti
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton';
 import Testimonials from './Testimonials';
-import logoUrl from '../../public/images/email-header.png'
+import logoUrl from '../../public/images/cjl-logo-night.png'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
@@ -80,11 +80,11 @@ class PostAJob extends React.Component {
     const formState = {loading, error}
     return (
       <Container className="PostAJob" text>
+        <a href='https://cryptojobslist.com' target='_blank'>
+          <Image className='logo' height='35' src={logoUrl} />
+        </a>
         <Divider horizontal />
-        <Divider horizontal />
-        <Image className='logo' height='90' src={logoUrl} centered />
-        <Divider horizontal />
-        <center>The only board to find and post blockchain and crypto jobs! 😉</center>
+        <p>The only board to find and post blockchain and crypto jobs! 😉</p>
         <Divider horizontal />
 
         {this.state.submitted ?
@@ -97,10 +97,10 @@ class PostAJob extends React.Component {
           </div>
         :
         <Form size='large' widths='equal' {...formState}>
-          <Header as='h1'>Post a job <Label content="FREE" color='green' size='mini' /></Header>
+          <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
           <Header as='h3' content='💼 Job Details' />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Super Senior Engineer' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
             <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
             <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
