@@ -7,7 +7,7 @@ import { post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Message, Button, Segment } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton';
 import Testimonials from './Testimonials';
@@ -94,6 +94,12 @@ class PostAJob extends React.Component {
             <Divider horizontal />
             <Divider horizontal />
             <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
+            <Divider horizontal />
+            <center>
+              <Button content={<span>
+                Post another job <Icon name="arrow right" />
+              </span>} size='huge' color='green' href='/' />
+            </center>
           </div>
         :
         <Form size='large' widths='equal' {...formState}>
@@ -126,7 +132,7 @@ class PostAJob extends React.Component {
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
               <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
               <div className='field'>
-                <label>Lovely 🎨 Logo</label>
+                <label>Your Lovely 🎨 Logo</label>
               </div>
             </Grid.Column>
           </Grid>
