@@ -112,7 +112,14 @@ class PostAJob extends React.Component {
             <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
           </Form.Group>
           <Form.TextArea
-            name='jobDescription' label='Description' placeholder='Describe your company. Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
+            name='companyAbout' label='About your company' placeholder='Describe your company. Why should applicant be excited? 200 words minimum, please…' rows='7'
+            validations="minLength:200"
+            validationErrors={{ minLength: '200 words, please…' }}
+            required
+            errorLabel={ errorLabel }
+            onChange={this.handleChange} />
+          <Form.TextArea
+            name='jobDescription' label='Job Description' placeholder='Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
