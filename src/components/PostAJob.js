@@ -105,7 +105,6 @@ class PostAJob extends React.Component {
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
-          <Header as='h3' content='💼 Job Details' />
           <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
             <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
@@ -119,7 +118,7 @@ class PostAJob extends React.Component {
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
           <Form.TextArea
-            name='jobDescription' label='Job Description' placeholder='Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
+            name='jobDescription' label='Job description' placeholder='Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
@@ -139,7 +138,7 @@ class PostAJob extends React.Component {
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
               <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
               <div className='field'>
-                <label>Your Lovely 🎨 Logo</label>
+                <label>Your 🎨 Company Logo</label>
               </div>
             </Grid.Column>
           </Grid>
@@ -147,7 +146,7 @@ class PostAJob extends React.Component {
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Input name='bossName' label="Your or your Boss' Name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Input name='bossName' label="Your or your boss' name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required onChange={this.handleChange} />
 
           <div className='field'>
             <label>Your Lovely 🤓 Photo:</label>
@@ -160,7 +159,7 @@ class PostAJob extends React.Component {
           <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
           <Divider horizontal />
 
-          <Form.Input name='companyEmail' label='Send applications to:' placeholder='your@email.com' type='email'
+          <Form.Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
             validations="isEmail"
             validationErrors={{ isEmail: 'Email is not valid' }}
             required
