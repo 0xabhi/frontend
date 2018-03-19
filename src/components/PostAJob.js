@@ -111,14 +111,14 @@ class PostAJob extends React.Component {
             <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
           </Form.Group>
           <Form.TextArea
-            name='companyAbout' label='About your company' placeholder='Describe your company. Why should applicant be excited? 200 words minimum, please…' rows='7'
+            name='companyAbout' label='About your company' placeholder='Describe your company. Why should the applicant be excited? 200 words minimum, please…' rows='7'
             validations="minLength:200"
             validationErrors={{ minLength: '200 words, please…' }}
             required
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
           <Form.TextArea
-            name='jobDescription' label='Job description' placeholder='Expectations. Required skills. Perks? Whats exciting about this role? 300 words minimum, please…' rows='10'
+            name='jobDescription' label='Job description' placeholder="Expectations. Required skills. Perks? What's exciting about this role? 300 words minimum, please…" rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
@@ -204,7 +204,7 @@ class PostAJob extends React.Component {
               </h3>
               <h3>Featured <span className='ui text strikethrough'>$300</span> <span className='ui green text'>$199</span></h3>
               <ul>
-                <li>⭐️ <b>Highlited Job Ad</b>, placed at the top for a month — <b>3-5x</b> more views</li>
+                <li>⭐️ <b>Highlighted Job Ad</b>, placed at the top for a month — <b>3-5x</b> more views</li>
                 <li>💌 Featured <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> and Newsletter shout-outs over 4 weeks — <b>4x Verified</b></li>
                 <li>📩 Unlimited Applicants</li>
                 <li>✅ Published instantly</li>
