@@ -27,7 +27,7 @@ class PostAJob extends React.Component {
       loading: false,
       error: false,
       submitted: false,
-      supportMethod: 3
+      supportMethod: 2
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -168,7 +168,7 @@ class PostAJob extends React.Component {
 
           <div className='free-or-paid'>
             <Header as='h2' textAlign='center' content="Promote your job posting:" />
-            <Segment className='hide' color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
+            <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
               <h3>Basic <span className='ui text strikethrough'>$50</span> <span className='ui green text'>FREE</span></h3>
               <ul>
                 <li>📩 3 FREE Applicants </li>
