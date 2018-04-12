@@ -172,9 +172,8 @@ class PostAJob extends React.Component {
               <h3>Basic <span className='ui text strikethrough'>$50</span> <span className='ui green text'>FREE</span></h3>
               <ul>
                 <li>📩 3 FREE Applicants </li>
-                <li>⏬ Your job posting will be pushed down every day</li>
-                <li>⚠️ Published after review</li>
                 <li>🚫 Limited support</li>
+                <li>⚠️ Published in 3-5 days</li>
               </ul>
             </Segment>
             <Segment className='hide' color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
@@ -192,8 +191,7 @@ class PostAJob extends React.Component {
                 <li><i className="fab fa-twitter ui text blue"/> Reach 2.2k+ targeted <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
                 <li><i className="fab fa-reddit ui text orange"/> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
                 <li><i className="fab fa-telegram-plane ui text dark-blue"/> Notify our <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel followers</li>
-                <li>✍️ Manualy reviewed and published</li>
-                <li>😃 Priority Support</li>
+                <li>✅ Published within 12 hours</li>
               </ul>
             </Segment>
 
