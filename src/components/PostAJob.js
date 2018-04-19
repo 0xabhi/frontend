@@ -7,7 +7,7 @@ import { post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton';
 import Testimonials from './Testimonials';
@@ -114,18 +114,23 @@ class PostAJob extends React.Component {
           <Divider horizontal />
           <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
-            <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
+            <div className='field'>
+              <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
+              <Checkbox name='remote'  label='🌍 Remote OK' onChange={this.handleChange} />
+            </div>
             <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
           </Form.Group>
           <Form.TextArea
-            name='companyAbout' label='About your company' placeholder='Describe your company. Why should the applicant be excited? 200 words minimum, please…' rows='7'
+            name='companyAbout' label='About your company'
+            placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
+            rows='7'
             validations="minLength:200"
             validationErrors={{ minLength: '200 words, please…' }}
             required
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
           <Form.TextArea
-            name='jobDescription' label='Job description' placeholder="Expectations. Required skills. Perks? What's exciting about this role? 300 words minimum, please…" rows='10'
+            name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
