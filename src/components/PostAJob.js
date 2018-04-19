@@ -7,7 +7,7 @@ import { post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton';
 import Testimonials from './Testimonials';
@@ -15,6 +15,12 @@ import logoUrl from '../../public/images/cjl-logo-night.png'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
+const employmentTypeOptions = [
+  {key: 'FULL_TIME', value: 'FULL_TIME', text: 'Full-time'},
+  {key: 'CONTRACTOR', value: 'CONTRACTOR', text: 'Contractor'},
+  {key: 'INTERN', value: 'INTERN', text: 'Intern'},
+  {key: 'OTHER', value: 'OTHER', text: 'Other'},
+]
 
 // @observer
 class PostAJob extends React.Component {
@@ -27,7 +33,8 @@ class PostAJob extends React.Component {
       loading: false,
       error: false,
       submitted: false,
-      supportMethod: 2
+      supportMethod: 2,
+      employmentType: 'FULL_TIME'
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -124,7 +131,13 @@ class PostAJob extends React.Component {
             required
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
-
+          <Form.Group>
+            <Form.Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' onChange={this.handleChange} />
+            <div className='field'>
+              <label>Type of Position</label>
+              <Select name='employmentType' label='Type of Position' options={employmentTypeOptions} defaultValue='FULL_TIME' onChange={this.handleChange} />
+            </div>
+          </Form.Group>
           <Divider horizontal />
 
           <Header as='h3' content=' 🏢 Your Company Details?' />
