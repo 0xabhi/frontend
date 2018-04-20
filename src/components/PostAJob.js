@@ -120,7 +120,7 @@ class PostAJob extends React.Component {
               <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
               <Checkbox name='remote'  label='🌍 Remote OK' onChange={this.handleChange} />
             </div>
-            <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
+
           </Form.Group>
           <Form.TextArea
             name='companyAbout' label='About your company'
@@ -145,6 +145,8 @@ class PostAJob extends React.Component {
               <Select name='employmentType' label='Type of Position' options={employmentTypeOptions} defaultValue='FULL_TIME' onChange={this.handleChange} />
             </div>
           </Form.Group>
+          <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
+          <p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>
           <Divider horizontal />
 
           <Header as='h3' content=' 🏢 Your Company Details?' />
@@ -193,7 +195,7 @@ class PostAJob extends React.Component {
               <ul>
                 <li>📩 3 FREE Applicants </li>
                 <li>🚫 Limited support</li>
-                <li>⚠️ Published in 3-5 days</li>
+                <li>⚠️ Published in 1-3 days</li>
               </ul>
             </Segment>
             <Segment className='hide' color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
