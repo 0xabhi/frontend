@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import React from 'react';
-import { Image, Icon, Rating } from 'semantic-ui-react'
+import { Image, Icon, Rating, Header } from 'semantic-ui-react'
 
 class Testimonials extends React.Component {
   constructor (props) {
@@ -21,6 +21,7 @@ class Testimonials extends React.Component {
 
   render () {
     return <div className='testimonials'>
+      <Header as='h2' textAlign='center' content="— What companies 💬 say about Crypto Jobs List?" />
       <div>
         <Icon name='quote left' color='grey' size='large' />
         <p className='quote'>

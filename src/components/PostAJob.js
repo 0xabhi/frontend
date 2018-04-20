@@ -91,8 +91,6 @@ class PostAJob extends React.Component {
           <Image className='logo' height='35' src={logoUrl} />
         </a>
         <Divider horizontal />
-        <p>The only board to find and post blockchain and crypto jobs! 😉</p>
-        <Divider horizontal />
 
         {this.state.submitted ?
           <div>
@@ -111,6 +109,10 @@ class PostAJob extends React.Component {
         :
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
+          <p>
+            #1 crypto community to find and post blockchain jobs! 😉<br/>
+            Note: that listings need to be <strong>crypto</strong> related and can only be used to fill a single position.
+          </p>
           <Divider horizontal />
           <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
           <Form.Group>
@@ -229,7 +231,6 @@ class PostAJob extends React.Component {
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
             </Segment>
-            <Header as='h2' textAlign='center' content="— What companies 💬 say about Crypto Jobs List?" />
             <Testimonials />
           </div>
 
