@@ -33,7 +33,7 @@ class PostAJob extends React.Component {
       loading: false,
       error: false,
       submitted: false,
-      supportMethod: 2,
+      supportMethodId: 2,
       employmentType: 'FULL_TIME'
     }
     this.handleChange = this.handleChange.bind(this)
@@ -60,8 +60,8 @@ class PostAJob extends React.Component {
     })
   }
 
-  updateSupportMethod (supportMethod) {
-    this.setState({supportMethod})
+  updateSupportMethod (supportMethodId) {
+    this.setState({supportMethodId})
   }
 
   handleStripeToken (token) {
@@ -83,7 +83,7 @@ class PostAJob extends React.Component {
   }
 
   render() {
-    const {loading, error, companyLogo, bossPicture, supportMethod} = this.state
+    const {loading, error, companyLogo, bossPicture, supportMethodId} = this.state
     const formState = {loading, error}
     return (
       <Container className="PostAJob" text>
@@ -190,7 +190,7 @@ class PostAJob extends React.Component {
 
           <div className='free-or-paid'>
             <Header as='h2' textAlign='center' content="Promote your job posting:" />
-            <Segment color={supportMethod === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
+            <Segment color={supportMethodId === 0 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 0)}>
               <h3>Basic <span className='ui text strikethrough'>$50</span> <span className='ui green text'>FREE</span></h3>
               <ul>
                 <li>📩 3 FREE Applicants </li>
@@ -198,7 +198,7 @@ class PostAJob extends React.Component {
                 <li>⚠️ Published in 1-3 days</li>
               </ul>
             </Segment>
-            <Segment className='hide' color={supportMethod === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
+            <Segment className='hide' color={supportMethodId === 1 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 1)}>
               <h3>5 leads for 5 each — $25</h3>
               <ul>
                 <li>🖐 5 leads at a discounted rate</li>
@@ -206,7 +206,7 @@ class PostAJob extends React.Component {
                 <li>❤️ Good karma for helping a bootstrapped startup</li>
               </ul>
             </Segment>
-            <Segment color={supportMethod === 3 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 3)}>
+            <Segment color={supportMethodId === 3 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 3)}>
               <h3>Verified <span className='ui text strikethrough'>$150</span> <span className='ui green text'>$99</span></h3>
               <ul>
                 <li>📩 Unlimited Applicants</li>
@@ -217,7 +217,7 @@ class PostAJob extends React.Component {
               </ul>
             </Segment>
 
-            <Segment color={supportMethod === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
+            <Segment color={supportMethodId === 2 ? 'green' : ''} onClick={this.updateSupportMethod.bind(this, 2)}>
               <h3 className='hide'>
                 <center>⚠️ Temporarily not available due to high demand! ⚠️ </center>
                 <small><center>Watch our <a href='https://twitter.com/cryptojobslist' target='_blank'>Twitter @cryptojobslist</a> for announcements</center></small>
@@ -249,7 +249,7 @@ class PostAJob extends React.Component {
                 1: {amount: 25*100, description: '"5 for 5"'},
                 2: {amount: 199*100, description: '"Featured Listing"'},
                 3: {amount: 99*100, description: '"Verified"'}
-              }[supportMethod]}/>
+              }[supportMethodId]}/>
           </Segment>
         </Form>
         }
