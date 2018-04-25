@@ -105,7 +105,7 @@ class PostAJob extends React.Component {
               <Button content={<span>
                 Post another Job <Icon name="arrow right" />
               </span>} size='huge' color='green' href='/' />
-              { jobPreviewUrl ? <Button content={<span>View your job</span>} size='huge' href={jobPreviewUrl} target='_blank'/> : null }
+              { jobPreviewUrl ? <Button content={<span>View your Job</span>} size='huge' href={jobPreviewUrl} target='_blank'/> : null }
             </center>
           </div>
         :
