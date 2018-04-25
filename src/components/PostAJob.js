@@ -34,7 +34,8 @@ class PostAJob extends React.Component {
       error: false,
       submitted: false,
       supportMethodId: 2,
-      employmentType: 'FULL_TIME'
+      employmentType: 'FULL_TIME',
+      jobPreviewUrl: null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -75,7 +76,7 @@ class PostAJob extends React.Component {
     const data = _.omit(this.state, ['submitted', 'loading', 'error'])
     post(`${API}/job`, data)
     .then(res => {
-      this.setState({loading: false, error: false, submitted: true})
+      this.setState({loading: false, error: false, submitted: true, jobPreviewUrl: res.data.url})
     })
     .catch(err => {
       this.setState({loading: false, error: true})
@@ -83,7 +84,7 @@ class PostAJob extends React.Component {
   }
 
   render() {
-    const {loading, error, companyLogo, bossPicture, supportMethodId} = this.state
+    const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
     return (
       <Container className="PostAJob" text>
@@ -102,8 +103,9 @@ class PostAJob extends React.Component {
             <Divider horizontal />
             <center>
               <Button content={<span>
-                Post another job <Icon name="arrow right" />
+                Post another Job <Icon name="arrow right" />
               </span>} size='huge' color='green' href='/' />
+              { jobPreviewUrl ? <Button content={<span>View your job</span>} size='huge' href={jobPreviewUrl} target='_blank'/> : null }
             </center>
           </div>
         :

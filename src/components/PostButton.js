@@ -23,13 +23,13 @@ class PostButton extends React.Component {
           token={this.props.onToken}
           amount={amount}
           allowRememberMe={false}
-          panelLabel="Post your job"
+          panelLabel="Post your Job"
           description={description}
           stripeKey={ENV('stripePK')}>
-        <Button content='Post your job' size='huge' primary />
+        <Button content='Post your Job' size='huge' primary />
       </StripeCheckout>
     } else {
-      return <Button content='Post your job' size='huge' primary onClick={this.props.handleSubmit} />
+      return <Button content='Post your Job' size='huge' primary onClick={this.props.handleSubmit} />
     }
   }
 }
