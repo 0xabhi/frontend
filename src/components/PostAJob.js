@@ -21,6 +21,17 @@ const employmentTypeOptions = [
   {key: 'INTERN', value: 'INTERN', text: 'Intern'},
   {key: 'OTHER', value: 'OTHER', text: 'Other'},
 ]
+const jobCategories = [
+  {key: 'Engineering', value: 'Engineering', text: '🛠 Engineering'},
+  {key: 'Design', value: 'Design', text: '🎨 Design / Product'},
+  {key: 'Trading', value: 'Trading', text: '🤑 Trading / Crypto Research'},
+  {key: 'Community', value: 'Community', text: '💬 Community'},
+  {key: 'Content', value: 'Content', text: '✍️ Content'},
+  {key: 'Marketing', value: 'Marketing', text: '📈 Marketing'},
+  {key: 'Memes', value: 'Memes', text: '🐸 Memes, gifs, glitter'},
+  {key: 'Executive', value: 'Executive', text: '💼 Executive'},
+  {key: 'Other', value: 'Other', text: 'Other…'},
+]
 
 // @observer
 class PostAJob extends React.Component {
@@ -113,7 +124,7 @@ class PostAJob extends React.Component {
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <p>
             #1 crypto community to find and post blockchain jobs! 😉<br/>
-            Note: that listings need to be <strong>crypto</strong> related and can only be used to fill a single position.
+            Note: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
           </p>
           <Divider horizontal />
           <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
@@ -121,6 +132,8 @@ class PostAJob extends React.Component {
             <div className='field'>
               <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
               <Checkbox name='remote'  label='🌍 Remote OK' onChange={this.handleChange} />
+              <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' onChange={this.handleChange} />
+              <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' onChange={this.handleChange} />
             </div>
 
           </Form.Group>
@@ -143,19 +156,25 @@ class PostAJob extends React.Component {
           <Form.Group>
             <Form.Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' onChange={this.handleChange} />
             <div className='field'>
-              <label>Type of Position</label>
+              <label>Category</label>
+              <Select name='category' label='Type of Position' options={jobCategories} defaultValue='Engineering' onChange={this.handleChange} />
+            </div>
+          </Form.Group>
+          <Form.Group>
+            <Form.Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" onChange={this.handleChange} />
+            <div className='field'>
+              <label>Engagement type</label>
               <Select name='employmentType' label='Type of Position' options={employmentTypeOptions} defaultValue='FULL_TIME' onChange={this.handleChange} />
             </div>
           </Form.Group>
-          <Form.Input name='salaryRange' label='Salary range' placeholder='90-120k, 2% Equity' validations="minLength:3" required onChange={this.handleChange} />
           <p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>
           <Divider horizontal />
 
           <Header as='h3' content=' 🏢 Your Company Details?' />
           <Grid columns={2}>
             <Grid.Column>
-              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required onChange={this.handleChange} />
               <Form.Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required onChange={this.handleChange} />
+              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required onChange={this.handleChange} />
               <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required onChange={this.handleChange} />
             </Grid.Column>
             <Grid.Column>
