@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, browserHistory } from 'react-router-dom'
 import { get as ENV } from 'react-global-configuration';
 
+import JobEdit from './pages/JobEdit';
 import PostAJob from './components/PostAJob';
 import Footer from './components/Footer';
 import Crisp from './components/Crisp.Chat';
@@ -15,21 +16,13 @@ if (ENV('crispChat')) {
   Crisp(ENV('crispChat'))
 }
 
-class App extends React.Component {
-  render() {
-    return [
-      <PostAJob />,
-      <Footer />
-    ]
-  }
-}
-
-
 ReactDOM.render((
   <Router history={browserHistory}>
     <div>
-      <Route exact path='/' component={App} />
+      <Route exact path='/' component={PostAJob} />
       <Route path='/submit' component={PostAJob}/>
+      <Route path='/jobs/:slug/edit/:secret' component={JobEdit}/>
+      <Footer />
     </div>
   </Router>
 ), document.getElementById('app'));
