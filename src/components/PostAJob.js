@@ -127,7 +127,7 @@ class PostAJob extends React.Component {
             Note: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
           </p>
           <Divider horizontal />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3,maxLength:55" required onChange={this.handleChange} />
           <Form.Group>
             <div className='field'>
               <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
