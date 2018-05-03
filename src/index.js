@@ -1,26 +1,28 @@
-import 'semantic-ui-css/semantic.min.css';
-import '../styles/index.styl';
-import './config';
+import 'semantic-ui-css/semantic.min.css'
+import '../styles/index.styl'
+import './config'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
-import { BrowserRouter as Router, Route, browserHistory } from 'react-router-dom'
-import { get as ENV } from 'react-global-configuration';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import JobEdit from './pages/JobEdit';
-import PostAJob from './components/PostAJob';
-import Footer from './components/Footer';
-import Crisp from './components/Crisp.Chat';
+import createBrowserHistory from 'history/createBrowserHistory'
+import { Provider } from 'mobx-react'
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { Router, Route } from 'react-router'
 
-import JobStore from './stores/JobStore.js'
+import JobEdit from './pages/JobEdit'
+import PostAJob from './components/PostAJob'
+import Footer from './components/Footer'
+import Crisp from './components/Crisp.Chat'
 
-if (ENV('crispChat')) {
-  Crisp(ENV('crispChat'))
-}
+import jobStore from './stores/JobStore.js'
+const stores = { jobStore, routingStore: new RouterStore() }
+const browserHistory = createBrowserHistory()
+const history = syncHistoryWithStore(browserHistory, stores.routingStore);
 
 ReactDOM.render((
-    <Router history={browserHistory}>
+  <Provider {...stores}>
+    <Router history={history}>
       <div>
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
@@ -28,4 +30,5 @@ ReactDOM.render((
         <Footer />
       </div>
     </Router>
+  </Provider>
 ), document.getElementById('app'));

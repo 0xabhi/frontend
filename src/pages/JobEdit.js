@@ -1,9 +1,8 @@
-import _ from 'lodash';
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
-import { get, post } from 'axios';
-import { observer } from 'mobx-react';
-import JobStore from '../stores/JobStore.js'
+import _ from 'lodash'
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
+import { get, post } from 'axios'
+import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
@@ -30,6 +29,8 @@ const jobCategories = [
   {key: 'Other', value: 'Other', text: 'Other…'},
 ]
 
+@inject('routingStore')
+@inject('jobStore')
 @observer
 class JobEdit extends React.Component {
   constructor(props) {
@@ -94,10 +95,10 @@ class JobEdit extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    const { job } = this.props.jobStore;
     return (
       <Container className="PostAJob JobEdit" text>
-        <Header as='h1'>Nice</Header>
+        <Header as='h1'>Nice {job.jobTitle}</Header>
       </Container>
     )
   }
@@ -105,7 +106,7 @@ class JobEdit extends React.Component {
 
   render1() {
     var jobTitle = ''
-    console.log(this.props.JobStore)
+    console.log(this.props.jobStore)
     const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
     return (
