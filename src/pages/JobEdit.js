@@ -9,26 +9,20 @@ import { Form } from 'formsy-semantic-ui-react'
 
 import LogoButton from '../components/LogoButton'
 
-
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
-const employmentTypeOptions = [
-  {key: 'FULL_TIME', value: 'FULL_TIME', text: 'Full-time'},
-  {key: 'CONTRACTOR', value: 'CONTRACTOR', text: 'Contractor'},
-  {key: 'INTERN', value: 'INTERN', text: 'Intern'},
-  {key: 'OTHER', value: 'OTHER', text: 'Other'},
-]
-const jobCategories = [
-  {key: 'Engineering', value: 'Engineering', text: '🛠 Engineering'},
-  {key: 'Design', value: 'Design', text: '🎨 Design / Product'},
-  {key: 'Trading', value: 'Trading', text: '🤑 Trading / Crypto Research'},
-  {key: 'Community', value: 'Community', text: '💬 Community'},
-  {key: 'Content', value: 'Content', text: '✍️ Content'},
-  {key: 'Marketing', value: 'Marketing', text: '📈 Marketing'},
-  {key: 'Memes', value: 'Memes', text: '🐸 Memes, gifs, glitter'},
-  {key: 'Executive', value: 'Executive', text: '💼 Executive'},
-  {key: 'Other', value: 'Other', text: 'Other…'},
-]
+
+@inject('jobStore')
+@observer
+class _Input extends React.Component {
+  render() {
+    const { job, handleChange } = this.props.jobStore
+    const name = this.props.name
+    return (
+      <Form.Input name={name} value={job[name]} onChange={handleChange} {...this.props} />
+    )
+  }
+}
 
 @inject('routingStore')
 @inject('jobStore')
@@ -60,11 +54,6 @@ class JobEdit extends React.Component {
     })
   }
 
-  handleStripeToken (token) {
-    console.log({token})
-    this.setState({customerToken: token})
-    this.handleSubmit()
-  }
 
   render() {
     const { loading, error, supportMethodId } = this.state
@@ -75,21 +64,23 @@ class JobEdit extends React.Component {
 
     const onChange = {onChange: handleChange}
 
+    console.log(job)
+
     return (
       <Container className="PostAJob" text>
         <LogoButton />
         <Divider horizontal />
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Edit a Job <Label content="FREE" color='green' size='mini' /></Header>
-          <Header as='h2'>{job.jobTitle}</Header>
           <Divider horizontal />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required {...onChange} value={job.jobTitle} />
+          <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
             <div className='field'>
-              <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required {...onChange} />
-              <Checkbox name='remote'  label='🌍 Remote OK' {...onChange} />
-              <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' {...onChange} />
-              <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} />
+              <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
+              <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
+              <Checkbox name='remote'  label='🌍 Remote OK' {...onChange} checked={job.remote} />
+              <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' {...onChange} checked={job.paidRelocation} />
+              <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
 
           </Form.Group>
@@ -100,27 +91,29 @@ class JobEdit extends React.Component {
             validations="minLength:200"
             validationErrors={{ minLength: '200 words, please…' }}
             required
-            errorLabel={ errorLabel }
+            errorLabel={errorLabel}
+            value={job.companyAbout}
             {...onChange} />
           <Form.TextArea
             name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
-            errorLabel={ errorLabel }
+            errorLabel={errorLabel}
+            value={job.jobDescription}
             {...onChange} />
           <Form.Group>
-            <Form.Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' {...onChange} />
+            <_Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' />
             <div className='field'>
               <label>Category</label>
-              <Select name='category' label='Type of Position' options={jobCategories} defaultValue='Engineering' {...onChange} />
+              <Select name='category' label='Type of Position' options={this.props.jobStore.jobCategories} defaultValue='Engineering' {...onChange} value={job.category}/>
             </div>
           </Form.Group>
           <Form.Group>
-            <Form.Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" {...onChange} />
+            <_Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" />
             <div className='field'>
               <label>Engagement type</label>
-              <Select name='employmentType' label='Type of Position' options={employmentTypeOptions} defaultValue='FULL_TIME' {...onChange} />
+              <Select name='employmentType' label='Type of Position' options={this.props.jobStore.employmentTypeOptions} defaultValue='FULL_TIME' {...onChange} value={job.employmentType}/>
             </div>
           </Form.Group>
           <p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>
@@ -129,13 +122,13 @@ class JobEdit extends React.Component {
           <Header as='h3' content=' 🏢 Your Company Details?' />
           <Grid columns={2}>
             <Grid.Column>
-              <Form.Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required {...onChange} />
-              <Form.Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required {...onChange} />
-              <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required {...onChange} />
+              <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
+              <_Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required/>
+              <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required />
             </Grid.Column>
             <Grid.Column>
               <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
+              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} value={job.companyLogo} />
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
               </div>
@@ -145,7 +138,7 @@ class JobEdit extends React.Component {
 
           <Divider horizontal />
           <Header as='h3' content=" 💁 Let's get personal!" />
-          <Form.Input name='bossName' label="Your or your boss' name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required {...onChange} />
+          <_Input name='bossName' label="Your or your boss' name" placeholder='e.g. Vitalik Buterin' validations="minLength:3" required />
 
           <div className='field'>
             <label>Your Lovely 🤓 Photo:</label>
@@ -155,14 +148,13 @@ class JobEdit extends React.Component {
             src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
             circular bordered size='small'
             onClick={e => {this.refs.bossPicture.click() }}/>
-          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
+          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} value={job.bossPicture} />
           <Divider horizontal />
 
-          <Form.Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
+          <_Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
             validations="isEmail"
             validationErrors={{ isEmail: 'Email is not valid' }}
-            required
-            errorLabel={ errorLabel } {...onChange} validations="isEmail" />
+            required errorLabel={errorLabel} />
           <Divider horizontal />
 
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
