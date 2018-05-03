@@ -2,11 +2,12 @@ import _ from 'lodash';
 import { get as ENV } from 'react-global-configuration';
 import React from 'react';
 import { get, post } from 'axios';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+import JobStore from '../stores/JobStore.js'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
+
 import logoUrl from '../../public/images/cjl-logo-night.png'
 
 const API = ENV('apiDomain')
@@ -29,20 +30,14 @@ const jobCategories = [
   {key: 'Other', value: 'Other', text: 'Other…'},
 ]
 
-// @observer
-class PostAJob extends React.Component {
-  // @observable title = ''
-
-  constructor(props){
+@observer
+class JobEdit extends React.Component {
+  constructor(props) {
     super(props);
-    document.title = 'Post a job on Crypto Jobs List';
-    this.state = {
-      loading: false,
-      error: false,
-      submitted: false,
-      employmentType: 'FULL_TIME',
-      jobPreviewUrl: null
-    }
+    // this.state = {
+    //   loading: false,
+    //   error: false
+    // }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.imgUpload = this.imgUpload.bind(this)
@@ -50,12 +45,14 @@ class PostAJob extends React.Component {
   }
 
   componentWillMount () {
-    const { slug } = this.props.match.params
-    get(`${API}/job/${slug}`,).then(res => {
-      console.log(res.data)
-      // this.setState({[name]: res.data.secure_url})
+    const { slug, securitySuffix } = this.props.match.params
+    get(`${API}/job/${slug}`, {params: {securitySuffix}})
+    .then(res => {
+      // console.log(res.data)
+      // this.setState(res.data)
     })
   }
+
   componentDidMount () { }
 
   handleChange (e, { name, value }) {
@@ -97,6 +94,18 @@ class PostAJob extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+    return (
+      <Container className="PostAJob JobEdit" text>
+        <Header as='h1'>Nice</Header>
+      </Container>
+    )
+  }
+
+
+  render1() {
+    var jobTitle = ''
+    console.log(this.props.JobStore)
     const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
     return (
@@ -112,7 +121,7 @@ class PostAJob extends React.Component {
             Note: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
           </p>
           <Divider horizontal />
-          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} />
+          <Form.Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required onChange={this.handleChange} defaultValue={jobTitle} />
           <Form.Group>
             <div className='field'>
               <Form.Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required onChange={this.handleChange} />
@@ -202,4 +211,4 @@ class PostAJob extends React.Component {
   }
 }
 
-export default PostAJob;
+export default JobEdit;
