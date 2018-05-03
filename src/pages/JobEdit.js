@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { get as ENV } from 'react-global-configuration';
 import React from 'react';
-import { post } from 'axios';
+import { get, post } from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
@@ -49,6 +49,13 @@ class PostAJob extends React.Component {
     this.updateSupportMethod = this.updateSupportMethod.bind(this)
   }
 
+  componentWillMount () {
+    const { slug } = this.props.match.params
+    get(`${API}/job/${slug}`,).then(res => {
+      console.log(res.data)
+      // this.setState({[name]: res.data.secure_url})
+    })
+  }
   componentDidMount () { }
 
   handleChange (e, { name, value }) {
