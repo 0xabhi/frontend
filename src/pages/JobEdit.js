@@ -11,11 +11,10 @@ const errorLabel = <Label color="red" pointing/>
 @inject('jobStore')
 @observer
 class _Input extends React.Component {
-  render() {
-    const { job, handleChange } = this.props.jobStore
-    const name = this.props.name
+  render () {
+    const { name, jobStore: {job, handleChange}, ...rest} = this.props
     return (
-      <Form.Input name={name} value={job[name]} onChange={handleChange} {...this.props} />
+      <Form.Input name={name} value={job[name]} onChange={handleChange} {...rest} />
     )
   }
 }
@@ -51,7 +50,7 @@ class JobEdit extends React.Component {
         <LogoButton />
         <Divider horizontal />
         <Form size='large' widths='equal' {...formState}>
-          <Header as='h1'>Edit a Job <Label content="FREE" color='green' size='mini' /></Header>
+          <Header as='h1'>Edit a Job</Header>
           <Divider horizontal />
           <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
@@ -145,9 +144,9 @@ class JobEdit extends React.Component {
 
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
           <Button content='Save' size='huge' primary onClick={save} />
-          <Button as={Link} to={job.canonicalURL} size='huge' target='_blank'>
+          {job.canonicalURL ? <Button as={Link} to={job.canonicalURL} size='huge' target='_blank'>
             View  <Icon name='external' />
-          </Button>
+          </Button> : null}
           {_changes.length ?
             <p>You made {_changes.length} changes to your listing. Save?</p>
           : null}

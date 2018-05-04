@@ -27,6 +27,7 @@ ReactDOM.render((
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
+        <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Footer />
       </div>
     </Router>

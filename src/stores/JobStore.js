@@ -28,8 +28,8 @@ class JobStore {
     bossPicture: ' ',
   }
 
-  @action fetchForEditing = ({slug, securitySuffix}) => {
-    get(`${API}/job/${slug}`, {params: {securitySuffix}})
+  @action fetchForEditing = ({slug: seoSlug, securitySuffix}) => {
+    get(`${API}/job/findOne`, {params: {securitySuffix, seoSlug}})
     .then(res => {
       this.job = res.data
       this._changes = []
@@ -53,7 +53,6 @@ class JobStore {
   }
 
   @action imageUpload = (e, b,c) => {
-    console.log(e,b,c)
     const file = e.target.files[0]
     const name = e.target.name
     const formData = new FormData()
