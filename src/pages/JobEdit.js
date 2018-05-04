@@ -38,13 +38,12 @@ class JobEdit extends React.Component {
 
 
   render() {
-    const { loading, error, supportMethodId } = this.state
-    const formState = { loading, error }
+    const { loading, error } = this.props.jobStore
+    const formState = { error }
 
-    const { job, handleChange, save, imageUpload, _changes } = this.props.jobStore
+    const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
     const onChange = {onChange: handleChange}
 
-    console.log(job)
     return (
       <Container className="PostAJob" text>
         <LogoButton />
@@ -142,14 +141,12 @@ class JobEdit extends React.Component {
             required errorLabel={errorLabel} />
           <Divider horizontal />
 
-          <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
-          <Button content='Save' size='huge' primary onClick={save} />
-          {job.canonicalURL ? <Button as={Link} to={job.canonicalURL} size='huge' target='_blank'>
-            View  <Icon name='external' />
-          </Button> : null}
-          {_changes.length ?
-            <p>You made {_changes.length} changes to your listing. Save?</p>
-          : null}
+          <Message error header='Something went wrong' content={`Please check all fields and ensure they are filled! ${error}`} />
+          <Button content='Save' loading={loading} color='green' onClick={save} />
+          { !!_changes.length && <Button content='Reset changes' onClick={reset} /> }
+          { job.canonicalURL &&
+            <Button as={Link} to={job.canonicalURL} target='_blank'  content='View' icon='external' labelPosition='right' /> }
+          { !!_changes.length && <p>You've made {_changes.length} changes to your listing. Save?</p>}
         </Form>
       </Container>
     );
