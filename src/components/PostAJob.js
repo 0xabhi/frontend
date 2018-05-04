@@ -214,9 +214,9 @@ class PostAJob extends React.Component {
               <h3>Verified <span className='ui text strikethrough'>$150</span> <span className='ui green text'>$99</span></h3>
               <ul>
                 <li>📩 Unlimited Applicants</li>
-                <li><i className="fab fa-twitter ui text blue"/> Reach 3k+ targeted <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
-                <li><i className="fab fa-reddit ui text orange"/> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
-                <li><i className="fab fa-telegram-plane ui text dark-blue"/> Notify our <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel followers</li>
+                <li><Icon name='twitter' color='blue' /> Reach 3k+ targeted <a href='https://twitter.com/cryptojobslist' target='_blank'><b>Twitter</b></a> followers </li>
+                <li><Icon name='reddit' color='orange' /> Get auto-published on 5 #crypto sub-<span className="ui text orange"><b>Reddits</b></span>  </li>
+                <li><Icon name='telegram' color='dark-blue' /> Notify our <a href='https://t.me/cryptojobslist' className='ui text dark-blue' target='_blank'><b>Telegram</b></a> channel followers</li>
                 <li>✅ Published within 12 hours</li>
               </ul>
             </Segment>
