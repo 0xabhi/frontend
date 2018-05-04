@@ -22,7 +22,7 @@ const history = syncHistoryWithStore(browserHistory, stores.routingStore);
 
 ReactDOM.render((
   <Provider {...stores}>
-    <Router history={history}>
+    <Router key={Math.random()} history={history}>
       <div>
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
