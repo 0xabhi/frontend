@@ -1,15 +1,16 @@
-import './PostAJob.styl';
+import './PostAJob.styl'
 
-import _ from 'lodash';
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
-import { post } from 'axios';
-import { observer, inject } from 'mobx-react';
+import _ from 'lodash'
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { post } from 'axios'
+import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
-import PostButton from './PostButton';
-import Testimonials from './Testimonials';
+import PostButton from './PostButton'
+import Testimonials from './Testimonials'
 import LogoButton from '../components/LogoButton'
 
 const API = ENV('apiDomain')
@@ -20,7 +21,6 @@ const errorLabel = <Label color="red" pointing/>
 class PostAJob extends React.Component {
   constructor(props){
     super(props);
-    document.title = 'Post a job on Crypto Jobs List';
     this.state = {
       loading: false,
       error: false,
@@ -79,7 +79,10 @@ class PostAJob extends React.Component {
     const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
     const { jobCategories, employmentTypeOptions } = this.props.jobStore
-    return (
+    return [
+      <Helmet>
+        <title>Post a job | Crypto Jobs List</title>
+      </Helmet>,
       <Container className="PostAJob" text>
         <LogoButton />
         <Divider horizontal />
@@ -256,7 +259,7 @@ class PostAJob extends React.Component {
         }
 
       </Container>
-    );
+    ]
   }
 }
 

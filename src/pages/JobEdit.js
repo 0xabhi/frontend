@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
@@ -44,8 +45,11 @@ class JobEdit extends React.Component {
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
     const onChange = {onChange: handleChange}
 
-    return (
+    return [
       <Container className="PostAJob" text>
+        <Helmet>
+          <title>Edit a job | Crypto Jobs List</title>
+        </Helmet>
         <LogoButton />
         <Divider horizontal />
         <Form size='large' widths='equal' {...formState}>
@@ -149,7 +153,7 @@ class JobEdit extends React.Component {
           { !!_changes.length && <p>You've made {_changes.length} changes to your listing. Save?</p>}
         </Form>
       </Container>
-    );
+    ]
   }
 }
 
