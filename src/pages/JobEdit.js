@@ -60,11 +60,7 @@ class JobEdit extends React.Component {
     const formState = { loading, error }
 
     const { job, handleChange, save } = this.props.jobStore
-    const { jobTitle, companyLogo, bossPicture } = job
-
     const onChange = {onChange: handleChange}
-
-    console.log(job)
 
     return (
       <Container className="PostAJob" text>
@@ -77,12 +73,10 @@ class JobEdit extends React.Component {
           <Form.Group>
             <div className='field'>
               <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
-              <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
               <Checkbox name='remote'  label='🌍 Remote OK' {...onChange} checked={job.remote} />
               <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' {...onChange} checked={job.paidRelocation} />
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
-
           </Form.Group>
           <Form.TextArea
             name='companyAbout' label='About your company'
@@ -127,11 +121,12 @@ class JobEdit extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required />
             </Grid.Column>
             <Grid.Column>
-              <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} value={job.companyLogo} />
+              <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
+              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
               </div>
+              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
 
@@ -143,12 +138,19 @@ class JobEdit extends React.Component {
           <div className='field'>
             <label>Your Lovely 🤓 Photo:</label>
           </div>
-          <Image
-            title="Boss' Picture"
-            src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
-            circular bordered size='small'
-            onClick={e => {this.refs.bossPicture.click() }}/>
-          <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} value={job.bossPicture} />
+          <Grid columns={2}>
+            <Grid.Column>
+              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
+              <Image
+                title="Boss' Picture"
+                src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
+                circular bordered size='small'
+                onClick={e => {this.refs.bossPicture.click() }}/>
+              <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
+            </Grid.Column>
+            <Grid.Column>
+            </Grid.Column>
+          </Grid>
           <Divider horizontal />
 
           <_Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
@@ -159,6 +161,7 @@ class JobEdit extends React.Component {
 
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
           <Button content='Save' size='huge' primary onClick={save} />
+          <Button content='View' size='huge' onClick={save} />
         </Form>
       </Container>
     );

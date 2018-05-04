@@ -3,18 +3,34 @@ import { observable, action } from 'mobx'
 import { get, post, put, patch } from 'axios'
 const API = ENV('apiDomain')
 
+class SingleJobStore {
+  @observable remote
+  @observable paidRelocation
+  @observable visaSponsor
+  @observable jobTitle
+  @observable jobDesctiption
+  @observable jobLocation
+  @observable companyName
+  @observable companyLogo
+  @observable bossName
+  @observable bossPicture
+  @observable filled
+
+}
 
 class JobStore {
   @observable jobs = []
   @observable job = {
-    jobTitle: 'nice'
+    remote: false,
+    paidRelocation: ' ',
+    visaSponsor: ' ',
+    companyLogo: ' ',
+    bossPicture: ' '
   }
 
   @action fetchForEditing = ({slug, securitySuffix}) => {
-    console.log('nice! fetching')
     get(`${API}/job/${slug}`, {params: {securitySuffix}})
     .then(res => {
-      console.log(res.data)
       this.job = res.data
     })
   }
@@ -24,7 +40,10 @@ class JobStore {
   }
 
   @action save = () => {
-
+    put(`${API}/job/update`, this.job)
+    .then(res => {
+      this.job = res.data
+    })
   }
 
   employmentTypeOptions = employmentTypeOptions
