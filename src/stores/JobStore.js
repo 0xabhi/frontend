@@ -30,7 +30,10 @@ class JobStore {
 
   @action fetchForEditing = ({slug: seoSlug, securitySuffix}) => {
     this.loading = true
-    get(`${API}/job/findOne`, {params: {securitySuffix, seoSlug}})
+    get(`${API}/job/findOne`, {
+      withCredentials: true,
+      params: {securitySuffix, seoSlug}
+    })
     .then(res => {
       this.job = res.data
       this.unmodifiedJob = res.data
@@ -54,7 +57,7 @@ class JobStore {
 
   @action save = () => {
     this.loading = true
-    put(`${API}/job/update`, this.job)
+    put(`${API}/job/update`, this.job, { withCredentials: true })
     .then(res => {
       this.job = res.data
       this.unmodifiedJob = res.data
