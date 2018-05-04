@@ -1,45 +1,26 @@
-import './PostAJob.styl';
+import './PostAJob.styl'
 
-import _ from 'lodash';
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
-import { post } from 'axios';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import _ from 'lodash'
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { post } from 'axios'
+import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
-import PostButton from './PostButton';
-import Testimonials from './Testimonials';
-import logoUrl from '../../public/images/cjl-logo-night.png'
+import PostButton from './PostButton'
+import Testimonials from './Testimonials'
+import LogoButton from '../components/LogoButton'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
-const employmentTypeOptions = [
-  {key: 'FULL_TIME', value: 'FULL_TIME', text: 'Full-time'},
-  {key: 'CONTRACTOR', value: 'CONTRACTOR', text: 'Contractor'},
-  {key: 'INTERN', value: 'INTERN', text: 'Intern'},
-  {key: 'OTHER', value: 'OTHER', text: 'Other'},
-]
-const jobCategories = [
-  {key: 'Engineering', value: 'Engineering', text: '🛠 Engineering'},
-  {key: 'Design', value: 'Design', text: '🎨 Design / Product'},
-  {key: 'Trading', value: 'Trading', text: '🤑 Trading / Crypto Research'},
-  {key: 'Community', value: 'Community', text: '💬 Community'},
-  {key: 'Content', value: 'Content', text: '✍️ Content'},
-  {key: 'Marketing', value: 'Marketing', text: '📈 Marketing'},
-  {key: 'Memes', value: 'Memes', text: '🐸 Memes, gifs, glitter'},
-  {key: 'Executive', value: 'Executive', text: '💼 Executive'},
-  {key: 'Other', value: 'Other', text: 'Other…'},
-]
 
-// @observer
+@inject('jobStore')
+@observer
 class PostAJob extends React.Component {
-  // @observable title = ''
-
   constructor(props){
     super(props);
-    document.title = 'Post a job on Crypto Jobs List';
     this.state = {
       loading: false,
       error: false,
@@ -97,11 +78,13 @@ class PostAJob extends React.Component {
   render() {
     const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
-    return (
+    const { jobCategories, employmentTypeOptions } = this.props.jobStore
+    return [
+      <Helmet>
+        <title>Post a job | Crypto Jobs List</title>
+      </Helmet>,
       <Container className="PostAJob" text>
-        <a href='https://cryptojobslist.com' target='_blank'>
-          <Image className='logo' height='35' src={logoUrl} />
-        </a>
+        <LogoButton />
         <Divider horizontal />
 
         {this.state.submitted ?
@@ -276,7 +259,7 @@ class PostAJob extends React.Component {
         }
 
       </Container>
-    );
+    ]
   }
 }
 
