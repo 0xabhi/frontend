@@ -6,6 +6,7 @@
   "scripts": {
     "start": "parcel public/index.html",
     "dev": "parcel --no-cache public/index.html",
+    "netlify": "parcel build public/index.html && cp _redirects dist",
     "build": "parcel build public/index.html --public-url ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
