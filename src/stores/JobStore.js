@@ -19,30 +19,48 @@ class SingleJobStore {
 }
 
 class JobStore {
-  @observable jobs = []
+  @observable _changes = []
   @observable job = {
     remote: false,
     paidRelocation: ' ',
     visaSponsor: ' ',
     companyLogo: ' ',
-    bossPicture: ' '
+    bossPicture: ' ',
   }
 
   @action fetchForEditing = ({slug, securitySuffix}) => {
     get(`${API}/job/${slug}`, {params: {securitySuffix}})
     .then(res => {
       this.job = res.data
+      this._changes = []
     })
   }
 
   @action handleChange = (e, { name, value, checked }) => {
     this.job[name] = value || checked
+
+    let _changes = this._changes || []
+    _changes.push(name)
+    this._changes = [...new Set(_changes)]
   }
 
   @action save = () => {
     put(`${API}/job/update`, this.job)
     .then(res => {
       this.job = res.data
+      this._changes = []
+    })
+  }
+
+  @action imageUpload = (e, b,c) => {
+    console.log(e,b,c)
+    const file = e.target.files[0]
+    const name = e.target.name
+    const formData = new FormData()
+    formData.append('file', file)
+    const config = { headers: { 'content-type': 'multipart/form-data' }};
+    post(`${API}/job/imgUpload`, formData, config).then(res => {
+      this.job[name] = res.data.secure_url;
     })
   }
 

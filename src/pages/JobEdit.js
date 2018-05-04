@@ -1,15 +1,11 @@
-import { get as ENV } from 'react-global-configuration'
-import _ from 'lodash'
 import React from 'react'
-import { get, post } from 'axios'
 import { observer, inject } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
 import LogoButton from '../components/LogoButton'
-
-const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
 
 @inject('jobStore')
@@ -29,12 +25,11 @@ class _Input extends React.Component {
 @observer
 class JobEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loading: false,
       error: false
     }
-    this.imgUpload = this.imgUpload.bind(this)
   }
 
   componentWillMount () {
@@ -42,26 +37,15 @@ class JobEdit extends React.Component {
     this.props.jobStore.fetchForEditing({ slug, securitySuffix })
   }
 
-  imgUpload (e) {
-    const self = this
-    const file = e.target.files[0]
-    const name = e.target.name
-    const formData = new FormData()
-    formData.append('file', file)
-    const config = { headers: { 'content-type': 'multipart/form-data' }};
-    return post(`${API}/job/imgUpload`, formData, config).then(res => {
-      this.setState({[name]: res.data.secure_url})
-    })
-  }
-
 
   render() {
     const { loading, error, supportMethodId } = this.state
     const formState = { loading, error }
 
-    const { job, handleChange, save } = this.props.jobStore
+    const { job, handleChange, save, imageUpload, _changes } = this.props.jobStore
     const onChange = {onChange: handleChange}
 
+    console.log(job)
     return (
       <Container className="PostAJob" text>
         <LogoButton />
@@ -122,7 +106,7 @@ class JobEdit extends React.Component {
             </Grid.Column>
             <Grid.Column>
               <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
+              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={imageUpload} />
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
               </div>
@@ -146,7 +130,7 @@ class JobEdit extends React.Component {
                 src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
                 circular bordered size='small'
                 onClick={e => {this.refs.bossPicture.click() }}/>
-              <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
+              <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={imageUpload} />
             </Grid.Column>
             <Grid.Column>
             </Grid.Column>
@@ -161,7 +145,12 @@ class JobEdit extends React.Component {
 
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
           <Button content='Save' size='huge' primary onClick={save} />
-          <Button content='View' size='huge' onClick={save} />
+          <Button as={Link} to={job.canonicalURL} size='huge' target='_blank'>
+            View  <Icon name='external' />
+          </Button>
+          {_changes.length ?
+            <p>You made {_changes.length} changes to your listing. Save?</p>
+          : null}
         </Form>
       </Container>
     );
