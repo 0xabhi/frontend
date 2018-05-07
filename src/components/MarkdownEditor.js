@@ -34,8 +34,8 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
   }
 
   componentDidMount () {
-    var node = ReactDOM.findDOMNode(this).getElementsByClassName('mde-tab')
-    node[0].innerText = 'Markdown'
+    var tabs = ReactDOM.findDOMNode(this).getElementsByClassName('mde-tab')
+    tabs[0].innerText = 'Markdown'
   }
 
   onChange (mdeState: ReactMdeTypes.MdeState) {
