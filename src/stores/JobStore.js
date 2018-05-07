@@ -60,7 +60,6 @@ class JobStore {
     put(`${API}/job/update`, this.job, { withCredentials: true })
     .then(res => {
       this.job = res.data
-      this.unmodifiedJob = res.data
       this._changes = []
       this.loading = false
       this.error = false

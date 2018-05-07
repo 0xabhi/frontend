@@ -24,19 +24,10 @@ class _Input extends React.Component {
 @inject('jobStore')
 @observer
 class JobEdit extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: false,
-      error: false
-    }
-  }
-
   componentWillMount () {
     const { slug, securitySuffix } = this.props.match.params
     this.props.jobStore.fetchForEditing({ slug, securitySuffix })
   }
-
 
   render() {
     const { loading, error } = this.props.jobStore
@@ -157,7 +148,7 @@ class JobEdit extends React.Component {
           { !!_changes.length && <Button content='Reset changes' onClick={reset} /> }
           { job.canonicalURL &&
             <Button as={Link} to={job.canonicalURL} target='_blank'  content='View' icon='external' labelPosition='right' /> }
-          { !!_changes.length && <p>You've made {_changes.length} changes to your listing. Save?</p>}
+          { !!_changes.length && <p>You've made {_changes.length} changes to your listing</p>}
         </Form>
       </Container>
     )
