@@ -64,8 +64,9 @@ class JobEdit extends React.Component {
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
           </Form.Group>
-          <Editor name='companyAbout' handleChange={handleChange} value={job.companyAbout} />
-          <Form.TextArea
+          <div className='field'><label>About your company</label></div>
+          <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
+          {/*<Form.TextArea
             name='companyAbout' label='About your company'
             placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
             rows='7'
@@ -74,15 +75,18 @@ class JobEdit extends React.Component {
             required
             errorLabel={errorLabel}
             value={job.companyAbout}
-            {...onChange} />
-          <Form.TextArea
+            {...onChange} />*/}
+          <br/>
+          <div className='field'><label>Job description</label></div>
+          <Editor name='jobDescription' value={job.jobDescription} handleChange={handleChange} />
+          {/*<Form.TextArea
             name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"
             validationErrors={{ minLength: '300 words, please…' }}
             required
             errorLabel={errorLabel}
             value={job.jobDescription}
-            {...onChange} />
+            {...onChange} />*/}
           <Form.Group>
             <_Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' />
             <div className='field'>

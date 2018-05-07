@@ -7,12 +7,10 @@ import { EditorState, ContentState } from 'draft-js'
 import { Helmet } from 'react-helmet'
 import Marked from 'marked'
 
-
 interface VLState {
   mdeState: ReactMdeTypes.MdeState;
 }
 
-@inject('jobStore')
 @observer
 export default class MarkdownEditor extends React.Component<{}, VLState> {
   constructor(props) {
@@ -22,19 +20,20 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
 
   componentWillReceiveProps (nextProps) {
     const markdown = nextProps.value || ''
-    const contentState = ContentState.createFromText(markdown)
-    const currentEditorState = this.state.mdeState.draftEditorState
-    const draftEditorState = EditorState.createWithContent(contentState)
-    const mdeState = {
-      draftEditorState,
-      markdown,
-      html: Marked(markdown)
+    const markdownCurrent = this.state.mdeState.markdown
+    if (markdown !== markdownCurrent) {
+      const contentState = ContentState.createFromText(markdown)
+      const draftEditorState = EditorState.createWithContent(contentState)
+      this.setState({mdeState: {
+        draftEditorState,
+        markdown,
+        html: Marked(markdown)
+      }})
     }
-    this.setState({mdeState})
   }
 
-
   onChange (mdeState: ReactMdeTypes.MdeState) {
+    this.setState({mdeState})
     this.props.handleChange(null, {
       name: this.props.name,
       value: mdeState.markdown
@@ -45,7 +44,7 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
   render() {
     return [
       <ReactMde
-        layout='tabbed'
+        layout='horizontal'
         onChange={this.onChange.bind(this)}
         editorState={this.state.mdeState}
         generateMarkdownPreview={Marked} />,

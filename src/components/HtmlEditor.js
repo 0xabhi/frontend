@@ -1,38 +1,25 @@
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import React from 'react'
-import { Editor, EditorState } from 'draft-js';
-import { Helmet } from 'react-helmet'
-import Marked from 'marked'
+import { Editor, EditorState } from 'draft-js'
 
-
-interface VLState {
-  mdeState: ReactMdeTypes.MdeState;
-}
-
-@inject('jobStore')
 @observer
-export default class HtmlEditor extends React.Component<{}, VLState> {
+export default class HtmlEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      mdeState: {markdown: ''},
-    }
+    this.state = {}
   }
 
-  onChange = (mdeState: ReactMdeTypes.MdeState) => {
-    console.log(123, arguments)
-    const markdown = mdeState.markdown
-    this.setState({mdeState})
+  onChange = (state) => {
+    this.setState({state})
   }
 
   render() {
     console.log(this.props)
     return [
-      <ReactMde
-        layout='tabbed'
+      <Editor
         onChange={this.onChange}
-        editorState={this.state.mdeState}
+        editorState={this.state}
         generateMarkdownPreview={Marked} />
     ]
   }
