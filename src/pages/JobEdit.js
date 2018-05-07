@@ -7,6 +7,7 @@ import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, 
 import { Form } from 'formsy-semantic-ui-react'
 
 import Editor from '../components/MarkdownEditor'
+// import Editor from '../components/HtmlEditor'
 import LogoButton from '../components/LogoButton'
 const errorLabel = <Label color="red" pointing/>
 
@@ -63,7 +64,7 @@ class JobEdit extends React.Component {
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
           </Form.Group>
-          <Editor name='companyAbout' handleChange={handleChange} store={this.props.jobStore} />
+          <Editor name='companyAbout' handleChange={handleChange} value={job.companyAbout} />
           <Form.TextArea
             name='companyAbout' label='About your company'
             placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
