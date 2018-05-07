@@ -44,6 +44,12 @@ class JobEdit extends React.Component {
 
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
     const onChange = {onChange: handleChange}
+    let errorMessage = <Message error header='Something went wrong' content={`Please check all fields and ensure they are filled! ${error}`} />
+
+    if (error && error.response) {
+      const {status, statusText, data} = error.response
+      errorMessage = <Message error header={status + ' ' + statusText} content={data} />
+    }
 
     return [
       <Container className="PostAJob" text>
@@ -52,9 +58,10 @@ class JobEdit extends React.Component {
         </Helmet>
         <LogoButton />
         <Divider horizontal />
-        <Form size='large' widths='equal' {...formState}>
+        <Form size='large' widths='equal' {...formState} disable>
           <Header as='h1'>Edit a Job</Header>
           <Divider horizontal />
+          {errorMessage}
           <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
             <div className='field'>
@@ -145,7 +152,7 @@ class JobEdit extends React.Component {
             required errorLabel={errorLabel} />
           <Divider horizontal />
 
-          <Message error header='Something went wrong' content={`Please check all fields and ensure they are filled! ${error}`} />
+          {errorMessage}
           <Button content='Save' loading={loading} color='green' onClick={save} />
           { !!_changes.length && <Button content='Reset changes' onClick={reset} /> }
           { job.canonicalURL &&
