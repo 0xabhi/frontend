@@ -2,6 +2,7 @@
 
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import React from 'react'
+import ReactDOM from 'react-dom'
 import ReactMde, { ReactMdeTypes, ReactMdeCommands as Cmd } from 'react-mde'
 import { EditorState, ContentState } from 'draft-js'
 import { Helmet } from 'react-helmet'
@@ -12,9 +13,10 @@ interface VLState {
 }
 
 export default class MarkdownEditor extends React.Component<{}, VLState> {
-  constructor(props) {
-    super(props);
-    this.state = { mdeState: { markdown: props.value} }
+  state = {
+    mdeState: {
+      markdown: (this.props.value || '')
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -31,6 +33,11 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
     }
   }
 
+  componentDidMount () {
+    var node = ReactDOM.findDOMNode(this).getElementsByClassName('mde-tab')
+    node[0].innerText = 'Markdown'
+  }
+
   onChange (mdeState: ReactMdeTypes.MdeState) {
     this.setState({mdeState})
     this.props.handleChange(null, {
@@ -39,24 +46,18 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
     })
   }
 
-
   render() {
-    return [
-      <ReactMde
-        key={Math.random()}
-        layout='tabbed'
-        onChange={this.onChange.bind(this)}
-        editorState={this.state.mdeState}
-        generateMarkdownPreview={Marked}
-        commands={[
-          [Cmd.headerCommand, Cmd.boldCommand, Cmd.italicCommand],
-          [Cmd.unorderedListCommand, Cmd.orderedListCommand],
-          [Cmd.linkCommand, Cmd.quoteCommand, Cmd.codeCommand, Cmd.imageCommand],
-        ]} />,
-      <Helmet key={Math.random()}><script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"/></Helmet>
-    ]
+    return <ReactMde
+      layout='tabbed'
+      onChange={this.onChange.bind(this)}
+      editorState={this.state.mdeState}
+      generateMarkdownPreview={Marked}
+      commands={[
+        [Cmd.headerCommand, Cmd.boldCommand, Cmd.italicCommand],
+        [Cmd.unorderedListCommand, Cmd.orderedListCommand],
+        [Cmd.linkCommand, Cmd.quoteCommand, Cmd.codeCommand, Cmd.imageCommand],
+      ]} />
   }
-
 }
 
 
