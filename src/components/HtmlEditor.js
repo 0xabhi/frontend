@@ -1,42 +1,51 @@
-import 'react-mde/lib/styles/css/react-mde-all.css'
+import 'draft-js/dist/Draft.css'
 
 import React from 'react'
-import { observer, inject } from 'mobx-react'
-import ReactMde, { ReactMdeTypes } from 'react-mde'
-import { Helmet } from 'react-helmet'
-import Marked from 'marked'
+import { Editor, EditorState, RichUtils } from 'draft-js'
 
-
-interface VLState {
-  mdeState: ReactMdeTypes.MdeState;
-}
-
-@inject('jobStore')
-@observer
-export default class MarkdownEditor extends React.Component<{}, VLState> {
+export default class HtmlEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      mdeState: {markdown: ''},
-    }
+    this.state = {editorState: EditorState.createEmpty()}
   }
 
-  onChange = (mdeState: ReactMdeTypes.MdeState) => {
-    console.log(123, arguments)
-    const markdown = mdeState.markdown
-    this.setState({mdeState})
+  componentWillReceiveProps (nextProps) {
+    const text = nextProps.value || ''
+    const textCurrent = this.state.editorState
+
+    console.log(textCurrent)
+
+    // if (markdown !== markdownCurrent) {
+    //   const contentState = ContentState.createFromText(markdown)
+    //   const draftEditorState = EditorState.createWithContent(contentState)
+    //   this.setState({mdeState: {
+    //     draftEditorState,
+    //     markdown,
+    //     html: Marked(markdown)
+    //   }})
+    // }
+  }
+
+  onChange = (editorState) => {
+    this.setState({editorState})
+  }
+
+  handleKeyCommand(command, editorState) {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
   }
 
   render() {
-    console.log(this.props)
-    // console.log(this.state.mdeState)
+    console.log('rendering')
     return [
-      <ReactMde
-        layout='tabbed'
+      <Editor
         onChange={this.onChange}
-        editorState={this.state.mdeState}
-        generateMarkdownPreview={Marked} />,
-      <Helmet><script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"/></Helmet>
+        handleKeyCommand={this.handleKeyCommand}
+        editorState={this.state.editorState} />
     ]
   }
 
