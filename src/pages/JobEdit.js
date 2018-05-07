@@ -7,7 +7,6 @@ import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, 
 import { Form } from 'formsy-semantic-ui-react'
 
 import Editor from '../components/MarkdownEditor'
-// import Editor from '../components/HtmlEditor'
 import LogoButton from '../components/LogoButton'
 const errorLabel = <Label color="red" pointing/>
 
@@ -66,6 +65,7 @@ class JobEdit extends React.Component {
           </Form.Group>
           <div className='field'><label>About your company</label></div>
           <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
+          <br/>
           {/*<Form.TextArea
             name='companyAbout' label='About your company'
             placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
@@ -76,9 +76,9 @@ class JobEdit extends React.Component {
             errorLabel={errorLabel}
             value={job.companyAbout}
             {...onChange} />*/}
-          <br/>
           <div className='field'><label>Job description</label></div>
           <Editor name='jobDescription' value={job.jobDescription} handleChange={handleChange} />
+          <br/>
           {/*<Form.TextArea
             name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"

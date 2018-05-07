@@ -1,8 +1,8 @@
-import 'react-mde/lib/styles/css/react-mde-all.css'
+// https://github.com/nikgraf/awesome-draft-js
 
+import 'react-mde/lib/styles/css/react-mde-all.css'
 import React from 'react'
-import { observer, inject } from 'mobx-react'
-import ReactMde, { ReactMdeTypes } from 'react-mde'
+import ReactMde, { ReactMdeTypes, ReactMdeCommands as Cmd } from 'react-mde'
 import { EditorState, ContentState } from 'draft-js'
 import { Helmet } from 'react-helmet'
 import Marked from 'marked'
@@ -11,7 +11,6 @@ interface VLState {
   mdeState: ReactMdeTypes.MdeState;
 }
 
-@observer
 export default class MarkdownEditor extends React.Component<{}, VLState> {
   constructor(props) {
     super(props);
@@ -44,10 +43,15 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
   render() {
     return [
       <ReactMde
-        layout='horizontal'
+        layout='tabbed'
         onChange={this.onChange.bind(this)}
         editorState={this.state.mdeState}
-        generateMarkdownPreview={Marked} />,
+        generateMarkdownPreview={Marked}
+        commands={[
+          [Cmd.headerCommand, Cmd.boldCommand, Cmd.italicCommand],
+          [Cmd.unorderedListCommand, Cmd.orderedListCommand],
+          [Cmd.linkCommand, Cmd.quoteCommand, Cmd.codeCommand, Cmd.imageCommand],
+        ]} />,
       <Helmet><script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"/></Helmet>
     ]
   }
