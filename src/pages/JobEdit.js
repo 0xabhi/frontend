@@ -40,7 +40,7 @@ class JobEdit extends React.Component {
 
   render() {
     const { loading, error } = this.props.jobStore
-    const formState = { error }
+    const formState = { error, loading }
 
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
     const onChange = {onChange: handleChange}
@@ -48,17 +48,17 @@ class JobEdit extends React.Component {
 
     if (error && error.response) {
       const {status, statusText, data} = error.response
-      errorMessage = <Message error header={status + ' ' + statusText} content={data} />
+      errorMessage = <Message error header={status + ' ' + statusText} content={data} key={Math.random()} />
     }
 
-    return [
+    return (
       <Container className="PostAJob" text>
         <Helmet>
           <title>Edit a job | Crypto Jobs List</title>
         </Helmet>
         <LogoButton />
         <Divider horizontal />
-        <Form size='large' widths='equal' {...formState} disable>
+        <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Edit a Job</Header>
           <Divider horizontal />
           {errorMessage}
@@ -160,7 +160,7 @@ class JobEdit extends React.Component {
           { !!_changes.length && <p>You've made {_changes.length} changes to your listing. Save?</p>}
         </Form>
       </Container>
-    ]
+    )
   }
 }
 
