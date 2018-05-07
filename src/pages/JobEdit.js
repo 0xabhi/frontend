@@ -36,11 +36,12 @@ class JobEdit extends React.Component {
 
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
     const onChange = {onChange: handleChange}
-    let errorMessage = <Message error header='Something went wrong' content={`Please check all fields and ensure they are filled! ${error}`} />
+    let [errorHeader, errorContent] = ['Something went wrong', `Please check all fields and ensure they are filled! ${error}`]
 
     if (error && error.response) {
       const {status, statusText, data} = error.response
-      errorMessage = <Message error header={status + ' ' + statusText} content={data} />
+      errorHeader = status + ' ' + statusText
+      errorContent = data
     }
 
     return (
@@ -53,7 +54,7 @@ class JobEdit extends React.Component {
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Edit a Job</Header>
           <Divider horizontal />
-          {errorMessage}
+          <Message error header={errorHeader} content={errorContent} />
           <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
             <div className='field'>
@@ -63,9 +64,10 @@ class JobEdit extends React.Component {
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
           </Form.Group>
-          <div className='field'><label>About your company</label></div>
-          <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
-          <br/>
+          <div className='field'>
+            <label>About your company</label>
+            <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
+          </div>
           {/*<Form.TextArea
             name='companyAbout' label='About your company'
             placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
@@ -76,9 +78,10 @@ class JobEdit extends React.Component {
             errorLabel={errorLabel}
             value={job.companyAbout}
             {...onChange} />*/}
-          <div className='field'><label>Job description</label></div>
-          <Editor name='jobDescription' value={job.jobDescription} handleChange={handleChange} />
-          <br/>
+          <div className='field'>
+            <label>Job description</label>
+            <Editor name='jobDescription' value={job.jobDescription} handleChange={handleChange} />
+          </div>
           {/*<Form.TextArea
             name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"
@@ -150,7 +153,7 @@ class JobEdit extends React.Component {
             required errorLabel={errorLabel} />
           <Divider horizontal />
 
-          {errorMessage}
+          <Message error header={errorHeader} content={errorContent} />
           <Button content='Save' loading={loading} color='green' onClick={save} />
           { !!_changes.length && <Button content='Reset changes' onClick={reset} /> }
           { job.canonicalURL &&

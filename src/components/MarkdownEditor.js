@@ -43,6 +43,7 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
   render() {
     return [
       <ReactMde
+        key={Math.random()}
         layout='tabbed'
         onChange={this.onChange.bind(this)}
         editorState={this.state.mdeState}
@@ -52,7 +53,7 @@ export default class MarkdownEditor extends React.Component<{}, VLState> {
           [Cmd.unorderedListCommand, Cmd.orderedListCommand],
           [Cmd.linkCommand, Cmd.quoteCommand, Cmd.codeCommand, Cmd.imageCommand],
         ]} />,
-      <Helmet><script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"/></Helmet>
+      <Helmet key={Math.random()}><script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"/></Helmet>
     ]
   }
 
