@@ -48,7 +48,7 @@ class JobStore {
   }
 
   @action handleChange = (e, { name, value, checked }) => {
-    this.job[name] = value || checked
+    this.job[name] = value || checked || null
 
     let _changes = this._changes || []
     _changes.push(name)
