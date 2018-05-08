@@ -186,7 +186,7 @@ class PostAJob extends React.Component {
           <Divider horizontal />
 
           <Form.Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
-            validations="isEmail"
+            validations='minLength:5'
             validationErrors={{ isEmail: 'Email is not valid' }}
             required
             errorLabel={ errorLabel } onChange={this.handleChange} validations="isEmail" />

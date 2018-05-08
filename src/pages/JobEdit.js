@@ -148,7 +148,7 @@ class JobEdit extends React.Component {
           <Divider horizontal />
 
           <_Input name='companyEmail' label='Send applicants to:' placeholder='your@email.com' type='email'
-            validations="isEmail"
+            validations='minLength:5'
             validationErrors={{ isEmail: 'Email is not valid' }}
             required errorLabel={errorLabel} />
           <Divider horizontal />
