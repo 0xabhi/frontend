@@ -112,7 +112,7 @@ class JobEdit extends React.Component {
             <Grid.Column>
               <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input name='companyName' label='Company Name' placeholder='Keep it short: e.g. CryptoCoin' validations="minLength:2" required/>
-              <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" required />
+              <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
               <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
