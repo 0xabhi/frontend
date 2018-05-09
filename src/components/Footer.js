@@ -7,7 +7,7 @@ class Footer extends React.Component {
   render() {
     return (
       <Container className='Footer' text>
-        <p color="text grey">Crypto Jobs List &copy; {(new Date()).getFullYear()}</p>
+        <p color="text muted">Crypto Jobs List &copy; {(new Date()).getFullYear()}</p>
       </Container>
     )
     return (

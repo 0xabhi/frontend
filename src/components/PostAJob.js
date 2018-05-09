@@ -143,7 +143,7 @@ class PostAJob extends React.Component {
           <Form.Group>
             <div className='field'>
               <Form.Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" onChange={this.handleChange} />
-              <Checkbox name='paysInCrypto'  label='Pay in cryptocurrency: BTC/ETH/LTC/XMR…' onChange={this.handleChange} />
+              <Checkbox name='paysInCrypto' label={<label><Icon name='btc' color='orange'/>Pay in cryptocurrency: BTC/ETH/LTC/XMR…</label>} onChange={this.handleChange} />
             </div>
             <div className='field'>
               <label>Engagement type</label>

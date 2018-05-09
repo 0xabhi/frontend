@@ -12,12 +12,15 @@ import { Router, Route } from 'react-router'
 
 import JobEdit from './pages/JobEdit'
 import PostAJob from './components/PostAJob'
+import NewsletterSettings from './pages/NewsletterSettings'
+
 import Header from './components/HeaderBar'
 import Footer from './components/Footer'
 import Crisp from './components/Crisp.Chat'
 
 import jobStore from './stores/JobStore.js'
-const stores = { jobStore, routingStore: new RouterStore() }
+import newsletterStore from './stores/NewsletterStore.js'
+const stores = { jobStore, newsletterStore,  routingStore: new RouterStore() }
 const browserHistory = createBrowserHistory()
 const history = syncHistoryWithStore(browserHistory, stores.routingStore);
 
@@ -29,7 +32,7 @@ ReactDOM.render((
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
-        <Route path='/jobs/:slug/edit' component={JobEdit} />
+        <Route path='/user/settings/newsletter/:email/:securitySuffix' component={NewsletterSettings} />
         <Footer />
       </div>
     </Router>

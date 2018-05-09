@@ -98,7 +98,7 @@ class JobEdit extends React.Component {
           <Form.Group>
             <div className='field'>
               <_Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" />
-              <Checkbox name='paysInCrypto' label='Pay in cryptocurrency: BTC/ETH/LTC/XMR…' {...onChange} checked={job.paysInCrypto} />
+              <Checkbox name='paysInCrypto' label={<label><Icon name='btc' color='orange' />Pay in cryptocurrency: BTC/ETH/LTC/XMR…</label>} {...onChange} checked={job.paysInCrypto} />
             </div>
             <div className='field'>
               <label>Engagement type</label>
