@@ -192,7 +192,7 @@ class PostAJob extends React.Component {
             validations='minLength:5'
             validationErrors={{ isEmail: 'Email is not valid' }}
             required
-            errorLabel={ errorLabel } onChange={this.handleChange} validations="isEmail" />
+            errorLabel={ errorLabel } onChange={this.handleChange} />
           <Divider horizontal />
 
           <div className='free-or-paid'>
