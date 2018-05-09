@@ -12,6 +12,7 @@ import { Router, Route } from 'react-router'
 
 import JobEdit from './pages/JobEdit'
 import PostAJob from './components/PostAJob'
+import Header from './components/HeaderBar'
 import Footer from './components/Footer'
 import Crisp from './components/Crisp.Chat'
 
@@ -24,6 +25,7 @@ ReactDOM.render((
   <Provider {...stores}>
     <Router key={Math.random()} history={history}>
       <div>
+        <Header />
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />

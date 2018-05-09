@@ -84,9 +84,6 @@ class PostAJob extends React.Component {
         <title>Post a job | Crypto Jobs List</title>
       </Helmet>,
       <Container className="PostAJob" text>
-        <LogoButton />
-        <Divider horizontal />
-
         {this.state.submitted ?
           <div>
             <Header as='h1' textAlign='center'>Please check your email!</Header>

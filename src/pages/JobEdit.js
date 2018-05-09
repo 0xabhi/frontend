@@ -49,8 +49,6 @@ class JobEdit extends React.Component {
         <Helmet>
           <title>Edit a job | Crypto Jobs List</title>
         </Helmet>
-        <LogoButton />
-        <Divider horizontal />
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Edit a Job</Header>
           <Divider horizontal />
