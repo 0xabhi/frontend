@@ -98,13 +98,16 @@ class JobEdit extends React.Component {
             </div>
           </Form.Group>
           <Form.Group>
-            <_Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" />
+            <div className='field'>
+              <_Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" />
+              <Checkbox name='paysInCrypto' label='Pay in cryptocurrency: BTC/ETH/LTC/XMR…' {...onChange} checked={job.paysInCrypto} />
+            </div>
             <div className='field'>
               <label>Engagement type</label>
               <Select name='employmentType' label='Type of Position' options={this.props.jobStore.employmentTypeOptions} defaultValue='FULL_TIME' {...onChange} value={job.employmentType}/>
             </div>
           </Form.Group>
-          <p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>
+          {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}
           <Divider horizontal />
 
           <Header as='h3' content=' 🏢 Your Company Details?' />

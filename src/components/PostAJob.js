@@ -144,13 +144,16 @@ class PostAJob extends React.Component {
             </div>
           </Form.Group>
           <Form.Group>
-            <Form.Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" onChange={this.handleChange} />
+            <div className='field'>
+              <Form.Input name='salaryRange' label='Salary range' placeholder='USD 90-120k, 2% Equity …' validations="minLength:3" onChange={this.handleChange} />
+              <Checkbox name='paysInCrypto'  label='Pay in cryptocurrency: BTC/ETH/LTC/XMR…' onChange={this.handleChange} />
+            </div>
             <div className='field'>
               <label>Engagement type</label>
               <Select name='employmentType' label='Type of Position' options={employmentTypeOptions} defaultValue='FULL_TIME' onChange={this.handleChange} />
             </div>
           </Form.Group>
-          <p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>
+          {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}
           <Divider horizontal />
 
           <Header as='h3' content=' 🏢 Your Company Details?' />
