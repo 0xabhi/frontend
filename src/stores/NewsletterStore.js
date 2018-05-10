@@ -7,12 +7,15 @@ class NewsletterStore {
   @observable error = false
   @observable loading = false
   @observable _changes = []
-  @observable newsletter = {}
+  @observable newsletter = {
+    categories: [],
+    employmentTypes: []
+  }
   initialSettings = {}
 
   @action fetchForEditing = ({email, securitySuffix}) => {
     this.loading = true
-    get(`${API}/subsciber/findOne`, {
+    get(`${API}/subscriber/findOne`, {
       withCredentials: true,
       params: {securitySuffix, email}
     })
@@ -39,7 +42,7 @@ class NewsletterStore {
 
   @action save = () => {
     this.loading = true
-    put(`${API}/subsciber/update`, this.newsletter, { withCredentials: true })
+    put(`${API}/subscriber/update`, this.newsletter, { withCredentials: true })
     .then(res => {
       this.newsletter = res.data
       this._changes = []

@@ -24,18 +24,9 @@ class _Input extends React.Component {
 @inject('newsletterStore')
 @observer
 class NewsletterSettings extends React.Component {
-  constructor (props) {
-    super(props);
-    this.onChange = this.onChange.bind(this)
-  }
   componentWillMount () {
-    // const { slug, securitySuffix } = this.props.match.params
-    // this.props.jobStore.fetchForEditing({ slug, securitySuffix })
-  }
-
-  onChange (e, { name, value, checked }) {
-    // this.job[name] = value || checked || null
-    console.log('handleChange', {name, value: (value || checked)});
+    const { email, securitySuffix } = this.props.match.params
+    this.props.newsletterStore.fetchForEditing({ email, securitySuffix })
   }
 
   render() {
@@ -45,7 +36,7 @@ class NewsletterSettings extends React.Component {
     const user = {}
     const job = {}
     const filter = {}
-    const onChange = {onChange: this.onChange}
+    const onChange = {onChange: handleChange}
 
     return (
       <Container text>
@@ -54,13 +45,28 @@ class NewsletterSettings extends React.Component {
         </Helmet>
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Newsletter Filters</Header>
+          <p>
+            Hi 👋 {newsletter.email} <br/><br/>
+            Let's ensure you get only relevant jobs from us!<br/>
+            This is still in Beta mode, so don't set your expectations overly high. 😅<br/>
+            ⚠️ If you filter out too strictly — you might miss some cool opportunities. I warned you!<br/>
+          </p>
+
           <Form.Group>
-            <_Input name='keywords' label='Keywords' placeholder='solidity, python' validations="minLength:3" />
+            <div className='field'>
+              <label>You'll hear from us</label>
+              <Checkbox name='daily'  label='Daily' {...onChange} checked={newsletter.daily} />
+              <Checkbox name='weekly'  label='Weekly' {...onChange} checked={newsletter.weekly} />
+              <Checkbox name='unsubscribe'  label='Never! Unsubscribe me, pls.' {...onChange} checked={newsletter.unsubscribe} />
+            </div>
+          </Form.Group>
+          <Form.Group>
+            <_Input name='keywords' label='Keyword filter' placeholder='solidity, python' />
           </Form.Group>
           <Form.Group>
             <div className='field'>
-              <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
-              <Checkbox name='remote'  label='🌍 Remote' {...onChange} checked={newsletter.remote} />
+              <_Input name='jobLocation' label='Location filter' placeholder='e.g. New York, Remote, Singapore…'/>
+              <Checkbox name='remote'  label='🌍 Remote only' {...onChange} checked={newsletter.remote} />
               <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' {...onChange} checked={newsletter.paidRelocation} />
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={newsletter.visaSponsor} />
             </div>
@@ -77,12 +83,11 @@ class NewsletterSettings extends React.Component {
           </Form.Group>
           <Form.Group>
             <div className='field'>
-              <Checkbox name='paysInCrypto' {...onChange} label={<label><Icon name='btc' color='orange'/>Must pay in cryptocurrency</label>} checked={newsletter.remote} />
-
+              <Checkbox name='paysInCrypto' {...onChange} label={<label><Icon name='btc' color='orange'/>Must pay in cryptocurrency</label>} checked={newsletter.paysInCrypto} />
             </div>
           </Form.Group>
           <br/>
-          <Button content='Save' loading={loading} color='green' />
+          <Button content='Save' loading={loading} color='green' onClick={save} />
         </Form>
       </Container>
     )
