@@ -1,7 +1,4 @@
 import './Testimonials.styl'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import React from 'react';
 import { Image, Icon, Rating, Header } from 'semantic-ui-react'
 

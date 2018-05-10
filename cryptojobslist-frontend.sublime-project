@@ -13,7 +13,10 @@
         ".cache"
     ],
     "file_exclude_patterns": [
-        "*.sublime-workspace*"
+        "*.sublime-workspace*",
+        "package-lock.json",
+        "report.html",
+        "yarn.lock"
     ]
   }],
   "settings": {

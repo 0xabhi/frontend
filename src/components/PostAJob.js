@@ -1,6 +1,6 @@
 import './PostAJob.styl'
 
-import _ from 'lodash'
+import omit from 'lodash/omit'
 import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -65,7 +65,7 @@ class PostAJob extends React.Component {
 
   handleSubmit () {
     this.setState({loading: true})
-    const data = _.omit(this.state, ['submitted', 'loading', 'error'])
+    const data = omit(this.state, ['submitted', 'loading', 'error'])
     post(`${API}/job`, data)
     .then(res => {
       this.setState({loading: false, error: false, submitted: true, jobPreviewUrl: res.data.url})
