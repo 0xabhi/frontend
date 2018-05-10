@@ -31,6 +31,7 @@ ReactDOM.render((
         <Header />
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
+        <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
         <Route path='/user/settings/newsletter/:email/:securitySuffix' component={NewsletterSettings} />
         <Footer />

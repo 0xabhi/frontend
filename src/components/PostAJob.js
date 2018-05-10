@@ -119,17 +119,17 @@ class PostAJob extends React.Component {
           </Form.Group>
           <Form.TextArea
             name='companyAbout' label='About your company'
-            placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200 words minimum, please…"
+            placeholder="What's special about your company? What hard problems are you solving? What's great about your culture? 200+ words minimum, please…"
             rows='7'
             validations="minLength:200"
-            validationErrors={{ minLength: '200 words, please…' }}
+            validationErrors={{ minLength: '200+ words, please…' }}
             required
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
           <Form.TextArea
-            name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300 words minimum, please… (Markdown supported)" rows='10'
+            name='jobDescription' label='Job description' placeholder="Responsibilities? Requirements? What's exciting about this role? 300+ words minimum, please… (Markdown supported)" rows='10'
             validations="minLength:300"
-            validationErrors={{ minLength: '300 words, please…' }}
+            validationErrors={{ minLength: '300+ words, please…' }}
             required
             errorLabel={ errorLabel }
             onChange={this.handleChange} />
