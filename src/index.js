@@ -33,7 +33,7 @@ ReactDOM.render((
         <Route path='/submit' component={PostAJob}/>
         <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
-        <Route path='/user/settings/newsletter/:email/:securitySuffix' component={NewsletterSettings} />
+        <Route path='/user/settings/newsletter/:email/:id' component={NewsletterSettings} />
         <Footer />
       </div>
     </Router>

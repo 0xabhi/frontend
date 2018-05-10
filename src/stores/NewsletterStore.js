@@ -13,11 +13,11 @@ class NewsletterStore {
   }
   initialSettings = {}
 
-  @action fetchForEditing = ({email, securitySuffix}) => {
+  @action fetchForEditing = ({id, email, securitySuffix}) => {
     this.loading = true
     get(`${API}/subscriber/findOne`, {
       withCredentials: true,
-      params: {securitySuffix, email}
+      params: {id, email, securitySuffix}
     })
     .then(res => {
       this.newsletter = res.data

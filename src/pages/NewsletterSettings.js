@@ -25,8 +25,8 @@ class _Input extends React.Component {
 @observer
 class NewsletterSettings extends React.Component {
   componentWillMount () {
-    const { email, securitySuffix } = this.props.match.params
-    this.props.newsletterStore.fetchForEditing({ email, securitySuffix })
+    const { id, email } = this.props.match.params
+    this.props.newsletterStore.fetchForEditing({ id, email })
   }
 
   render() {
@@ -48,7 +48,7 @@ class NewsletterSettings extends React.Component {
           <p>
             Hi 👋 {newsletter.email} <br/><br/>
             Let's ensure you get only relevant jobs from us!<br/>
-            This is still in Beta mode, so don't set your expectations overly high. 😅<br/>
+            This is still in Beta mode, so don't set your expectations overly high 😅<br/>
             ⚠️ If you filter out too strictly — you might miss some cool opportunities. I warned you!<br/>
           </p>
 
@@ -57,16 +57,16 @@ class NewsletterSettings extends React.Component {
               <label>You'll hear from us</label>
               <Checkbox name='daily'  label='Daily' {...onChange} checked={newsletter.daily} />
               <Checkbox name='weekly'  label='Weekly' {...onChange} checked={newsletter.weekly} />
-              <Checkbox name='unsubscribe'  label='Never! Unsubscribe me, pls.' {...onChange} checked={newsletter.unsubscribe} />
+              <Checkbox name='unsubscribed'  label='Never! Unsubscribe me, pls.' {...onChange} checked={newsletter.unsubscribed} />
             </div>
           </Form.Group>
           <Form.Group>
-            <_Input name='keywords' label='Keyword filter' placeholder='solidity, python' />
+            <_Input name='keywordFilter' label='Keyword filter' placeholder='solidity, python' />
           </Form.Group>
           <Form.Group>
             <div className='field'>
-              <_Input name='jobLocation' label='Location filter' placeholder='e.g. New York, Remote, Singapore…'/>
-              <Checkbox name='remote'  label='🌍 Remote only' {...onChange} checked={newsletter.remote} />
+              <_Input name='locationFilter' label='Location filter' placeholder='e.g. New York, Remote, Singapore…'/>
+              <Checkbox name='remoteOnly'  label='🌍 Remote only' {...onChange} checked={newsletter.remoteOnly} />
               <Checkbox name='paidRelocation'  label='✈️ Paid Relocation' {...onChange} checked={newsletter.paidRelocation} />
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={newsletter.visaSponsor} />
             </div>
