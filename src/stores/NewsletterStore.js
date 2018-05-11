@@ -33,7 +33,11 @@ class NewsletterStore {
   }
 
   @action handleChange = (e, { name, value, checked }) => {
-    this.newsletter[name] = value || checked || null
+    if (typeof value !== 'undefined') {
+      this.newsletter[name] = value
+    } else {
+      this.newsletter[name] = checked || null
+    }
 
     let _changes = this._changes || []
     _changes.push(name)

@@ -21,7 +21,7 @@ class UserStore {
       params: {securitySuffix, seoSlug}
     })
     .then(res => {
-      this.job = res.data
+      this.user = res.data
       this.unmodifiedJob = res.data
       this._changes = []
       this.loading = false
@@ -34,7 +34,12 @@ class UserStore {
   }
 
   @action handleChange = (e, { name, value, checked }) => {
-    this.job[name] = value || checked || null
+    if (typeof value !== 'undefined') {
+      this.user[name] = value
+    } else {
+      this.user[name] = checked || null
+    }
+
 
     let _changes = this._changes || []
     _changes.push(name)

@@ -41,14 +41,15 @@ class JobStore {
       this.loading = false
       this.error = false
     })
-    .catch(err => {
-      this.loading = false
-      this.error = err
-    })
+    .catch(_handleError)
   }
 
   @action handleChange = (e, { name, value, checked }) => {
-    this.job[name] = value || checked || null
+    if (typeof value !== 'undefined') {
+      this.job[name] = value
+    } else {
+      this.job[name] = checked || null
+    }
 
     let _changes = this._changes || []
     _changes.push(name)
@@ -64,10 +65,26 @@ class JobStore {
       this.loading = false
       this.error = false
     })
-    .catch(err => {
+    .catch(_handleError)
+  }
+
+  @action newJob = () => {
+    this.job = { supportMethodId: 2 }
+    this._changes = []
+    this.loading = false
+    this.error = false
+  }
+
+  @action create = () => {
+    this.loading = true
+    put(`${API}/job`, this.job, { withCredentials: true })
+    .then(res => {
+      this.job = res.data
+      this._changes = []
       this.loading = false
-      this.error = err
+      this.error = false
     })
+    .catch(_handleError)
   }
 
   @action imageUpload = (e) => {
@@ -84,10 +101,7 @@ class JobStore {
       this.loading = false
       this.error = false
     })
-    .catch(err => {
-      this.loading = false
-      this.error = err
-    })
+    .catch(_handleError)
   }
 
   @action reset = () => {
@@ -115,4 +129,10 @@ class JobStore {
   ]
 }
 
-export default new JobStore()
+const _handleError = (error) => {
+  jobStore.loading = false
+  this.error = error
+}
+
+const jobStore = new JobStore()
+export default jobStore

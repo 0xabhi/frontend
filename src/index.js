@@ -12,6 +12,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { syncHistoryWithStore as syncHistory} from 'mobx-react-router'
 
 import JobEdit from './pages/JobEdit'
+import JobCreate from './pages/JobCreate'
 import PostAJob from './components/PostAJob'
 import NewsletterSettings from './pages/NewsletterSettings'
 import UserProfile from './pages/UserProfile'
@@ -31,6 +32,7 @@ ReactDOM.render((
         <Header />
         <Route exact path='/' component={PostAJob} />
         <Route path='/submit' component={PostAJob}/>
+        <Route path='/submit2' component={JobCreate}/>
         <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
 

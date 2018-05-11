@@ -18,7 +18,7 @@ class Footer extends React.Component {
           { user ?
             [ <List.Item as={Link} to='/login' content='Profile'/>,
               <List.Item onClick={signout} content='Sign out'/> ]
-            : <List.Item onClick={signin}>Sign in</List.Item>
+            : <List.Item onClick={signin}>GitHub Sign in</List.Item>
           }
           <List.Item>Crypto Jobs List &copy; {(new Date()).getFullYear()}</List.Item>
         </List>
