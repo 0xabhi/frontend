@@ -13,6 +13,7 @@ import { Router, Route } from 'react-router'
 import JobEdit from './pages/JobEdit'
 import PostAJob from './components/PostAJob'
 import NewsletterSettings from './pages/NewsletterSettings'
+import UserProfile from './pages/UserProfile'
 
 import Header from './components/HeaderBar'
 import Footer from './components/Footer'
@@ -33,6 +34,8 @@ ReactDOM.render((
         <Route path='/submit' component={PostAJob}/>
         <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
+
+        <Route path='/@:username' component={UserProfile} />
         <Route path='/user/settings/newsletter/:email/:id' component={NewsletterSettings} />
         <Footer />
       </div>

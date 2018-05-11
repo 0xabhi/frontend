@@ -3,34 +3,14 @@ import { observable, action } from 'mobx'
 import { get, post, put, patch } from 'axios'
 const API = ENV('apiDomain')
 
-class SingleJobStore {
-  @observable remote
-  @observable paidRelocation
-  @observable visaSponsor
-  @observable jobTitle
-  @observable jobDesctiption
-  @observable jobLocation
-  @observable companyName
-  @observable companyLogo
-  @observable bossName
-  @observable bossPicture
-  @observable filled
-
-}
-
-class JobStore {
+class UserStore {
   @observable loading = false
   @observable _changes = []
-  @observable job = {
-    remote: false,
-    paidRelocation: false,
-    visaSponsor: false,
-  }
-  unmodifiedJob = {}
+  @observable user = {}
 
-  @action fetchForEditing = ({slug: seoSlug, securitySuffix}) => {
+  @action fetchForEditing = ({username}) => {
     this.loading = true
-    get(`${API}/job/findOne`, {
+    get(`${API}/user/${username}`, {
       withCredentials: true,
       params: {securitySuffix, seoSlug}
     })
@@ -110,7 +90,6 @@ class JobStore {
     {key: 'Marketing', value: 'Marketing', text: '📈 Marketing'},
     {key: 'Memes', value: 'Memes', text: '🐸 Memes, gifs, glitter'},
     {key: 'Executive', value: 'Executive', text: '💼 Executive'},
-    {key: 'Legal', value: 'Legal', text: '⚖️ Legal'},
     {key: 'Other', value: 'Other', text: 'Other…'},
   ]
 }
