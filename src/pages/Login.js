@@ -28,10 +28,9 @@ class Login extends React.Component {
       return (
         <Container text>
           <Header as='h1'>Let's get you started 😸</Header>
-          <Button color='black' size='huge' onClick={signin} loading={loading}>
+          <Button color='black' size='massive' onClick={signin} loading={loading}>
             <Icon name='github' /> Sign in with <b>GitHub</b>
           </Button>
-          <Divider />
         </Container>
       )
     }

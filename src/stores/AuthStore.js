@@ -25,20 +25,15 @@ class AuthStore {
     .signInWithPopup(githubProvider)
     // .signInWithRedirect(githubProvider)
     .then((result) => {
-      log('signin', result)
-      var token = result.credential.accessToken;
-      var user = result.user;
+      const token = result.credential.accessToken;
       this.loading = false
+      log('signin result', result)
     })
     .catch(handleAuthError)
   }
 
   @action signout = () => {
-    firebase.auth()
-    .signOut()
-    .then(() => {
-      log('signed out', arguments)
-    })
+    firebase.auth().signOut()
     .catch(handleAuthError)
   }
 }
@@ -52,21 +47,14 @@ const handleAuthError = (error) => {
   log('auth error', error)
 }
 
-firebase.auth()
-.onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;
-    var uid = user.uid;
-    var providerData = user.providerData;
-    log('onAuthStateChanged', user)
+    const { displayName, email, emailVerified, photoURL, isAnonymous, uid, providerData } = user
     authStore.user = user
+    log('signed in', user)
   } else {
     authStore.user = user
-    log('onAuthStateChanged logged out', user)
+    log('signed out', user)
   }
 });
 
