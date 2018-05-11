@@ -10,7 +10,7 @@ const style = {
   paddingBottom: '4em'
 }
 
-@inject('routingStore')
+@inject('AuthStore')
 class Header extends React.Component {
   render() {
     return (

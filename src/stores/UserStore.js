@@ -1,7 +1,13 @@
 import { get as ENV } from 'react-global-configuration'
 import { observable, action } from 'mobx'
 import { get, post, put, patch } from 'axios'
+import firebase from 'firebase'
+import 'firebase/firestore'
+import { initFirestorter, Collection, Document } from 'firestorter'
 const API = ENV('apiDomain')
+
+
+// const users = new Collection('users')
 
 class UserStore {
   @observable loading = false
@@ -94,4 +100,4 @@ class UserStore {
   ]
 }
 
-export default new JobStore()
+export default new UserStore()

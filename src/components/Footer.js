@@ -1,13 +1,27 @@
-import './Footer.styl';
+import './Footer.styl'
 
-import React from 'react';
-import { Container, Grid, Segment, Divider } from 'semantic-ui-react'
+import React from 'react'
+import { observer, inject } from 'mobx-react'
+import { Link } from 'react-router-dom'
+import { Container, Grid, Segment, Divider, List } from 'semantic-ui-react'
 
+
+@inject('AuthStore')
+@observer
 class Footer extends React.Component {
   render() {
+    const { user, signout, signin } = this.props.AuthStore
     return (
-      <Container className='Footer' text>
-        <p color="text muted">Crypto Jobs List &copy; {(new Date()).getFullYear()}</p>
+      <Container className='Footer' text textAlign='center'>
+        <List horizontal divided link>
+          <List.Item as={Link} to='/'>Home</List.Item>
+          { user ?
+            [ <List.Item as={Link} to='/login' content='Profile'/>,
+              <List.Item onClick={signout} content='Sign out'/> ]
+            : <List.Item onClick={signin}>Sign in</List.Item>
+          }
+          <List.Item>Crypto Jobs List &copy; {(new Date()).getFullYear()}</List.Item>
+        </List>
       </Container>
     )
     return (

@@ -19,6 +19,8 @@
   "dependencies": {
     "axios": "^0.17.1",
     "draft-js": "^0.10.5",
+    "firebase": "^5.0.2",
+    "firestorter": "^0.10.0",
     "formsy-react": "^1.1.2",
     "formsy-semantic-ui-react": "^0.3.1",
     "history": "^4.7.2",

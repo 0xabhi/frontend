@@ -10,11 +10,11 @@ import Editor from '../components/MarkdownEditor'
 import LogoButton from '../components/LogoButton'
 const errorLabel = <Label color="red" pointing/>
 
-@inject('jobStore')
+@inject('JobStore')
 @observer
 class _Input extends React.Component {
   render () {
-    const { name, jobStore: {job, handleChange}, ...rest} = this.props
+    const { name, JobStore: {job, handleChange}, ...rest} = this.props
     return (
       <Form.Input name={name} value={job[name]} onChange={handleChange} {...rest} />
     )
@@ -22,19 +22,19 @@ class _Input extends React.Component {
 }
 
 @inject('routingStore')
-@inject('jobStore')
+@inject('JobStore')
 @observer
 class JobEdit extends React.Component {
   componentWillMount () {
     const { slug, securitySuffix } = this.props.match.params
-    this.props.jobStore.fetchForEditing({ slug, securitySuffix })
+    this.props.JobStore.fetchForEditing({ slug, securitySuffix })
   }
 
   render() {
-    const { loading, error } = this.props.jobStore
+    const { loading, error } = this.props.JobStore
     const formState = { error, loading }
 
-    const { job, _changes, handleChange, save, reset, imageUpload } = this.props.jobStore
+    const { job, _changes, handleChange, save, reset, imageUpload } = this.props.JobStore
     const onChange = {onChange: handleChange}
     let [errorHeader, errorContent] = ['Something went wrong', `Please check all fields and ensure they are filled! ${error}`]
 
@@ -92,7 +92,7 @@ class JobEdit extends React.Component {
             <_Input name='skills' label='Skills' placeholder='solidity, javascript, C++, python, marketing…' />
             <div className='field'>
               <label>Category</label>
-              <Select name='category' label='Type of Position' options={this.props.jobStore.jobCategories} defaultValue='Engineering' {...onChange} value={job.category}/>
+              <Select name='category' label='Type of Position' options={this.props.JobStore.jobCategories} defaultValue='Engineering' {...onChange} value={job.category}/>
             </div>
           </Form.Group>
           <Form.Group>
@@ -102,7 +102,7 @@ class JobEdit extends React.Component {
             </div>
             <div className='field'>
               <label>Engagement type</label>
-              <Select name='employmentType' label='Type of Position' options={this.props.jobStore.employmentTypeOptions} defaultValue='FULL_TIME' {...onChange} value={job.employmentType}/>
+              <Select name='employmentType' label='Type of Position' options={this.props.JobStore.employmentTypeOptions} defaultValue='FULL_TIME' {...onChange} value={job.employmentType}/>
             </div>
           </Form.Group>
           {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}

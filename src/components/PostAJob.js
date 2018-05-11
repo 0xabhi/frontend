@@ -16,7 +16,7 @@ import LogoButton from '../components/LogoButton'
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
 
-@inject('jobStore')
+@inject('JobStore')
 @observer
 class PostAJob extends React.Component {
   constructor(props){
@@ -78,7 +78,7 @@ class PostAJob extends React.Component {
   render() {
     const {loading, error, companyLogo, bossPicture, supportMethodId, jobPreviewUrl} = this.state
     const formState = {loading, error}
-    const { jobCategories, employmentTypeOptions } = this.props.jobStore
+    const { jobCategories, employmentTypeOptions } = this.props.JobStore
     return [
       <Helmet>
         <title>Post a job | Crypto Jobs List</title>

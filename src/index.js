@@ -2,28 +2,27 @@ import 'semantic-ui-css/semantic.min.css'
 import '../styles/index.styl'
 import './config'
 
+window.log = console.log
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import createBrowserHistory from 'history/createBrowserHistory'
 import { Provider } from 'mobx-react'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import { Router, Route } from 'react-router'
+import createBrowserHistory from 'history/createBrowserHistory'
+import { syncHistoryWithStore as syncHistory} from 'mobx-react-router'
 
 import JobEdit from './pages/JobEdit'
 import PostAJob from './components/PostAJob'
 import NewsletterSettings from './pages/NewsletterSettings'
 import UserProfile from './pages/UserProfile'
+import Login from './pages/Login'
 
 import Header from './components/HeaderBar'
 import Footer from './components/Footer'
 import Crisp from './components/Crisp.Chat'
 
-import jobStore from './stores/JobStore.js'
-import newsletterStore from './stores/NewsletterStore.js'
-const stores = { jobStore, newsletterStore,  routingStore: new RouterStore() }
-const browserHistory = createBrowserHistory()
-const history = syncHistoryWithStore(browserHistory, stores.routingStore);
+import stores from './stores'
+const history = syncHistory(createBrowserHistory(), stores.routingStore)
 
 ReactDOM.render((
   <Provider {...stores}>
@@ -37,6 +36,7 @@ ReactDOM.render((
 
         <Route path='/@:username' component={UserProfile} />
         <Route path='/user/settings/newsletter/:email/:id' component={NewsletterSettings} />
+        <Route path='/login' component={Login} />
         <Footer />
       </div>
     </Router>
