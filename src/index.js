@@ -30,9 +30,9 @@ ReactDOM.render((
     <Router key={Math.random()} history={history}>
       <div>
         <Header />
-        <Route exact path='/' component={PostAJob} />
-        <Route path='/submit' component={PostAJob}/>
-        <Route path='/submit2' component={JobCreate}/>
+        <Route exact path='/' component={JobCreate} />
+        <Route path='/submit' component={JobCreate}/>
+        <Route path='/submit_old' component={PostAJob}/>
         <Route path='/jobs/:slug/edit' component={JobEdit} />
         <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
 

@@ -21,7 +21,7 @@ class SingleJobStore {
 class JobStore {
   @observable loading = false
   @observable _changes = []
-  @observable jobSubmitted = {url: 'https://'}
+  @observable jobSubmitted = false
   @observable job = {
     remote: false,
     paidRelocation: false,
