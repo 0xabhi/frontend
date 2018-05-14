@@ -11,7 +11,6 @@ import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, 
 import { Form } from 'formsy-semantic-ui-react'
 import PostButton from './PostButton'
 import Testimonials from './Testimonials'
-import LogoButton from '../components/LogoButton'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>

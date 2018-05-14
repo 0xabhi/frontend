@@ -9,6 +9,7 @@ import { Form } from 'formsy-semantic-ui-react'
 import Editor from '../components/MarkdownEditor'
 import PaymentPlanSelector from '../components/PaymentPlanSelector'
 import Testimonials from '../components/Testimonials'
+import PostButton from '../components/PostButton'
 const errorLabel = <Label color="red" pointing/>
 
 @inject('JobStore')
@@ -29,11 +30,17 @@ class JobCreate extends React.Component {
     this.props.JobStore.newJob()
   }
 
+  handleStripeToken (token) {
+    const { job, create } = this.props.JobStore
+    job.customerToken = token
+    create()
+  }
+
   render() {
     const { loading, error } = this.props.JobStore
     const formState = { error, loading }
 
-    const { job, _changes, handleChange, create, imageUpload } = this.props.JobStore
+    const { job, jobSubmitted, _changes, handleChange, create, imageUpload, newJob } = this.props.JobStore
     const onChange = {onChange: handleChange}
     let [errorHeader, errorContent] = ['Something went wrong', `Please check all fields and ensure they are filled! ${error}`]
 
@@ -41,6 +48,24 @@ class JobCreate extends React.Component {
       const {status, statusText, data} = error.response
       errorHeader = status + ' ' + statusText
       errorContent = data
+    }
+
+    if (jobSubmitted) {
+      const jobPreviewUrl = jobSubmitted.url
+      return <Container className="PostAJob" text>
+        <Header as='h1' textAlign='center'>Please check your email!</Header>
+        <Header as='h3' textAlign='center'>Your job posting was submitted for review.</Header>
+        <Divider horizontal />
+        <Divider horizontal />
+        <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
+        <Divider horizontal />
+        <center>
+          <Button content={<span>
+            Post another Job <Icon name="arrow right" />
+          </span>} size='huge' color='green' onClick={newJob} />
+          { jobPreviewUrl ? <Button content={<span>View your Job</span>} size='huge' href={jobPreviewUrl} target='_blank'/> : null }
+        </center>
+    </Container>
     }
 
     return (
@@ -143,7 +168,15 @@ class JobCreate extends React.Component {
           <Testimonials />
 
           <Message error header={errorHeader} content={errorContent} />
-          <Button content='Save' loading={loading} color='green' onClick={create} />
+
+          <Segment textAlign='center' secondary padded='very'>
+            <PostButton
+              onToken={this.handleStripeToken.bind(this)}
+              handleSubmit={create}
+              loading={loading}
+              email={job.companyEmail}
+              pricedItem={this.props.JobStore.plans[job.supportMethodId]}/>
+          </Segment>
         </Form>
       </Container>
     )

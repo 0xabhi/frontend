@@ -1,5 +1,5 @@
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import StripeCheckout from 'react-stripe-checkout'
 import logoUrl from '../../public/images/avatar.jpg'

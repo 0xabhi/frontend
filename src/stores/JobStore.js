@@ -21,6 +21,7 @@ class SingleJobStore {
 class JobStore {
   @observable loading = false
   @observable _changes = []
+  @observable jobSubmitted = {url: 'https://'}
   @observable job = {
     remote: false,
     paidRelocation: false,
@@ -70,6 +71,7 @@ class JobStore {
 
   @action newJob = () => {
     this.job = { supportMethodId: 2 }
+    this.jobSubmitted = false
     this._changes = []
     this.loading = false
     this.error = false
@@ -77,9 +79,9 @@ class JobStore {
 
   @action create = () => {
     this.loading = true
-    put(`${API}/job`, this.job, { withCredentials: true })
+    post(`${API}/job`, this.job, { withCredentials: true })
     .then(res => {
-      this.job = res.data
+      this.jobSubmitted = res.data
       this._changes = []
       this.loading = false
       this.error = false
@@ -127,6 +129,12 @@ class JobStore {
     {key: 'Legal', value: 'Legal', text: '⚖️ Legal'},
     {key: 'Other', value: 'Other', text: 'Other…'},
   ]
+  plans = {
+    0: {amount: 0, description: '"Pay as you go…"'},
+    1: {amount: 25*100, description: '"5 for 5"'},
+    2: {amount: 199*100, description: '"Featured Listing"'},
+    3: {amount: 99*100, description: '"Verified"'}
+  }
 }
 
 const _handleError = (error) => {
