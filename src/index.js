@@ -33,8 +33,8 @@ ReactDOM.render((
         <Route exact path='/' component={JobCreate} />
         <Route path='/submit' component={JobCreate}/>
         <Route path='/submit_old' component={PostAJob}/>
-        <Route path='/jobs/:slug/edit' component={JobEdit} />
-        <Route path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
+        <Route exact path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
+        <Route exact path='/jobs/:slug/edit' component={JobEdit} />
 
         <Route path='/@:username' component={UserProfile} />
         <Route path='/user/settings/newsletter/:email/:id' component={NewsletterSettings} />
