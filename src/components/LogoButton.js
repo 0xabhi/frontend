@@ -6,7 +6,7 @@ import logoUrl from '../../public/images/cjl-logo-night.png'
 
 const LogoButton = () => {
   return (
-    <Link to='https://cryptojobslist.com' target='_blank'>
+    <Link to='/'>
       <Image className='logo' height='35' src={logoUrl} />
     </Link>
   )

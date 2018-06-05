@@ -15,7 +15,7 @@ class Header extends React.Component {
   render() {
     return (
       <Container text style={style}>
-        {/*<Button as={Link} to='/submit' content='Post a Job' floated='right' color='green' />*/}
+        {<Button as={Link} to='/submit' content='Post a Job' floated='right' color='green' />}
         <LogoButton />
       </Container>
     )

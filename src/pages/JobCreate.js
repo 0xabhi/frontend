@@ -1,3 +1,5 @@
+import '../components/PostAJob.styl'
+
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'

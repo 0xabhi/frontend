@@ -11,9 +11,9 @@ import { Router, Route } from 'react-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { syncHistoryWithStore as syncHistory} from 'mobx-react-router'
 
+import JobsList from './pages/JobsList'
 import JobEdit from './pages/JobEdit'
 import JobCreate from './pages/JobCreate'
-import PostAJob from './components/PostAJob'
 import NewsletterSettings from './pages/NewsletterSettings'
 import UserProfile from './pages/UserProfile'
 import Login from './pages/Login'
@@ -30,9 +30,8 @@ ReactDOM.render((
     <Router key={Math.random()} history={history}>
       <div>
         <Header />
-        <Route exact path='/' component={JobCreate} />
+        <Route exact path='/' component={JobsList} />
         <Route path='/submit' component={JobCreate}/>
-        <Route path='/submit_old' component={PostAJob}/>
         <Route exact path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
         <Route exact path='/jobs/:slug/edit' component={JobEdit} />
 
