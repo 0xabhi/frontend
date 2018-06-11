@@ -6,6 +6,8 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
+import FileDrop from 'react-file-drop';
+
 import Editor from '../components/MarkdownEditor'
 import PaymentPlanSelector from '../components/PaymentPlanSelector'
 import Testimonials from '../components/Testimonials'
@@ -126,11 +128,13 @@ class JobCreate extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
-              <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={imageUpload} />
-              <div className='field'>
-                <label>Your 🎨 Company Logo</label>
-              </div>
+              <FileDrop onDrop={(files) => { this.refs.companyLogo.files = files; this.refs.companyLogo.dispatchEvent(new Event('change')); }}>
+                <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
+                <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={(e) => {imageUpload(e); }} />
+                <div className='field'>
+                  <label>Your 🎨 Company Logo</label>
+                </div>
+              </FileDrop>
               <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
@@ -146,12 +150,14 @@ class JobCreate extends React.Component {
           <Grid columns={2}>
             <Grid.Column>
               <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
-              <Image
-                title="Boss' Picture"
-                src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
-                circular bordered size='small'
-                onClick={e => {this.refs.bossPicture.click() }}/>
-              <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={imageUpload} />
+              <FileDrop onDrop={(files) => { this.refs.bossPicture.files = files; this.refs.bossPicture.dispatchEvent(new Event('change')); }}>
+                <Image
+                  title="Boss' Picture"
+                  src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
+                  circular bordered size='small'
+                  onClick={e => {this.refs.bossPicture.click() }}/>
+                <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={imageUpload} />
+              </FileDrop>
             </Grid.Column>
             <Grid.Column>
             </Grid.Column>
