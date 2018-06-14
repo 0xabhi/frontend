@@ -21,7 +21,6 @@ export default class FileDropWithPreview extends Component {
     componentDidMount() {
         this.refs.dropArea.addEventListener("dragover", this.dragoverHandler);
         this.refs.dropArea.addEventListener("dragleave", this.dragleaveHandler);
-        this.refs.dropArea.addEventListener("drop", this.dropHandler);
     }
     componentWillUnmount() {
         this.setState({ isUserDraggingFile: false })
