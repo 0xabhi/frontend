@@ -8,6 +8,8 @@ import { Form } from 'formsy-semantic-ui-react'
 
 import FileDrop from 'react-file-drop';
 
+import FileDropWithPreview from '../components/FileDropWithPreview';
+
 import Editor from '../components/MarkdownEditor'
 import LogoButton from '../components/LogoButton'
 const errorLabel = <Label color="red" pointing/>
@@ -118,13 +120,25 @@ class JobEdit extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
-              <FileDrop onDrop={(files) => { this.refs.companyLogo.files = files; this.refs.companyLogo.dispatchEvent(new Event('change')); }}>
-                <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-                <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={imageUpload} />
-                <div className='field'>
-                  <label>Your 🎨 Company Logo</label>
-                </div>
-              </FileDrop>
+              <FileDropWithPreview
+                image={{
+                  title: 'Company Logo',
+                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  size: 'medium',
+                  rounded: true,
+                  bordered: true,
+                }}
+                input={{
+                  name: 'companyLogo',
+                  label: 'Logo',
+                  onChange: imageUpload,
+                }}
+                loading={loading}
+                error={error}
+              />
+              <div className='field'>
+                <label>Your 🎨 Company Logo</label>
+              </div>
               <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
@@ -140,14 +154,22 @@ class JobEdit extends React.Component {
           <Grid columns={2}>
             <Grid.Column>
               <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
-              <FileDrop onDrop={(files) => { this.refs.bossPicture.files = files; this.refs.bossPicture.dispatchEvent(new Event('change')); }}>
-                <Image
-                  title="Boss' Picture"
-                  src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
-                  circular bordered size='small'
-                  onClick={e => {this.refs.bossPicture.click() }}/>
-                <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={imageUpload} />
-              </FileDrop>
+              <FileDropWithPreview
+                image={{
+                  title: "Boss' Picture",
+                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  size: 'small',
+                  circular: true,
+                  bordered: true,
+                }}
+                input={{
+                  name: 'bossPicture',
+                  label: 'Profile Picture',
+                  onChange: imageUpload,
+                }}
+                loading={loading}
+                error={error}
+              />
             </Grid.Column>
             <Grid.Column>
             </Grid.Column>
