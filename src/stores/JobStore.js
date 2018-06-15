@@ -20,6 +20,7 @@ class SingleJobStore {
 
 class JobStore {
   @observable loading = false
+  @observable loadingImageName = ""
   @observable _changes = []
   @observable jobSubmitted = false
   @observable job = {
@@ -93,6 +94,7 @@ class JobStore {
     this.loading = true
     const file = e.target.files[0]
     const name = e.target.name
+    this.loadingImageName = name
     const formData = new FormData()
     formData.append('file', file)
     const config = { headers: { 'content-type': 'multipart/form-data' }};

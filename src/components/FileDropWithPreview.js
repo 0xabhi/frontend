@@ -32,7 +32,7 @@ export default class FileDropWithPreview extends Component {
     dragoverHandler = () => this.setState({ isUserDraggingFile: true });
     dragleaveHandler = () => this.setState({ isUserDraggingFile: false });
 
-    dropHandler = fs => {
+    dropHandler = fs => {    
         this.setState({ isUserDraggingFile: false });
 
         this.refs.imageInput.files = fs;

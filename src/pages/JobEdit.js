@@ -35,7 +35,7 @@ class JobEdit extends React.Component {
   }
 
   render() {
-    const { loading, error } = this.props.JobStore
+    const { loading, error, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
 
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.JobStore
@@ -133,7 +133,7 @@ class JobEdit extends React.Component {
                   label: 'Logo',
                   onChange: imageUpload,
                 }}
-                loading={loading}
+                loading={loading && loadingImageName === 'companyLogo'}
                 error={error}
               />
               <div className='field'>
@@ -167,7 +167,7 @@ class JobEdit extends React.Component {
                   label: 'Profile Picture',
                   onChange: imageUpload,
                 }}
-                loading={loading}
+                loading={loading && loadingImageName === 'bossPicture'}
                 error={error}
               />
             </Grid.Column>
