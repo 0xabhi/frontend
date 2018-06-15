@@ -30,7 +30,7 @@ ReactDOM.render((
     <Router key={Math.random()} history={history}>
       <div>
         <Header />
-        <Route exact path='/' component={JobsList} />
+        <Route exact path='/' component={JobCreate} />
         <Route path='/submit' component={JobCreate}/>
         <Route exact path='/jobs/:slug/edit/:securitySuffix' component={JobEdit} />
         <Route exact path='/jobs/:slug/edit' component={JobEdit} />
