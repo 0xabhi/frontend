@@ -31,7 +31,6 @@ export default class FileDropWithPreview extends Component {
     clickHandler = () => this.refs.imageInput.click();
     dragoverHandler = () => this.setState({ isUserDraggingFile: true });
     dragleaveHandler = () => this.setState({ isUserDraggingFile: false });
-    dropHandler = () => {debugger};
 
     dropHandler = fs => {
         this.setState({ isUserDraggingFile: false });
@@ -56,24 +55,27 @@ export default class FileDropWithPreview extends Component {
             circular,
         } = image;
         return (
-            <div
-                ref="dropArea"
-            >
+            <div>
                 <FileDrop
                     onDrop={this.dropHandler}
                     className="FileDrop"
                 >
                     <div
-                        className={`${isUserDraggingFile ? `DroppableAreaImageHolder ${circular ? 'DroppableAreaImageHolderCircular' : ''}` : ''}`}
+                        className={`${isUserDraggingFile ? `DroppableAreaImageHolder ${circular ? 'DroppableAreaImageHolderCircular' : ''}` : ''}`} 
                     >
                         <Dimmer active={loading} inverted>
                             <Loader inverted/>
                         </Dimmer>
-                        <Image
-                            onClick={this.clickHandler}
-                            {...image}
-                            inline
-                        />
+                        <div
+                            className="DroppableArea"
+                            ref="dropArea"
+                        >                        
+                            <Image
+                                onClick={this.clickHandler}
+                                {...image}
+                                inline
+                            />
+                        </div>
                     </div>                    
                     <input
                         ref='imageInput'
