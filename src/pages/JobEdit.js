@@ -6,8 +6,6 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
-import FileDrop from 'react-file-drop';
-
 import FileDropWithPreview from '../components/FileDropWithPreview';
 
 import Editor from '../components/MarkdownEditor'
@@ -35,7 +33,7 @@ class JobEdit extends React.Component {
   }
 
   render() {
-    const { loading, error, loadingImageName } = this.props.JobStore
+    const { loading, loadingImage, error, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
 
     const { job, _changes, handleChange, save, reset, imageUpload } = this.props.JobStore
@@ -133,7 +131,7 @@ class JobEdit extends React.Component {
                   label: 'Logo',
                   onChange: imageUpload,
                 }}
-                loading={loading && loadingImageName === 'companyLogo'}
+                loading={loadingImage && loadingImageName === 'companyLogo'}
                 error={error}
               />
               <div className='field'>
@@ -167,7 +165,7 @@ class JobEdit extends React.Component {
                   label: 'Profile Picture',
                   onChange: imageUpload,
                 }}
-                loading={loading && loadingImageName === 'bossPicture'}
+                loading={loadingImage && loadingImageName === 'bossPicture'}
                 error={error}
               />
             </Grid.Column>

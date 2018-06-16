@@ -6,8 +6,6 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
-import FileDrop from 'react-file-drop';
-
 import FileDropWithPreview from '../components/FileDropWithPreview';
 
 import Editor from '../components/MarkdownEditor'
@@ -41,7 +39,7 @@ class JobCreate extends React.Component {
   }
 
   render() {
-    const { loading, error, loadingImageName } = this.props.JobStore
+    const { loading, error, loadingImage, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
 
     const { job, jobSubmitted, _changes, handleChange, create, imageUpload, newJob } = this.props.JobStore
@@ -77,7 +75,7 @@ class JobCreate extends React.Component {
         <Helmet>
           <title>Post a job | Crypto Jobs List</title>
         </Helmet>
-        <Form size='large' widths='equal'>
+        <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <p>
             #1 crypto community to find and post blockchain jobs! 😉<br/>
@@ -143,7 +141,7 @@ class JobCreate extends React.Component {
                   label: 'Logo',
                   onChange: imageUpload,
                 }}
-                loading={loading && loadingImageName === 'companyLogo'}
+                loading={loadingImage && loadingImageName === 'companyLogo'}
                 error={error}
               />
               <div className='field'>
@@ -177,7 +175,7 @@ class JobCreate extends React.Component {
                   label: 'Profile Picture',
                   onChange: imageUpload,
                 }}
-                loading={loading && loadingImageName === 'bossPicture'}
+                loading={loadingImage && loadingImageName === 'bossPicture'}
                 error={error}
               />
             </Grid.Column>

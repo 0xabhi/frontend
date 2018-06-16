@@ -21,6 +21,7 @@ class SingleJobStore {
 class JobStore {
   @observable loading = false
   @observable loadingImageName = ""
+  @observable loadingImage = false
   @observable _changes = []
   @observable jobSubmitted = false
   @observable job = {
@@ -91,7 +92,7 @@ class JobStore {
   }
 
   @action imageUpload = (e) => {
-    this.loading = true
+    this.loadingImage = true
     const file = e.target.files[0]
     const name = e.target.name
     this.loadingImageName = name
@@ -102,7 +103,7 @@ class JobStore {
     post(`${API}/job/imgUpload`, formData, config)
     .then(res => {
       this.job[name] = res.data.secure_url;
-      this.loading = false
+      this.loadingImage = false
       this.error = false
     })
     .catch(_handleError)
@@ -141,6 +142,8 @@ class JobStore {
 
 const _handleError = (error) => {
   jobStore.loading = false
+  jobStore.loadingImage = false
+  jobStore.loadingImageName = ''
   this.error = error
 }
 
