@@ -8,6 +8,8 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
+import FileDropWithPreview from '../components/FileDropWithPreview';
+
 import Editor from '../components/MarkdownEditor'
 import PaymentPlanSelector from '../components/PaymentPlanSelector'
 import Testimonials from '../components/Testimonials'
@@ -39,7 +41,7 @@ class JobCreate extends React.Component {
   }
 
   render() {
-    const { loading, error } = this.props.JobStore
+    const { loading, error, loadingImage, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
 
     const { job, jobSubmitted, _changes, handleChange, create, imageUpload, newJob } = this.props.JobStore
@@ -137,8 +139,22 @@ class JobCreate extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
-              <Image title='Company Logo' src={job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
-              <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={imageUpload} />
+              <FileDropWithPreview
+                image={{
+                  title: 'Company Logo',
+                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  size: 'medium',
+                  rounded: true,
+                  bordered: true,
+                }}
+                input={{
+                  name: 'companyLogo',
+                  label: 'Logo',
+                  onChange: imageUpload,
+                }}
+                loading={loadingImage && loadingImageName === 'companyLogo'}
+                error={error}
+              />
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
               </div>
@@ -157,12 +173,22 @@ class JobCreate extends React.Component {
           <Grid columns={2}>
             <Grid.Column>
               <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
-              <Image
-                title="Boss' Picture"
-                src={job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
-                circular bordered size='small'
-                onClick={e => {this.refs.bossPicture.click() }}/>
-              <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={imageUpload} />
+              <FileDropWithPreview
+                image={{
+                  title: "Boss' Picture",
+                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  size: 'small',
+                  circular: true,
+                  bordered: true,
+                }}
+                input={{
+                  name: 'bossPicture',
+                  label: 'Profile Picture',
+                  onChange: imageUpload,
+                }}
+                loading={loadingImage && loadingImageName === 'bossPicture'}
+                error={error}
+              />
             </Grid.Column>
             <Grid.Column>
             </Grid.Column>
