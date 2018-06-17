@@ -18,11 +18,5 @@
         "report.html",
         "yarn.lock"
     ]
-  }],
-  "settings": {
-    "tab_size": 2,
-    "translate_tabs_to_spaces": true,
-    "default_line_ending": "unix",
-    "trim_trailing_white_space_on_save": true
-  }
+  }]
 }
