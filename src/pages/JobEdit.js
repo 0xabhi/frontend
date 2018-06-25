@@ -155,7 +155,7 @@ class JobEdit extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
                   size: 'small',
                   circular: true,
                   bordered: true,
