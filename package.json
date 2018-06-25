@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "8.4.x"
+    "node": "8.x.x"
   },
   "keywords": [],
   "author": "",
@@ -56,7 +56,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
-    "parcel-bundler": "^1.8.1",
+    "parcel-bundler": "^1.9.2",
     "stylus": "^0.54.5"
   }
 }
