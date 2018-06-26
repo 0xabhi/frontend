@@ -29,6 +29,12 @@ class JobStore {
     paidRelocation: false,
     visaSponsor: false,
   }
+  @observable autoComplete = {
+    loading: false,
+    error: null,
+    data: [],
+    promise: null,
+  }
   unmodifiedJob = {}
 
   @action fetchForEditing = ({slug: seoSlug, securitySuffix}) => {
@@ -107,6 +113,50 @@ class JobStore {
       this.error = false
     })
     .catch(_handleError)
+  }
+
+  @action autoCompleteRefresh = ({ q }) => {
+    if (this.autoComplete.promise) {
+      this.autoComplete.promise.wasCanceled = true
+    }
+
+    this.autoComplete = {
+      ...this.autoComplete,
+      loading: true,
+      error: null,
+    };
+
+    let promise;
+    const options = {
+      withCredentials: true,
+      params: { q }
+    };
+
+    promise = get(`${API}/company/find`, options)
+      .then(result => {
+        if (promise.wasCanceled) {
+          return;
+        }
+        this.autoComplete = {
+          ...this.autoComplete,
+          error: null,
+          loading: false,
+          data: result.data,
+        };
+      })
+      .catch(e => {
+        this.autoComplete = {
+          ...this.autoComplete,
+          error: e.message,
+          loading: false
+        }
+        console.error(e)
+      });
+
+    this.autoComplete = {
+      ...this.autoComplete,
+      promise,
+    }
   }
 
   @action reset = () => {

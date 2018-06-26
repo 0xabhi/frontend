@@ -72,12 +72,14 @@ class JobCreate extends React.Component {
     </Container>
     }
 
+    const { autoComplete } = this.props.JobStore;
+
     return (
       <Container className="PostAJob" text>
         <Helmet>
           <title>Post a job | Crypto Jobs List</title>
         </Helmet>
-        <Form size='large' widths='equal' {...formState}>
+        <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <p>
             #1 crypto community to find and post blockchain jobs! 😉<br/>
@@ -127,6 +129,7 @@ class JobCreate extends React.Component {
             <Grid.Column>
               <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input
+                list="companyNames"
                 name='companyName'
                 label='Company Name'
                 placeholder='Keep it short: e.g. CryptoCoin'
@@ -134,8 +137,44 @@ class JobCreate extends React.Component {
                   minLength: 3,
                   maxLength: 50,
                 }}
+                loading={autoComplete.loading}
                 required
+                onChange={(e) => this.props.JobStore.autoCompleteRefresh({ q: e.target.value })}
+                action={
+                  autoComplete && !autoComplete.loading && autoComplete.data.find(x => this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue() === x.name) ? {
+                    color: 'teal',
+                    labelPosition: 'left',
+                    icon: 'write',
+                    content: 'Fill',
+                    onClick: (e) => {
+                      const companyName = this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue();
+                      const companyObj = autoComplete.data.find(x => x.name = companyName);
+                      if (!companyObj) {
+                        return;
+                      }
+                      job.companyLogo = companyObj.logo;
+                      job.bossPicture = companyObj.bossPicture;
+                      job.companyAbout = companyObj.about;
+                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyTwitter').setValue(companyObj.twitter)
+                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'bossName').setValue(companyObj.bossName)
+                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyUrl').setValue(companyObj.url)
+
+                      this.forceUpdate()
+                      e.preventDefault()
+                    },
+                  } : null
+                }
+                actionPosition='left'
               />
+              {
+                autoComplete && autoComplete.data ? (
+                  <datalist id='companyNames'>
+                    {
+                      autoComplete.data.slice(0, 5).map(x => <option onFocusCapture={() => {console.log(x.name)}} value={x.name} key={x.id} />)
+                    }
+                  </datalist>
+                ) : null
+              }
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
