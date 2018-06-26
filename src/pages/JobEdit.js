@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
