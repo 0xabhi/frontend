@@ -1,5 +1,6 @@
 import '../components/PostAJob.styl'
 
+import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
@@ -142,7 +143,7 @@ class JobCreate extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
-                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.companyLogo || ENV('imgPlaceholder'),
                   size: 'medium',
                   rounded: true,
                   bordered: true,
@@ -176,7 +177,7 @@ class JobCreate extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || ENV('imgPlaceholder'),
                   size: 'small',
                   circular: true,
                   bordered: true,
