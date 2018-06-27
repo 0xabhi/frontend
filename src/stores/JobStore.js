@@ -119,6 +119,15 @@ class JobStore {
     if (this.autoComplete.promise) {
       this.autoComplete.promise.wasCanceled = true
     }
+    if (q === '') {
+      this.autoComplete = {
+        ...this.autoComplete,
+        loading: false,
+        error: null,
+        data: [],
+      }
+      return
+    }
 
     this.autoComplete = {
       ...this.autoComplete,
