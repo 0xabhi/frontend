@@ -1,6 +1,6 @@
+import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
@@ -121,7 +121,7 @@ class JobEdit extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
-                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.companyLogo || ENV('imgPlaceholder'),
                   size: 'medium',
                   rounded: true,
                   bordered: true,
@@ -155,7 +155,7 @@ class JobEdit extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || ENV('imgPlaceholder'),
                   size: 'small',
                   circular: true,
                   bordered: true,
@@ -184,7 +184,7 @@ class JobEdit extends React.Component {
           <Button content='Save' loading={loading} color='green' onClick={save} />
           { !!_changes.length && <Button content='Reset changes' onClick={reset} /> }
           { job.canonicalURL &&
-            <Button as={Link} to={job.canonicalURL} target='_blank'  content='View' icon='external' labelPosition='right' /> }
+            <Button as="a" href={job.canonicalURL} target='_blank'  content='View' icon='external' labelPosition='right' /> }
           { !!_changes.length && <p>You've made {_changes.length} changes to your listing</p>}
         </Form>
       </Container>

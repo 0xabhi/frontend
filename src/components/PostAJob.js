@@ -160,7 +160,7 @@ class PostAJob extends React.Component {
               <Form.Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" onChange={this.handleChange} />
             </Grid.Column>
             <Grid.Column>
-              <Image title='Company Logo' src={companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
+              <Image title='Company Logo' src={companyLogo || ENV('imgPlaceholder')} size='medium' rounded bordered onClick={e => {this.refs.companyLogo.click() }} />
               <input ref='companyLogo' name='companyLogo' label='Logo' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
@@ -178,7 +178,7 @@ class PostAJob extends React.Component {
           </div>
           <Image
             title="Boss' Picture"
-            src={bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png'}
+            src={bossPicture || ENV('imgPlaceholder')}
             circular bordered size='small'
             onClick={e => {this.refs.bossPicture.click() }}/>
           <input ref='bossPicture' name='bossPicture' label='Profile Picture' type='file' className='hide' accept='image/*' onChange={this.imgUpload} />
