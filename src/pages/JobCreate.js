@@ -140,38 +140,57 @@ class JobCreate extends React.Component {
                 }}
                 loading={autoComplete.loading}
                 required
-                onChange={(e) => this.props.JobStore.autoCompleteRefresh({ q: e.target.value })}
-                action={
-                  autoComplete && !autoComplete.loading && autoComplete.data.find(x => this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue() === x.name) ? {
-                    color: 'teal',
-                    labelPosition: 'left',
-                    icon: 'write',
-                    content: 'Fill',
-                    onClick: (e) => {
-                      const companyName = this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue();
-                      const companyObj = autoComplete.data.find(x => x.name = companyName);
-                      if (!companyObj) {
-                        return;
-                      }
-                      job.companyLogo = companyObj.logo;
-                      job.bossPicture = companyObj.bossPicture;
-                      job.companyAbout = companyObj.about;
-                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyTwitter').setValue(companyObj.twitter)
-                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'bossName').setValue(companyObj.bossName)
-                      this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyUrl').setValue(companyObj.url)
+                onChange={(e) => {
+                  const autoCompleteList = autoComplete.data
+                  const text = e.target.value
+                  const JobStore = this.props.JobStore
+                  const inputs = this.refs.form.formsyForm.inputs
 
-                      this.forceUpdate()
-                      e.preventDefault()
-                    },
-                  } : null
-                }
-                actionPosition='left'
+                  if (!text.endsWith('\u00A0')) {
+                    JobStore.autoCompleteRefresh({ q: text })
+                    return
+                  }
+
+                  const companyName = text.trim('\u00A0');
+                  const company = autoCompleteList.find(x => x.name === companyName);
+
+                  if (!company) {
+                    return
+                  }
+
+                  const {
+                    logo,
+                    bossPicture,
+                    about,
+                    twitter,
+                    bossName,
+                    url,
+                  } = company
+
+                  Object.assign(job, {
+                    companyLogo: logo,
+                    bossPicture,
+                    companyAbout: about,
+                  })
+
+                  Object.entries({
+                    companyTwitter: twitter,
+                    bossName,
+                    companyUrl: url,
+                    companyName,
+                    companyLogo: logo,
+                    bossPicture,
+                  })
+                    .forEach(i => inputs.find(input => input.props.name === i[0]).setValue(i[1]))
+
+                  this.forceUpdate()
+                }}
               />
               {
                 autoComplete && autoComplete.data ? (
                   <datalist id='companyNames'>
                     {
-                      autoComplete.data.slice(0, 5).map(x => <option onFocusCapture={() => {console.log(x.name)}} value={x.name} key={x.id} />)
+                      autoComplete.data.filter(x => x.name.toLowerCase().indexOf(this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue().toLowerCase()) >= 0).slice(0, 5).map(x => <option onFocusCapture={() => {console.log(x.name)}} value={`${x.name}\u00A0`} key={x.id} />)
                     }
                   </datalist>
                 ) : null
