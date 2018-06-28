@@ -128,7 +128,6 @@ class JobCreate extends React.Component {
           <Header as='h3' content=' 🏢 Your Company Details?' />
           <Grid columns={2}>
             <Grid.Column>
-              <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input
                 list="companyNames"
                 name='companyName'
@@ -195,6 +194,7 @@ class JobCreate extends React.Component {
                   </datalist>
                 ) : null
               }
+              <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
