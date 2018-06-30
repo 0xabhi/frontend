@@ -1,5 +1,6 @@
 import '../components/PostAJob.styl'
 
+import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
@@ -174,7 +175,6 @@ class JobCreate extends React.Component {
           <Header as='h3' content=' 🏢 Your Company Details?' />
           <Grid columns={2}>
             <Grid.Column>
-              <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input
                 list="companyNames"
                 name='companyName'
@@ -200,13 +200,14 @@ class JobCreate extends React.Component {
                   </datalist>
                 ) : null
               }
+              <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
-                  src: job.companyLogo || 'https://cdn.jsdelivr.net/npm/semantic-ui@2.3.0/examples/assets/images/wireframe/white-image.png',
+                  src: job.companyLogo || ENV('imgPlaceholder'),
                   size: 'medium',
                   rounded: true,
                   bordered: true,
@@ -240,7 +241,7 @@ class JobCreate extends React.Component {
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.bossPicture || 'https://cdn.jsdelivr.net/npm/semantic-ui@2.3.0/examples/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || ENV('imgPlaceholder'),
                   size: 'small',
                   circular: true,
                   bordered: true,
