@@ -39,6 +39,52 @@ class JobCreate extends React.Component {
     job.customerToken = token
     create()
   }
+  handleCompanyNameChange = (e) => {
+    const { job, autoComplete } = this.props.JobStore;
+    const autoCompleteList = autoComplete.data
+    const text = e.target.value
+    const JobStore = this.props.JobStore
+    const inputs = this.refs.form.formsyForm.inputs
+
+    if (!text.endsWith('\u00A0')) {
+      JobStore.autoCompleteRefresh({ q: text })
+      return
+    }
+
+    const companyName = text.trim('\u00A0');
+    const company = autoCompleteList.find(x => x.name === companyName);
+
+    if (!company) {
+      return
+    }
+
+    const {
+      logo,
+      bossPicture,
+      about,
+      twitter,
+      bossName,
+      url,
+    } = company
+
+    Object.assign(job, {
+      companyLogo: logo,
+      bossPicture,
+      companyAbout: about,
+    })
+
+    Object.entries({
+      companyTwitter: twitter,
+      bossName,
+      companyUrl: url,
+      companyName,
+      companyLogo: logo,
+      bossPicture,
+    })
+      .forEach(i => inputs.find(input => input.props.name === i[0]).setValue(i[1]))
+
+    this.forceUpdate()
+  }
 
   render() {
     const { loading, error, loadingImage, loadingImageName } = this.props.JobStore
@@ -73,6 +119,7 @@ class JobCreate extends React.Component {
     }
 
     const { autoComplete } = this.props.JobStore;
+    const companyName = this.refs.form && this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue()
 
     return (
       <Container className="PostAJob" text>
@@ -139,57 +186,16 @@ class JobCreate extends React.Component {
                 }}
                 loading={autoComplete.loading}
                 required
-                onChange={(e) => {
-                  const autoCompleteList = autoComplete.data
-                  const text = e.target.value
-                  const JobStore = this.props.JobStore
-                  const inputs = this.refs.form.formsyForm.inputs
-
-                  if (!text.endsWith('\u00A0')) {
-                    JobStore.autoCompleteRefresh({ q: text })
-                    return
-                  }
-
-                  const companyName = text.trim('\u00A0');
-                  const company = autoCompleteList.find(x => x.name === companyName);
-
-                  if (!company) {
-                    return
-                  }
-
-                  const {
-                    logo,
-                    bossPicture,
-                    about,
-                    twitter,
-                    bossName,
-                    url,
-                  } = company
-
-                  Object.assign(job, {
-                    companyLogo: logo,
-                    bossPicture,
-                    companyAbout: about,
-                  })
-
-                  Object.entries({
-                    companyTwitter: twitter,
-                    bossName,
-                    companyUrl: url,
-                    companyName,
-                    companyLogo: logo,
-                    bossPicture,
-                  })
-                    .forEach(i => inputs.find(input => input.props.name === i[0]).setValue(i[1]))
-
-                  this.forceUpdate()
-                }}
+                onChange={this.handleCompanyNameChange}
               />
               {
                 autoComplete && autoComplete.data ? (
                   <datalist id='companyNames'>
                     {
-                      autoComplete.data.filter(x => x.name.toLowerCase().indexOf(this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue().toLowerCase()) >= 0).slice(0, 5).map(x => <option onFocusCapture={() => {console.log(x.name)}} value={`${x.name}\u00A0`} key={x.id} />)
+                      autoComplete.data
+                        .filter(x => x.name.toLowerCase().indexOf(companyName.toLowerCase()) >= 0)
+                        .slice(0, 5)
+                        .map(x => <option value={`${x.name}\u00A0`} key={x.id} />)
                     }
                   </datalist>
                 ) : null

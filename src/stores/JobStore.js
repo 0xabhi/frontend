@@ -12,6 +12,7 @@ class SingleJobStore {
   @observable jobLocation
   @observable companyName
   @observable companyLogo
+  @observable companyId
   @observable bossName
   @observable bossPicture
   @observable filled
