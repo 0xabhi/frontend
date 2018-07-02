@@ -204,7 +204,7 @@ class JobCreate extends React.Component {
               <div className='field'>
                 <label>Your 🎨 Company Logo</label>
               </div>
-              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
+              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
@@ -234,7 +234,7 @@ class JobCreate extends React.Component {
           </div>
           <Grid columns={2}>
             <Grid.Column>
-              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
+              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
