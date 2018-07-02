@@ -1,5 +1,6 @@
 import '../components/PostAJob.styl'
 
+import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
@@ -40,6 +41,49 @@ class JobCreate extends React.Component {
     create()
   }
 
+  handleCompanyNameChange = (e) => {
+    const { job, autoComplete } = this.props.JobStore;
+    const autoCompleteList = autoComplete.data
+    const text = e.target.value
+    const JobStore = this.props.JobStore
+    const inputsFields = this.refs.form.formsyForm.inputs
+
+    if (!text.endsWith('\u00A0')) {
+      JobStore.autoCompleteRefresh({ q: text })
+      return
+    }
+
+    const companyName = text.trim('\u00A0');
+    const company = autoCompleteList.find(x => x.name === companyName);
+
+    if (!company) { return }
+
+    const companyFields = {
+      company: company.id,
+      companyAbout: company.about,
+      companyName: company.name,
+      companyUrl: company.url,
+      companyTwitter: company.twitter,
+      companyLogo: company.logo,
+      bossName: company.bossName,
+      bossPicture: company.bossPicture,
+    }
+
+    Object.assign(job, companyFields)
+
+    Object.keys(companyFields)
+    .forEach(key => {
+      const inputFieldDOM = inputsFields.find(input => input.props.name === key)
+      if (inputFieldDOM) {
+        // Direct DOM modification — not very good. But works for now…
+        // Better be refactored in future.
+        inputFieldDOM.setValue(companyFields[key])
+      }
+    })
+
+    this.forceUpdate()
+  }
+
   render() {
     const { loading, error, loadingImage, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
@@ -72,12 +116,15 @@ class JobCreate extends React.Component {
     </Container>
     }
 
+    const { autoComplete } = this.props.JobStore;
+    const companyName = this.refs.form && this.refs.form.formsyForm.inputs.find(x => x.props.name === 'companyName').getValue()
+
     return (
       <Container className="PostAJob" text>
         <Helmet>
           <title>Post a job | Crypto Jobs List</title>
         </Helmet>
-        <Form size='large' widths='equal' {...formState}>
+        <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>
           <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
           <p>
             #1 crypto community to find and post blockchain jobs! 😉<br/>
@@ -85,7 +132,7 @@ class JobCreate extends React.Component {
           </p>
           <Divider horizontal />
           <Message error header={errorHeader} content={errorContent} />
-          <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
+          <_Input name='jobTitle' label='Job title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
             <div className='field'>
               <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
@@ -94,6 +141,19 @@ class JobCreate extends React.Component {
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
           </Form.Group>
+          <_Input
+              list="companyNames"
+              name='companyName'
+              label='Company Name'
+              placeholder='Keep it short: e.g. CryptoCoin'
+              validations={{
+                minLength: 3,
+                maxLength: 50,
+              }}
+              loading={autoComplete.loading}
+              required
+              onChange={this.handleCompanyNameChange}
+            />
           <div className='field'>
             <label>About your company</label>
             <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
@@ -122,27 +182,33 @@ class JobCreate extends React.Component {
           {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}
           <Divider horizontal />
 
-          <Header as='h3' content=' 🏢 Your Company Details?' />
+          <Header as='h3' content=' 🏢 Your Company Details' />
           <Grid columns={2}>
             <Grid.Column>
+              {
+                autoComplete && autoComplete.data ? (
+                  <datalist id='companyNames'>
+                    {
+                      autoComplete.data
+                        .filter(x => x.name.toLowerCase().indexOf(companyName.toLowerCase()) >= 0)
+                        .slice(0, 5)
+                        .map(x => <option value={`${x.name}\u00A0`} key={x.id} />)
+                    }
+                  </datalist>
+                ) : null
+              }
               <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
-              <_Input
-                name='companyName'
-                label='Company Name'
-                placeholder='Keep it short: e.g. CryptoCoin'
-                validations={{
-                  minLength: 3,
-                  maxLength: 50,
-                }}
-                required
-              />
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
+              <div className='field'>
+                <label>Your 🎨 Company Logo</label>
+              </div>
+              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
-                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.companyLogo || ENV('imgPlaceholder'),
                   size: 'medium',
                   rounded: true,
                   bordered: true,
@@ -155,10 +221,6 @@ class JobCreate extends React.Component {
                 loading={loadingImage && loadingImageName === 'companyLogo'}
                 error={error}
               />
-              <div className='field'>
-                <label>Your 🎨 Company Logo</label>
-              </div>
-              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
 
@@ -172,11 +234,11 @@ class JobCreate extends React.Component {
           </div>
           <Grid columns={2}>
             <Grid.Column>
-              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
+              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || ENV('imgPlaceholder'),
                   size: 'small',
                   circular: true,
                   bordered: true,

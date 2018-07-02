@@ -1,3 +1,4 @@
+import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Helmet } from 'react-helmet'
@@ -109,7 +110,7 @@ class JobEdit extends React.Component {
           {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}
           <Divider horizontal />
 
-          <Header as='h3' content=' 🏢 Your Company Details?' />
+          <Header as='h3' content=' 🏢 Your Company Details' />
           <Grid columns={2}>
             <Grid.Column>
               <_Input name='companyUrl' label='Web Site' placeholder='https://yoursite.com' validations="isUrl" required />
@@ -117,10 +118,14 @@ class JobEdit extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
+              <div className='field'>
+                <label>Your 🎨 Company Logo</label>
+              </div>
+              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
-                  src: job.companyLogo || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.companyLogo || ENV('imgPlaceholder'),
                   size: 'medium',
                   rounded: true,
                   bordered: true,
@@ -133,10 +138,6 @@ class JobEdit extends React.Component {
                 loading={loadingImage && loadingImageName === 'companyLogo'}
                 error={error}
               />
-              <div className='field'>
-                <label>Your 🎨 Company Logo</label>
-              </div>
-              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
 
@@ -150,11 +151,11 @@ class JobEdit extends React.Component {
           </div>
           <Grid columns={2}>
             <Grid.Column>
-              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png' validations="isUrl" />
+              <_Input name='bossPicture' size='mini' placeholder='https://<image>.png or Drop your Image below 👇' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: "Boss' Picture",
-                  src: job.bossPicture || 'https://react.semantic-ui.com/assets/images/wireframe/white-image.png',
+                  src: job.bossPicture || ENV('imgPlaceholder'),
                   size: 'small',
                   circular: true,
                   bordered: true,
