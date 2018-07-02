@@ -132,7 +132,7 @@ class JobCreate extends React.Component {
           </p>
           <Divider horizontal />
           <Message error header={errorHeader} content={errorContent} />
-          <_Input name='jobTitle' label='Title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
+          <_Input name='jobTitle' label='Job title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
             <div className='field'>
               <_Input name='jobLocation' label='Location' placeholder='e.g. New York, Remote, Singapore…' validations="minLength:3" required />
@@ -141,6 +141,19 @@ class JobCreate extends React.Component {
               <Checkbox name='visaSponsor'  label='🛂 Visa Sponsor' {...onChange} checked={job.visaSponsor} />
             </div>
           </Form.Group>
+          <_Input
+              list="companyNames"
+              name='companyName'
+              label='Company Name'
+              placeholder='Keep it short: e.g. CryptoCoin'
+              validations={{
+                minLength: 3,
+                maxLength: 50,
+              }}
+              loading={autoComplete.loading}
+              required
+              onChange={this.handleCompanyNameChange}
+            />
           <div className='field'>
             <label>About your company</label>
             <Editor name='companyAbout' value={job.companyAbout} handleChange={handleChange} />
@@ -169,22 +182,9 @@ class JobCreate extends React.Component {
           {/*<p>↑ <b>Don't</b> put things like <i>"Negotiable"</i> or <i>"Competitive"</i> — candidates ignore such jobs posts like spam…</p>*/}
           <Divider horizontal />
 
-          <Header as='h3' content=' 🏢 Your Company Details?' />
+          <Header as='h3' content=' 🏢 Your Company Details' />
           <Grid columns={2}>
             <Grid.Column>
-              <_Input
-                list="companyNames"
-                name='companyName'
-                label='Company Name'
-                placeholder='Keep it short: e.g. CryptoCoin'
-                validations={{
-                  minLength: 3,
-                  maxLength: 50,
-                }}
-                loading={autoComplete.loading}
-                required
-                onChange={this.handleCompanyNameChange}
-              />
               {
                 autoComplete && autoComplete.data ? (
                   <datalist id='companyNames'>
@@ -201,6 +201,10 @@ class JobCreate extends React.Component {
               <_Input name='companyTwitter' label='Twitter' placeholder='@twitterHandle' validations="minLength:3" />
             </Grid.Column>
             <Grid.Column>
+              <div className='field'>
+                <label>Your 🎨 Company Logo</label>
+              </div>
+              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
               <FileDropWithPreview
                 image={{
                   title: 'Company Logo',
@@ -217,10 +221,6 @@ class JobCreate extends React.Component {
                 loading={loadingImage && loadingImageName === 'companyLogo'}
                 error={error}
               />
-              <div className='field'>
-                <label>Your 🎨 Company Logo</label>
-              </div>
-              <_Input name='companyLogo' size='mini' placeholder='https://<image>.png' validations="isUrl" />
             </Grid.Column>
           </Grid>
 
