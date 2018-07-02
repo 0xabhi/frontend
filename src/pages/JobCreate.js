@@ -40,12 +40,13 @@ class JobCreate extends React.Component {
     job.customerToken = token
     create()
   }
+
   handleCompanyNameChange = (e) => {
     const { job, autoComplete } = this.props.JobStore;
     const autoCompleteList = autoComplete.data
     const text = e.target.value
     const JobStore = this.props.JobStore
-    const inputs = this.refs.form.formsyForm.inputs
+    const inputsFields = this.refs.form.formsyForm.inputs
 
     if (!text.endsWith('\u00A0')) {
       JobStore.autoCompleteRefresh({ q: text })
@@ -55,34 +56,30 @@ class JobCreate extends React.Component {
     const companyName = text.trim('\u00A0');
     const company = autoCompleteList.find(x => x.name === companyName);
 
-    if (!company) {
-      return
+    if (!company) { return }
+
+    const companyFields = {
+      company: company.id,
+      companyAbout: company.about,
+      companyName: company.name,
+      companyUrl: company.url,
+      companyTwitter: company.twitter,
+      companyLogo: company.logo,
+      bossName: company.bossName,
+      bossPicture: company.bossPicture,
     }
 
-    const {
-      logo,
-      bossPicture,
-      about,
-      twitter,
-      bossName,
-      url,
-    } = company
+    Object.assign(job, companyFields)
 
-    Object.assign(job, {
-      companyLogo: logo,
-      bossPicture,
-      companyAbout: about,
+    Object.keys(companyFields)
+    .forEach(key => {
+      const inputFieldDOM = inputsFields.find(input => input.props.name === key)
+      if (inputFieldDOM) {
+        // Direct DOM modification — not very good. But works for now…
+        // Better be refactored in future.
+        inputFieldDOM.setValue(companyFields[key])
+      }
     })
-
-    Object.entries({
-      companyTwitter: twitter,
-      bossName,
-      companyUrl: url,
-      companyName,
-      companyLogo: logo,
-      bossPicture,
-    })
-      .forEach(i => inputs.find(input => input.props.name === i[0]).setValue(i[1]))
 
     this.forceUpdate()
   }
