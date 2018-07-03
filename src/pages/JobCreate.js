@@ -125,7 +125,7 @@ class JobCreate extends React.Component {
           <title>Post a job | Crypto Jobs List</title>
         </Helmet>
         <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>
-          <Header as='h1'>Post a Job <Label content="FREE" color='green' size='mini' /></Header>
+          <Header as='h1'>Post a Job <Label className='hide' content="FREE" color='green' size='mini' /></Header>
           <p>
             #1 crypto community to find and post blockchain jobs! 😉<br/>
             Note: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
