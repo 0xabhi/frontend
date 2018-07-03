@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Link } from 'react-router-dom'
 import { Segment, Icon, Header } from 'semantic-ui-react'
 
 @inject('JobStore')
@@ -20,9 +19,9 @@ class PaymentPlanSelector extends React.Component {
         <h3 className='strikethrough ui grey text'>Basic <span>FREE</span></h3>
         <p>
           FREE listings are no longer supported.<br/>
-          Read my article "<Link target='_blank' to='https://cjl.ist/2NlRzwJ' >
+          Read my article "<a target='_blank' href='https://cjl.ist/2NlRzwJ' >
             <b>Why I removed FREE job listings?</b>
-          </Link>" to learn more 😊<br/><br/>
+          </a>" to learn more 😊<br/><br/>
         </p>
       </Segment>
       <Segment className='hide' color={value === 0 ? 'green' : null} onClick={handleChange.bind(this, 0)}>
