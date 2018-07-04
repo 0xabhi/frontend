@@ -49,6 +49,7 @@ class JobCreate extends React.Component {
     const inputsFields = this.refs.form.formsyForm.inputs
 
     if (!text.endsWith('\u00A0')) {
+      job.companyName = text
       JobStore.autoCompleteRefresh({ q: text })
       return
     }
