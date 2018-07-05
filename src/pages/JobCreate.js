@@ -9,8 +9,9 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
-import FileDropWithPreview from '../components/FileDropWithPreview';
+import FileDropWithPreview from '../components/FileDropWithPreview'
 
+import CompanyLogos from '../components/CompanyLogos'
 import Editor from '../components/MarkdownEditor'
 import PaymentPlanSelector from '../components/PaymentPlanSelector'
 import Testimonials from '../components/Testimonials'
@@ -122,16 +123,19 @@ class JobCreate extends React.Component {
 
     return (
       <Container className="PostAJob" text>
-        <Helmet>
-          <title>Post a job | Crypto Jobs List</title>
-        </Helmet>
+        <Helmet title='Post a job | Crypto Jobs List' />
+        <p>
+          Hello 👋<br/><br/>
+          Welcome to <b>Crypto Jobs List</b> — #1 crypto community to find and post blockchain jobs! 😉<br/>
+          Some of the finest <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>blockchain companies</a></b> have featured their jobs on CJL and found great tallent:
+        </p>
+        <CompanyLogos />
+        <p>
+          We are excited to have your join their ranks and take your organization to the next level.
+          <em>Please Note</em>: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
+        </p>
+        <Header as='h1'>Post a Job: <Label className='hide' content="FREE" color='green' size='mini' /></Header>
         <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>
-          <Header as='h1'>Post a Job <Label className='hide' content="FREE" color='green' size='mini' /></Header>
-          <p>
-            #1 crypto community to find and post blockchain jobs! 😉<br/>
-            Note: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
-          </p>
-          <Divider horizontal />
           <Message error header={errorHeader} content={errorContent} />
           <_Input name='jobTitle' label='Job title' placeholder='e.g. Blockchain Engineer' validations="minLength:3" required />
           <Form.Group>
