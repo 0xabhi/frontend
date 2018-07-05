@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from 'semantic-ui-react'
+import { Image, Popup } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const Logos = styled.div`
@@ -8,7 +8,8 @@ const Logos = styled.div`
   margin: 0 -25vw;
   margin-bottom: 2em;
 `
-const Logo = styled(Image)`
+
+const LogoStyled = styled(Image)`
   &&& {
     height: ${props => props.height ||  '5em'};
     text-align: center;
@@ -24,36 +25,66 @@ const Logo = styled(Image)`
   }
 `
 
+const Logo = ({ link, companyName, logo, verticalOffset, ...rest }) => {
+  return <a href={link} target='_blank'>
+    <Popup content={companyName} trigger={<LogoStyled src={logo} {...rest} />} position='top center' inverted {...{verticalOffset}} />
+  </a>
+}
 
 class CompanyLogos extends React.Component {
   render () {
     return <Logos>
-      <a href='https://cryptojobslist.com/blockchain-companies/ethereum-foundation' target='_blank'>
-        <Logo src='https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/https://pbs.twimg.com/profile_images/626149701189042177/LWpxKEv3_400x400.png' />
-      </a>
+      <Logo
+        companyName='Ethereum Foundation'
+        link='https://cryptojobslist.com/blockchain-companies/ethereum-foundation'
+        logo='https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/https://pbs.twimg.com/profile_images/626149701189042177/LWpxKEv3_400x400.png'
+      />
 
-      <a href='https://cryptojobslist.com/blockchain-companies/consensys-diligence' target='_blank'>
-        <Logo src='https://cdn-images-1.medium.com/max/1200/1*R2_D8iJhuTuUcWjLD-_WZQ.png' />
-      </a>
-      <a href='https://cryptojobslist.com/blockchain-companies/cryptokitties' target='_blank'>
-        <Logo src='https://res.cloudinary.com/cryptojobslist/image/upload/v1525131434/hhsxyxfx5ohezjelqpbw.png' />
-      </a>
+      <Logo
+        companyName='ConsenSys Diligence'
+        link='https://cryptojobslist.com/blockchain-companies/consensys-diligence'
+        logo='https://cdn-images-1.medium.com/max/1200/1*R2_D8iJhuTuUcWjLD-_WZQ.png'
+      />
 
-      <a href='https://cryptojobslist.com/blockchain-companies/huobi' target='_blank'>
-        <Logo height='8em' src='https://res.cloudinary.com/cryptojobslist/image/upload/v1521089072/pahet0u1rsleoufci7bp.jpg' />
-      </a>
-      <a href='https://cryptojobslist.com/blockchain-companies/circle' target='_blank'>
-        <Logo src='https://res.cloudinary.com/cryptojobslist/image/fetch/w_200,h_200,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/https://res.cloudinary.com/cryptojobslist/image/upload/v1518712898/pu0he4yinavmpfklfqjp.png' />
-      </a>
-      <a href='https://cryptojobslist.com/blockchain-companies/tierion' target='_blank'>
-        <Logo height='7em' src='https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/http://content.tierion.com/images/500.png' />
-      </a>
-      <a href='https://cryptojobslist.com/blockchain-companies/okex' target='_blank'>
-        <Logo height='4em' src='https://res.cloudinary.com/cryptojobslist/image/upload/v1528861198/giismmewhskvs3ebsj9y.png' />
-      </a>
-      <a href='https://cryptojobslist.com/blockchain-companies/parity-technologies' target='_blank'>
-        <Logo src='https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/https://pbs.twimg.com/profile_images/914160567044247552/8xODDpm1_400x400.jpg' />
-      </a>
+      <Logo
+        companyName='CryptoKitties'
+        link='https://cryptojobslist.com/blockchain-companies/cryptokitties'
+        logo='https://res.cloudinary.com/cryptojobslist/image/upload/v1525131434/hhsxyxfx5ohezjelqpbw.png'
+      />
+
+      <Logo
+        companyName='Huobi'
+        link='https://cryptojobslist.com/blockchain-companies/huobi'
+        logo='https://res.cloudinary.com/cryptojobslist/image/upload/c_thumb,z_3/v1521089072/pahet0u1rsleoufci7bp.jpg'
+        height='8em'
+        verticalOffset={50}
+      />
+
+      <Logo
+        companyName='Circle'
+        link='https://cryptojobslist.com/blockchain-companies/circle'
+        logo='https://res.cloudinary.com/cryptojobslist/image/upload/v1518712898/pu0he4yinavmpfklfqjp.png'
+      />
+
+      <Logo
+        companyName='Tierion'
+        link='https://cryptojobslist.com/blockchain-companies/tierion'
+        logo='http://content.tierion.com/images/500.png'
+        height='7em'
+      />
+
+      <Logo
+        companyName='OKEx'
+        link='https://cryptojobslist.com/blockchain-companies/okex'
+        logo='https://res.cloudinary.com/cryptojobslist/image/upload/v1528861198/giismmewhskvs3ebsj9y.png'
+      />
+
+      <Logo
+        companyName='Parity Technologies'
+        link='https://cryptojobslist.com/blockchain-companies/parity-technologies'
+        logo='https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b_white,q_auto,fl_lossy,f_auto/dpr_2.0/https://pbs.twimg.com/profile_images/914160567044247552/8xODDpm1_400x400.jpg'
+      />
+
       <p>
         and <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>many more</a></b> …
       </p>
