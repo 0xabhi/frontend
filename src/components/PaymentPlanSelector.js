@@ -24,7 +24,7 @@ class PaymentPlanSelector extends React.Component {
           </a>" to learn more 😊<br/><br/>
         </p>
       </Segment>
-      <Segment className='' color={value === 0 ? 'green' : null} onClick={handleChange.bind(this, 0)}>
+      <Segment className='hide' color={value === 0 ? 'green' : null} onClick={handleChange.bind(this, 0)}>
         <h3>Basic <span className='ui text strikethrough'>$50</span> <span className='ui green text'>FREE</span></h3>
         <ul>
           <li>📩 3 FREE Applicants </li>
