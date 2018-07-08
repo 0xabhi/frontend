@@ -6,7 +6,8 @@ import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox } from 'semantic-ui-react'
+import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox, Popup } from 'semantic-ui-react'
+import { Statistic } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
 
 import FileDropWithPreview from '../components/FileDropWithPreview'
@@ -29,10 +30,12 @@ class _Input extends React.Component {
   }
 }
 
+@inject('StatsStore')
 @inject('JobStore')
 @observer
 class JobCreate extends React.Component {
   componentWillMount () {
+    this.props.StatsStore.fetch()
     this.props.JobStore.newJob()
   }
 
@@ -87,6 +90,7 @@ class JobCreate extends React.Component {
   }
 
   render() {
+    const { companies, jobApplications, jobs } = this.props.StatsStore
     const { loading, error, loadingImage, loadingImageName } = this.props.JobStore
     const formState = { error, loading }
 
@@ -126,13 +130,32 @@ class JobCreate extends React.Component {
         <Helmet title='Post a job | Crypto Jobs List' />
         <p>
           Hello 👋<br/><br/>
-          Welcome to <b>Crypto Jobs List</b> — #1 crypto community to find and post blockchain jobs! 😉<br/>
-          Some of the finest <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>blockchain companies</a></b> have featured their jobs on CJL and found great tallent:
+          Welcome to <b>Crypto Jobs List</b> — #1 crypto community to find and post blockchain jobs.<br/>
+          Some of the best <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>blockchain companies</a></b> have featured their jobs on <Popup trigger={<span>CJL</span>} content={'Crypto Jobs List'} position='top center' /> and found great tallent:
         </p>
         <CompanyLogos />
+        { jobs && jobApplications && companies ?
+        <Statistic.Group size='tiny' widths='three'>
+          <Statistic color='teal'>
+            <Statistic.Value>{jobs}</Statistic.Value>
+            <Statistic.Label>Jobs submited</Statistic.Label>
+          </Statistic>
+          <Statistic color='blue'>
+            <Statistic.Value>{jobApplications}+</Statistic.Value>
+            <Statistic.Label>Job Applications</Statistic.Label>
+          </Statistic>
+          <Statistic color='violet'>
+            <Statistic.Value>{companies}</Statistic.Value>
+            <Statistic.Label>Crypto Startups</Statistic.Label>
+          </Statistic>
+        </Statistic.Group>
+        : null }
+        <br />
         <p>
-          We are excited to have your join their ranks and take your organization to the next level.
-          <em>Please Note</em>: that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
+          We are excited to have you join the ranks of the top blockchain companies and start hiring! 🚀
+        </p>
+        <p>
+          <em>Please Note</em>, that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
         </p>
         <Header as='h1'>Post a Job: <Label className='hide' content="FREE" color='green' size='mini' /></Header>
         <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>

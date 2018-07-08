@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import { Image, Popup } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -31,8 +32,10 @@ const Logo = ({ link, companyName, logo, verticalOffset, ...rest }) => {
   </a>
 }
 
+@inject('StatsStore')
 class CompanyLogos extends React.Component {
   render () {
+    const { companies, jobApplications, jobs } = this.props.StatsStore
     return <Logos>
       <Logo
         companyName='Ethereum Foundation'
@@ -86,7 +89,13 @@ class CompanyLogos extends React.Component {
       />
 
       <p>
-        and <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>many more</a></b> …
+        … and <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>
+        {companies ?
+          `${companies} companies more`
+          : 'many more'
+        }
+        </a></b>.
+        {companies ? <span><br/> Here are some more open stats:</span> : null }
       </p>
     </Logos>
   }
