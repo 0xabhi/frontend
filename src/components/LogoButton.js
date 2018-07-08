@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 
 import logoUrl from '../../public/images/cjl-logo-night.png'
 
-const LogoButton = () => {
+const LogoButton = ({...props}) => {
   return (
     <Link to='/'>
-      <Image className='logo' height='35' src={logoUrl} />
+      <Image className='logo' height='35' src={logoUrl} inline />
     </Link>
   )
 }

@@ -8,6 +8,9 @@ const Logos = styled.div`
   text-align: center;
   margin: 0 -25vw;
   margin-bottom: 2em;
+  @media (max-width: 750px) {
+    margin: 0 -1em 1em;
+  }
 `
 
 const LogoStyled = styled(Image)`
@@ -22,6 +25,11 @@ const LogoStyled = styled(Image)`
     &:hover {
       box-shadow: none;
       transform: scale(1.05);
+    }
+    @media (max-width: 750px) {
+      width: 8.5vw;
+      height: auto;
+      margin-bottom: 1em;
     }
   }
 `
