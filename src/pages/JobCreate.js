@@ -9,6 +9,7 @@ import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon, Select, Checkbox, Popup } from 'semantic-ui-react'
 import { Statistic } from 'semantic-ui-react'
 import { Form } from 'formsy-semantic-ui-react'
+import CountUp from 'react-countup'
 
 import FileDropWithPreview from '../components/FileDropWithPreview'
 
@@ -137,15 +138,15 @@ class JobCreate extends React.Component {
         { jobs && jobApplications && companies ?
         <Statistic.Group size='tiny' widths='three'>
           <Statistic color='teal'>
-            <Statistic.Value>{jobs}</Statistic.Value>
+            <Statistic.Value><CountUp end={jobs} /></Statistic.Value>
             <Statistic.Label>Jobs submited</Statistic.Label>
           </Statistic>
           <Statistic color='blue'>
-            <Statistic.Value>{jobApplications}+</Statistic.Value>
+            <Statistic.Value><CountUp end={jobApplications} />+</Statistic.Value>
             <Statistic.Label>Job Applications</Statistic.Label>
           </Statistic>
           <Statistic color='violet'>
-            <Statistic.Value>{companies}</Statistic.Value>
+            <Statistic.Value><CountUp end={companies} /></Statistic.Value>
             <Statistic.Label>Crypto Startups</Statistic.Label>
           </Statistic>
         </Statistic.Group>

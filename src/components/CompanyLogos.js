@@ -91,7 +91,7 @@ class CompanyLogos extends React.Component {
       <p>
         … and <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>
         {companies ?
-          `${companies} companies more`
+          `${companies-7} companies more`
           : 'many more'
         }
         </a></b>.
