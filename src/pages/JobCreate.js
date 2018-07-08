@@ -139,7 +139,7 @@ class JobCreate extends React.Component {
         <Statistic.Group size='tiny' widths='three'>
           <Statistic color='teal'>
             <Statistic.Value><CountUp end={jobs} /></Statistic.Value>
-            <Statistic.Label>Jobs submited</Statistic.Label>
+            <Statistic.Label>Jobs submitted</Statistic.Label>
           </Statistic>
           <Statistic color='blue'>
             <Statistic.Value><CountUp end={jobApplications} />+</Statistic.Value>
@@ -156,7 +156,7 @@ class JobCreate extends React.Component {
           We are excited to have you join the ranks of the top blockchain companies and start hiring! 🚀
         </p>
         <p>
-          <em>Please Note</em>, that listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
+          <em>Please Note</em>: Listings need to be <strong>crypto</strong> related and can only fill a single position at a time.
         </p>
         <Header as='h1'>Post a Job: <Label className='hide' content="FREE" color='green' size='mini' /></Header>
         <Form ref="form"  size='large' widths='equal' autoComplete="off" {...formState}>
