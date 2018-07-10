@@ -132,7 +132,7 @@ class JobCreate extends React.Component {
         <p>
           Hello 👋<br/><br/>
           Welcome to <b>Crypto Jobs List</b> — #1 crypto community to find and post blockchain jobs.<br/>
-          Some of the best <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>blockchain companies</a></b> have featured their jobs on <Popup trigger={<span>CJL</span>} content={'Crypto Jobs List'} position='top center' /> and found great talent:
+          Some of the best <b><a href='https://cryptojobslist.com/blockchain-companies' target='_blank'>blockchain companies</a></b> have featured their jobs with us and found great talent:
         </p>
         <CompanyLogos />
         { jobs && jobApplications && companies ?
