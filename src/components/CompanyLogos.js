@@ -80,7 +80,7 @@ class CompanyLogos extends React.Component {
       <Logo
         companyName='Tierion'
         link='https://cryptojobslist.com/blockchain-companies/tierion'
-        logo='http://content.tierion.com/images/500.png'
+        logo='https://content.tierion.com/images/500.png'
         height='7em'
       />
 
